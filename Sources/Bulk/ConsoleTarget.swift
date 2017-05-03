@@ -28,7 +28,9 @@ open class ConsoleTarget: Target {
     
   }
   
-  open func write(formatted string: String) {
-    print(string)
+  open func write(formatted strings: [String]) {
+    strings.forEach {
+      print($0)
+    }
   }
 }

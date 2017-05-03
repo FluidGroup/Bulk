@@ -28,7 +28,6 @@ public protocol Formatter {
   func format(log: Log) -> String
 }
 
-
 public struct BasicFormatter: Formatter {
   
   public let dateFormatter: DateFormatter

@@ -35,32 +35,40 @@ open class FileTarget: Target {
     self.fileURL = URL(fileURLWithPath: filePath).appendingPathComponent("Bulk.log", isDirectory: false).standardized
   }
   
-  public func write(formatted string: String) {
-           
-    do {
-      if fileManager.fileExists(atPath: fileURL.path) == false {
-        // create file if not existing
-        let line = string + "\n"
-        try line.write(to: fileURL, atomically: true, encoding: .utf8)
-        
-      } else {
-        // append to end of file
-        if fileHandle == nil {
-          // initial setting of file handle
-          fileHandle = try FileHandle(forWritingTo: fileURL)
-        }
-        if let fileHandle = fileHandle {
-          let _ = fileHandle.seekToEndOfFile()
+  deinit {
+    fileHandle?.closeFile()
+  }
+  
+  open func write(formatted strings: [String]) {
+    
+    strings.forEach { string in
+      
+      do {
+        if fileManager.fileExists(atPath: fileURL.path) == false {
+          // create file if not existing
           let line = string + "\n"
-          if let data = line.data(using: .utf8) {
-            fileHandle.write(data)
+          try line.write(to: fileURL, atomically: true, encoding: .utf8)
+          
+        } else {
+          // append to end of file
+          if fileHandle == nil {
+            // initial setting of file handle
+            fileHandle = try FileHandle(forWritingTo: fileURL)
+          }
+          if let fileHandle = fileHandle {
+            let _ = fileHandle.seekToEndOfFile()
+            let line = string + "\n"
+            if let data = line.data(using: .utf8) {
+              fileHandle.write(data)
+            }
           }
         }
+      } catch {
+        
+        print("[Bulk] Failed to write log : \(error)")
       }
-    } catch {
-      
-      print("[Bulk] Failed to write log : \(error)")
     }
+    
   }
 }
 

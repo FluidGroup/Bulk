@@ -30,12 +30,20 @@ public class Pipeline {
 
   public let plugins: [Plugin]
   public let formatter: Formatter
+  public let buffer: Buffer?
   public let target: Target
   
-  public init(plugins: [Plugin], formatter: Formatter, target: Target) {
-    self.target = target
+  public init(plugins: [Plugin], formatter: Formatter, buffer: Buffer?, target: Target) {
     self.plugins = plugins
     self.formatter = formatter
+    self.target = target
+    self.buffer = buffer
+  }
+  
+  deinit {
+    if let buffer = buffer {
+      target.write(formatted: buffer.purge())
+    }
   }
   
   func write(log: Log) {
@@ -46,6 +54,12 @@ public class Pipeline {
     
     let formatted = formatter.format(log: result)
     
-    target.write(formatted: formatted)
+    if let buffer = buffer {
+      let r = buffer.write(formatted: formatted)
+      target.write(formatted: r)
+    } else {
+      target.write(formatted: [formatted])
+    }
+    
   }
 }

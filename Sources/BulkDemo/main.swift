@@ -1,51 +1,78 @@
 import Bulk
 import Dispatch
 
-let bulk = Logger()
-
-class MyPlugin: Plugin {
-  func map(log: Log) -> Log {
-    var log = log
-    log.body = "Tweaked:: " + log.body
-    return log
+func basic() {
+  
+  class MyPlugin: Plugin {
+    func map(log: Log) -> Log {
+      var log = log
+      log.body = "Tweaked:: " + log.body
+      return log
+    }
   }
+  
+  let log = Logger()
+  
+  log.add(pipeline:
+    Pipeline(
+      plugins: [
+        MyPlugin()
+      ],
+      formatter: BasicFormatter(),
+      buffer: nil,
+      target: ConsoleTarget()
+    )
+  )
+  
+  log.add(pipeline:
+    Pipeline(
+      plugins: [],
+      formatter: BasicFormatter(),
+      buffer: nil,
+      target: FileTarget(filePath: "/Users/muukii/Desktop")
+    )
+  )
+  
+  log.add(pipeline:
+    AsyncPipeline(
+      plugins: [
+        MyPlugin(),
+        ],
+      formatter: BasicFormatter(),
+      buffer: nil,
+      target: ConsoleTarget(),
+      queue: DispatchQueue.global()
+    )
+  )
+  
+  log.verbose("test-verbose", 1, 2, 3)
+  log.debug("test-debug", 1, 2, 3)
+  log.info("test-info", 1, 2, 3)
+  log.warn("test-warn", 1, 2, 3)
+  log.error("test-error", 1, 2, 3)
+  
+  log.verbose("a", "b", 1, 2, 3, ["a", "b"])
+  
 }
 
-bulk.add(pipeline:
-  Pipeline(
-    plugins: [
-      MyPlugin()
-    ],
-    formatter: BasicFormatter(),
-    target: ConsoleTarget()
+func buffer() {
+  
+  let log = Logger()
+  
+  log.add(pipeline:
+    Pipeline(
+      plugins: [],
+      formatter: BasicFormatter(),
+      buffer: MemoryBuffer(size: 4),
+      target: ConsoleTarget()
+    )
   )
-)
+  
+  for i in 0..<20 {
+    log.debug(i)
+    print("---")
+  }
+  
+}
 
-bulk.add(pipeline:
-  Pipeline(
-    plugins: [],
-    formatter: BasicFormatter(),
-    target:
-    FileTarget(filePath: "/Users/muukii/Desktop")
-  )
-)
-
-bulk.add(pipeline:
-  AsyncPipeline(
-    plugins: [
-      MyPlugin(),
-    ],
-    formatter: BasicFormatter(),
-    target: ConsoleTarget(),
-    queue: DispatchQueue.global()
-  )
-)
-
-bulk.verbose("test-verbose", 1, 2, 3)
-bulk.debug("test-debug", 1, 2, 3)
-bulk.info("test-info", 1, 2, 3)
-bulk.warn("test-warn", 1, 2, 3)
-bulk.error("test-error", 1, 2, 3)
-
-bulk.verbose("a", "b", 1, 2, 3, ["a", "b"])
-
+buffer()

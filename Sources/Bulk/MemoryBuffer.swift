@@ -1,5 +1,5 @@
 //
-// AsyncPipeline.swift
+// MemoryBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,21 +22,42 @@
 // THE SOFTWARE.
 
 import Foundation
-import Dispatch
 
-public final class AsyncPipeline: Pipeline {
+public final class MemoryBuffer: Buffer {
   
-  public let queue: DispatchQueue
+  var buffer: [String]
+  let size: Int
+  let lock = NSRecursiveLock()
+  var cursor: Int = 0
   
-  public init(plugins: [Plugin], formatter: Formatter, buffer: Buffer?, target: Target, queue: DispatchQueue) {
-    self.queue = queue
-    super.init(plugins: plugins, formatter: formatter, buffer: buffer, target: target)
+  public init(size: Int) {
+    self.size = size
+    self.buffer = [String].init(repeating: "", count: size)
   }
   
-  override func write(log: Log) {
-    
-    queue.async {
-      super.write(log: log)
+  public func write(formatted string: String) -> [String] {
+    lock.lock()
+    defer {
+      lock.unlock()
     }
+    
+    buffer[cursor] = string
+    
+    cursor += 1
+    
+    if cursor == size {
+      return purge()
+    } else {
+      return []
+    }
+  }
+  
+  public func purge() -> [String] {
+    let _buffer = buffer
+    for i in 0..<size {
+      buffer[i] = ""
+    }
+    cursor = 0
+    return _buffer.filter { $0.isEmpty == false }
   }
 }

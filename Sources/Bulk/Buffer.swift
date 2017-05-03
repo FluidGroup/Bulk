@@ -1,5 +1,5 @@
 //
-// AsyncPipeline.swift
+// Buffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,21 +22,14 @@
 // THE SOFTWARE.
 
 import Foundation
-import Dispatch
 
-public final class AsyncPipeline: Pipeline {
-  
-  public let queue: DispatchQueue
-  
-  public init(plugins: [Plugin], formatter: Formatter, buffer: Buffer?, target: Target, queue: DispatchQueue) {
-    self.queue = queue
-    super.init(plugins: plugins, formatter: formatter, buffer: buffer, target: target)
-  }
-  
-  override func write(log: Log) {
-    
-    queue.async {
-      super.write(log: log)
-    }
-  }
+public protocol Buffer {
+  func write(formatted string: String) -> [String]
+  func purge() -> [String]
 }
+
+/*
+public struct FileBuffer {
+  
+}
+ */
