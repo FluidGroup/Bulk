@@ -28,7 +28,7 @@ open class ConsoleTarget: Target {
     
   }
   
-  public func write(formatted string: String) {
+  open func write(formatted string: String) {
     print(string)
   }
 }

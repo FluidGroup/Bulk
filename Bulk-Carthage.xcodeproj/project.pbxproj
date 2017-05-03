@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B80E7A31EB9F40700C9BE63 /* Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Zap.swift */; };
+		4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		4B80E7A41EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
 		4B80E7A51EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7A61EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
@@ -16,7 +16,7 @@
 		4B80E7A91EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */; };
 		4B80E7AA1EB9F40700C9BE63 /* FileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* FileTarget.swift */; };
 		4B80E7AB1EB9F40700C9BE63 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E71EB9ADA800B93628 /* Plugin.swift */; };
-		4B80E7AC1EB9F40700C9BE63 /* Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Zap.swift */; };
+		4B80E7AC1EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		4B80E7AD1EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
 		4B80E7AE1EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7AF1EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
@@ -25,7 +25,7 @@
 		4B80E7B21EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */; };
 		4B80E7B31EB9F40700C9BE63 /* FileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* FileTarget.swift */; };
 		4B80E7B41EB9F40700C9BE63 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E71EB9ADA800B93628 /* Plugin.swift */; };
-		4B80E7B51EB9F40700C9BE63 /* Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Zap.swift */; };
+		4B80E7B51EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		4B80E7B61EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
 		4B80E7B71EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7B81EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
@@ -42,7 +42,7 @@
 		4BDA35EE1EB9E72E00B93628 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35ED1EB9E72E00B93628 /* Formatter.swift */; };
 		4BDA35F01EB9E8EB00B93628 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
 		4BDA35F21EB9EDC600B93628 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
-		OBJ_21 /* Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Zap.swift */; };
+		OBJ_21 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		OBJ_28 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* main.swift */; };
 		OBJ_30 /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
 /* End PBXBuildFile section */
@@ -74,7 +74,7 @@
 		OBJ_14 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_15 /* ZapDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ZapDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_9 /* Zap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zap.swift; sourceTree = "<group>"; };
+		OBJ_9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,7 +175,7 @@
 				4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */,
 				4BDA35E71EB9ADA800B93628 /* Plugin.swift */,
 				4BDA35E11EB9ACCB00B93628 /* Target.swift */,
-				OBJ_9 /* Zap.swift */,
+				OBJ_9 /* Logger.swift */,
 			);
 			path = Bulk;
 			sourceTree = "<group>";
@@ -374,7 +374,7 @@
 				4B80E7A71EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7A91EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
 				4B80E7A61EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
-				4B80E7A31EB9F40700C9BE63 /* Zap.swift in Sources */,
+				4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +390,7 @@
 				4B80E7B01EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7B21EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
 				4B80E7AF1EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
-				4B80E7AC1EB9F40700C9BE63 /* Zap.swift in Sources */,
+				4B80E7AC1EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +406,7 @@
 				4B80E7B91EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7BB1EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
 				4B80E7B81EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
-				4B80E7B51EB9F40700C9BE63 /* Zap.swift in Sources */,
+				4B80E7B51EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +422,7 @@
 				4BDA35E61EB9ACD500B93628 /* FileTarget.swift in Sources */,
 				4BDA35E81EB9ADA800B93628 /* Plugin.swift in Sources */,
 				4BDA35EE1EB9E72E00B93628 /* Formatter.swift in Sources */,
-				OBJ_21 /* Zap.swift in Sources */,
+				OBJ_21 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

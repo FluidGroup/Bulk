@@ -1,4 +1,4 @@
-// Zap.swift
+// Bulk.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,7 +22,7 @@
 
 import Foundation
 
-public final class Zap {
+public final class Logger {
   
   // MARK: - Nested types
   

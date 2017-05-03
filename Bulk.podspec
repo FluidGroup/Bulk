@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Bulk"
   s.version          = "0.1.0"
-  s.summary          = ""
+  s.summary          = "Bulk is powerful & flexible logging framework"
   s.homepage         = "https://github.com/muukii/Bulk"
   s.license          = 'MIT'
   s.author           = { "muukii" => "m@muukii.me" }

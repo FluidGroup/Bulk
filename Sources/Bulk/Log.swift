@@ -25,7 +25,7 @@ import Foundation
 
 public struct Log {
   
-  public var level: Zap.Level
+  public var level: Logger.Level
   public var date: Date
   public var body: String
   public var file: String
