@@ -44,7 +44,7 @@
 		4BDA35F21EB9EDC600B93628 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
 		OBJ_21 /* Zap.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Zap.swift */; };
 		OBJ_28 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* main.swift */; };
-		OBJ_30 /* Zap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Zap.framework */; };
+		OBJ_30 /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,10 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4B80E7811EB9F2DC00C9BE63 /* Zap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B80E7841EB9F2DC00C9BE63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B80E78E1EB9F30100C9BE63 /* Zap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B80E79B1EB9F31800C9BE63 /* Zap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Zap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B80E78E1EB9F30100C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B80E79B1EB9F31800C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDA35E11EB9ACCB00B93628 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTarget.swift; sourceTree = "<group>"; };
 		4BDA35E51EB9ACD500B93628 /* FileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTarget.swift; sourceTree = "<group>"; };
@@ -71,8 +71,8 @@
 		4BDA35EF1EB9E8EB00B93628 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncPipeline.swift; sourceTree = "<group>"; };
 		OBJ_11 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_14 /* Zap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Zap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_15 /* ZapDemo */ = {isa = PBXFileReference; lastKnownFileType = text; path = ZapDemo; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_14 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_15 /* ZapDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ZapDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* Zap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,19 +110,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_30 /* Zap.framework in Frameworks */,
+				OBJ_30 /* Bulk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_10 /* ZapDemo */ = {
+		OBJ_10 /* BulkDemo */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_11 /* main.swift */,
 			);
-			path = ZapDemo;
+			path = BulkDemo;
 			sourceTree = "<group>";
 		};
 		OBJ_12 /* Tests */ = {
@@ -135,11 +135,11 @@
 		OBJ_13 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_14 /* Zap.framework */,
+				OBJ_14 /* Bulk.framework */,
 				OBJ_15 /* ZapDemo */,
-				4B80E7811EB9F2DC00C9BE63 /* Zap.framework */,
-				4B80E78E1EB9F30100C9BE63 /* Zap.framework */,
-				4B80E79B1EB9F31800C9BE63 /* Zap.framework */,
+				4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */,
+				4B80E78E1EB9F30100C9BE63 /* Bulk.framework */,
+				4B80E79B1EB9F31800C9BE63 /* Bulk.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -157,13 +157,13 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_8 /* Zap */,
-				OBJ_10 /* ZapDemo */,
+				OBJ_8 /* Bulk */,
+				OBJ_10 /* BulkDemo */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		OBJ_8 /* Zap */ = {
+		OBJ_8 /* Bulk */ = {
 			isa = PBXGroup;
 			children = (
 				4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */,
@@ -177,7 +177,7 @@
 				4BDA35E11EB9ACCB00B93628 /* Target.swift */,
 				OBJ_9 /* Zap.swift */,
 			);
-			path = Zap;
+			path = Bulk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,9 +207,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4B80E7801EB9F2DC00C9BE63 /* Zap iOS */ = {
+		4B80E7801EB9F2DC00C9BE63 /* Bulk iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B80E7861EB9F2DC00C9BE63 /* Build configuration list for PBXNativeTarget "Zap iOS" */;
+			buildConfigurationList = 4B80E7861EB9F2DC00C9BE63 /* Build configuration list for PBXNativeTarget "Bulk iOS" */;
 			buildPhases = (
 				4B80E77C1EB9F2DC00C9BE63 /* Sources */,
 				4B80E77D1EB9F2DC00C9BE63 /* Frameworks */,
@@ -220,14 +220,14 @@
 			);
 			dependencies = (
 			);
-			name = "Zap iOS";
+			name = "Bulk iOS";
 			productName = "Zap-iOS";
-			productReference = 4B80E7811EB9F2DC00C9BE63 /* Zap.framework */;
+			productReference = 4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4B80E78D1EB9F30100C9BE63 /* Zap watchOS */ = {
+		4B80E78D1EB9F30100C9BE63 /* Bulk watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B80E7931EB9F30200C9BE63 /* Build configuration list for PBXNativeTarget "Zap watchOS" */;
+			buildConfigurationList = 4B80E7931EB9F30200C9BE63 /* Build configuration list for PBXNativeTarget "Bulk watchOS" */;
 			buildPhases = (
 				4B80E7891EB9F30100C9BE63 /* Sources */,
 				4B80E78A1EB9F30100C9BE63 /* Frameworks */,
@@ -238,14 +238,14 @@
 			);
 			dependencies = (
 			);
-			name = "Zap watchOS";
+			name = "Bulk watchOS";
 			productName = "Zap-watchOS";
-			productReference = 4B80E78E1EB9F30100C9BE63 /* Zap.framework */;
+			productReference = 4B80E78E1EB9F30100C9BE63 /* Bulk.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4B80E79A1EB9F31800C9BE63 /* Zap tvOS */ = {
+		4B80E79A1EB9F31800C9BE63 /* Bulk tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B80E7A01EB9F31800C9BE63 /* Build configuration list for PBXNativeTarget "Zap tvOS" */;
+			buildConfigurationList = 4B80E7A01EB9F31800C9BE63 /* Build configuration list for PBXNativeTarget "Bulk tvOS" */;
 			buildPhases = (
 				4B80E7961EB9F31800C9BE63 /* Sources */,
 				4B80E7971EB9F31800C9BE63 /* Frameworks */,
@@ -256,14 +256,14 @@
 			);
 			dependencies = (
 			);
-			name = "Zap tvOS";
+			name = "Bulk tvOS";
 			productName = "Zap-tvOS";
-			productReference = 4B80E79B1EB9F31800C9BE63 /* Zap.framework */;
+			productReference = 4B80E79B1EB9F31800C9BE63 /* Bulk.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_16 /* Zap macOS */ = {
+		OBJ_16 /* Bulk macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_17 /* Build configuration list for PBXNativeTarget "Zap macOS" */;
+			buildConfigurationList = OBJ_17 /* Build configuration list for PBXNativeTarget "Bulk macOS" */;
 			buildPhases = (
 				OBJ_20 /* Sources */,
 				OBJ_22 /* Frameworks */,
@@ -272,14 +272,14 @@
 			);
 			dependencies = (
 			);
-			name = "Zap macOS";
+			name = "Bulk macOS";
 			productName = Zap;
-			productReference = OBJ_14 /* Zap.framework */;
+			productReference = OBJ_14 /* Bulk.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_23 /* ZapDemo */ = {
+		OBJ_23 /* BulkDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_24 /* Build configuration list for PBXNativeTarget "ZapDemo" */;
+			buildConfigurationList = OBJ_24 /* Build configuration list for PBXNativeTarget "BulkDemo" */;
 			buildPhases = (
 				OBJ_27 /* Sources */,
 				OBJ_29 /* Frameworks */,
@@ -289,7 +289,7 @@
 			dependencies = (
 				OBJ_31 /* PBXTargetDependency */,
 			);
-			name = ZapDemo;
+			name = BulkDemo;
 			productName = ZapDemo;
 			productReference = OBJ_15 /* ZapDemo */;
 			productType = "com.apple.product-type.tool";
@@ -316,7 +316,7 @@
 					};
 				};
 			};
-			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Zap-Carthage" */;
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Bulk-Carthage" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -328,11 +328,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				OBJ_16 /* Zap macOS */,
-				4B80E7801EB9F2DC00C9BE63 /* Zap iOS */,
-				4B80E78D1EB9F30100C9BE63 /* Zap watchOS */,
-				4B80E79A1EB9F31800C9BE63 /* Zap tvOS */,
-				OBJ_23 /* ZapDemo */,
+				OBJ_16 /* Bulk macOS */,
+				4B80E7801EB9F2DC00C9BE63 /* Bulk iOS */,
+				4B80E78D1EB9F30100C9BE63 /* Bulk watchOS */,
+				4B80E79A1EB9F31800C9BE63 /* Bulk tvOS */,
+				OBJ_23 /* BulkDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -439,7 +439,7 @@
 /* Begin PBXTargetDependency section */
 		OBJ_31 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_16 /* Zap macOS */;
+			target = OBJ_16 /* Bulk macOS */;
 			targetProxy = 4BDA35E01EB997F200B93628 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -491,8 +491,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-iOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -547,8 +548,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-iOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -607,8 +609,9 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-watchOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -665,8 +668,9 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-watchOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -728,8 +732,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-tvOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -786,8 +791,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.muukii.Zap-tvOS";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -808,13 +814,13 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ./Sources/Zap/Info.plist;
+				INFOPLIST_FILE = ./Sources/Bulk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Zap;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				TARGET_NAME = Zap;
@@ -830,13 +836,13 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ./Sources/Zap/Info.plist;
+				INFOPLIST_FILE = ./Sources/Bulk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Zap;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = Zap;
+				PRODUCT_BUNDLE_IDENTIFIER = me.muukii.bulk;
+				PRODUCT_MODULE_NAME = Bulk;
+				PRODUCT_NAME = Bulk;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				TARGET_NAME = Zap;
@@ -928,7 +934,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4B80E7861EB9F2DC00C9BE63 /* Build configuration list for PBXNativeTarget "Zap iOS" */ = {
+		4B80E7861EB9F2DC00C9BE63 /* Build configuration list for PBXNativeTarget "Bulk iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B80E7871EB9F2DC00C9BE63 /* Debug */,
@@ -937,7 +943,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B80E7931EB9F30200C9BE63 /* Build configuration list for PBXNativeTarget "Zap watchOS" */ = {
+		4B80E7931EB9F30200C9BE63 /* Build configuration list for PBXNativeTarget "Bulk watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B80E7941EB9F30200C9BE63 /* Debug */,
@@ -946,7 +952,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B80E7A01EB9F31800C9BE63 /* Build configuration list for PBXNativeTarget "Zap tvOS" */ = {
+		4B80E7A01EB9F31800C9BE63 /* Build configuration list for PBXNativeTarget "Bulk tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B80E7A11EB9F31800C9BE63 /* Debug */,
@@ -955,7 +961,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_17 /* Build configuration list for PBXNativeTarget "Zap macOS" */ = {
+		OBJ_17 /* Build configuration list for PBXNativeTarget "Bulk macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_18 /* Debug */,
@@ -964,7 +970,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_2 /* Build configuration list for PBXProject "Zap-Carthage" */ = {
+		OBJ_2 /* Build configuration list for PBXProject "Bulk-Carthage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_3 /* Debug */,
@@ -973,7 +979,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_24 /* Build configuration list for PBXNativeTarget "ZapDemo" */ = {
+		OBJ_24 /* Build configuration list for PBXNativeTarget "BulkDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_25 /* Debug */,

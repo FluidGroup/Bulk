@@ -1,10 +1,10 @@
 import PackageDescription
 
 let package = Package(
-  name: "Zap",
+  name: "Bulk",
   targets: [
-    Target(name: "Zap"),
-    Target(name: "ZapDemo", dependencies: ["Zap"]),
+    Target(name: "Bulk"),
+    Target(name: "BulkDemo", dependencies: ["Bulk"]),
   ],
   dependencies: [
   ]

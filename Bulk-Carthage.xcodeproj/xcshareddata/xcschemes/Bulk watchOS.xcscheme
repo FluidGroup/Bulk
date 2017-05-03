@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_23"
-               BuildableName = "ZapDemo"
-               BlueprintName = "ZapDemo"
-               ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+               BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+               BuildableName = "Bulk.framework"
+               BlueprintName = "Bulk watchOS"
+               ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_23"
-            BuildableName = "ZapDemo"
-            BlueprintName = "ZapDemo"
-            ReferencedContainer = "container:Zap-Carthage.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_23"
-            BuildableName = "ZapDemo"
-            BlueprintName = "ZapDemo"
-            ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+            BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+            BuildableName = "Bulk.framework"
+            BlueprintName = "Bulk watchOS"
+            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_23"
-            BuildableName = "ZapDemo"
-            BlueprintName = "ZapDemo"
-            ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+            BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+            BuildableName = "Bulk.framework"
+            BlueprintName = "Bulk watchOS"
+            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

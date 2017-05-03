@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4B80E79A1EB9F31800C9BE63"
-               BuildableName = "Zap.framework"
-               BlueprintName = "Zap tvOS"
-               ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+               BuildableName = "Bulk.framework"
+               BlueprintName = "Bulk tvOS"
+               ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4B80E79A1EB9F31800C9BE63"
-            BuildableName = "Zap.framework"
-            BlueprintName = "Zap tvOS"
-            ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+            BuildableName = "Bulk.framework"
+            BlueprintName = "Bulk tvOS"
+            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4B80E79A1EB9F31800C9BE63"
-            BuildableName = "Zap.framework"
-            BlueprintName = "Zap tvOS"
-            ReferencedContainer = "container:Zap-Carthage.xcodeproj">
+            BuildableName = "Bulk.framework"
+            BlueprintName = "Bulk tvOS"
+            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
