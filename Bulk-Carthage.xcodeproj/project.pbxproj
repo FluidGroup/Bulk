@@ -12,8 +12,9 @@
 		4B1C721F1EBBA1B6008AA3FC /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C721C1EBBA1B6008AA3FC /* Timer.swift */; };
 		4B1C72201EBBA1B6008AA3FC /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C721C1EBBA1B6008AA3FC /* Timer.swift */; };
 		4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */; };
+		4B1C72241EBBA9BA008AA3FC /* AsyncPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */; };
 		4B4BC3E31EBB2B9A003AD6DD /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
-		4B4BC3E91EBB2BA6003AD6DD /* TestPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */; };
+		4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */; };
 		4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */; };
 		4B7BFC571EBA50DA00CB9027 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC561EBA50DA00CB9027 /* Buffer.swift */; };
 		4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC561EBA50DA00CB9027 /* Buffer.swift */; };
@@ -91,7 +92,8 @@
 /* Begin PBXFileReference section */
 		4B1C721C1EBBA1B6008AA3FC /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
-		4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPipeline.swift; sourceTree = "<group>"; };
+		4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncPipelineTests.swift; sourceTree = "<group>"; };
+		4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineTests.swift; sourceTree = "<group>"; };
 		4B4BC3DE1EBB2B9A003AD6DD /* BulkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		4B4BC3EE1EBB313E003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,7 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				4B4BC3EE1EBB313E003AD6DD /* Info.plist */,
-				4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */,
+				4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */,
+				4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */,
 				4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */,
 				4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */,
 			);
@@ -230,8 +233,8 @@
 			children = (
 				OBJ_9 /* Logger.swift */,
 				4BDA35EF1EB9E8EB00B93628 /* Log.swift */,
-				4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */,
 				4B1C721C1EBBA1B6008AA3FC /* Timer.swift */,
+				4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */,
 				4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */,
 				4BDA35E11EB9ACCB00B93628 /* Target.swift */,
 				4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */,
@@ -464,8 +467,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B4BC3E91EBB2BA6003AD6DD /* TestPipeline.swift in Sources */,
+				4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */,
 				4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */,
+				4B1C72241EBBA9BA008AA3FC /* AsyncPipelineTests.swift in Sources */,
 				4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

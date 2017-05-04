@@ -27,17 +27,26 @@ import Foundation
 
 class TestTarget: Target {
   
+  var writeCompletedCount = 0
+  
+  var writed: () -> Void = { _ in }
+  
   var results: [String] = []
   
   func write(formatted strings: [String], completion: @escaping () -> Void) {
     results += strings
     completion()
+    writeCompletedCount += 1
+    writed()
   }
 }
 
 class TestFormatter: Bulk.Formatter {
   
+  var formattedCount = 0
+  
   func format(log: Log) -> String {
+    formattedCount += 1
     return log.body
   }
 }

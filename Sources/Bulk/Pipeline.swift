@@ -28,6 +28,31 @@ import Dispatch
  * Logs => plugins => Target
  */
 public class Pipeline {
+  
+  public struct BulkConfiguration {
+    public let buffer: Buffer
+    public let timeout: DispatchTimeInterval
+
+    public init(buffer: Buffer, timeout: DispatchTimeInterval) {
+      self.buffer = buffer
+      self.timeout = timeout
+    }
+  }
+  
+  public struct TargetConfiguration {
+    public let buffer: Buffer
+    public let target: Target
+    
+    /// Init
+    ///
+    /// - Parameters:
+    ///   - target: output Target
+    ///   - buffer: default is NoBuffer()
+    public init(target: Target, buffer: Buffer = NoBuffer()) {
+      self.buffer = buffer
+      self.target = target
+    }
+  }
 
   public let plugins: [Plugin]
   public let formatter: Formatter
@@ -37,14 +62,34 @@ public class Pipeline {
   
   private let lock = NSRecursiveLock()
   
+  private var timer: Timer?
+  
   public var isWritingTarget: Bool = false
   
-  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer = NoBuffer(), writeBuffer: Buffer = NoBuffer(), target: Target) {
+  public init(
+    plugins: [Plugin],
+    formatter: Formatter,
+    bulkConfiguration: BulkConfiguration? = nil,
+    targetConfiguration: TargetConfiguration
+    ) {
+    
     self.plugins = plugins
     self.formatter = formatter
-    self.target = target
-    self.bulkBuffer = bulkBuffer
-    self.writeBuffer = writeBuffer
+    self.target = targetConfiguration.target
+    self.writeBuffer = targetConfiguration.buffer
+    
+    if let c = bulkConfiguration {
+      self.bulkBuffer = c.buffer
+      self.timer = Timer(
+        interval: c.timeout,
+        queue: .global(),
+        timeouted: { [weak self] in
+          self?.loadBuffer()
+      })
+    } else {
+      self.bulkBuffer = NoBuffer()
+      self.timer = nil
+    }
     
     loadBuffer()
   }
@@ -57,6 +102,7 @@ public class Pipeline {
   }
   
   func loadBuffer() {
+    lock.lock(); defer { lock.unlock() }
     __write(self.writeBuffer.purge())
   }
   

@@ -1,5 +1,5 @@
 //
-// TestPipeline.swift
+// AsyncPipelineTest.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -28,88 +28,109 @@ import XCTest
 
 @testable import Bulk
 
-class TestPipeline: XCTestCase {
-
-  func testBasic() {
-    
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        formatter: TestFormatter(),
-        target: target)
-    )
-    
-    log.verbose("A")
-    log.debug("B")
-    log.info("C")
-    log.warn("D")
-    log.error("E")
-    
-    XCTAssert(target.results.count == 5)
-    XCTAssert(target.results == ["A", "B", "C", "D", "E"])
-  }
+class AsyncPipelineTests: XCTestCase {
   
-  func testMultiThread() {
-    
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        formatter: TestFormatter(),
-        target: target)
-    )
+  func testOnce() {
     
     let g = DispatchGroup()
     
+    let log = Logger()
+    
+    let target = TestTarget()
+    
+    log.add(pipeline:
+      AsyncPipeline(
+        plugins: [],
+        formatter: TestFormatter(),
+        targetConfiguration: .init(target: target),
+        queue: .global()
+      )
+    )
+  
     g.enter()
     
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
+    target.writed = {
+      XCTAssert(Thread.isMainThread == false)
+      g.leave()
+    }
+
+    log.debug("A")
+    
+    g.wait()
+    
+    XCTAssertEqual(target.writeCompletedCount, 1)
+  }
+  
+  func testConcurrent_multi() {
+    
+    let g = DispatchGroup()
+    
+    let log = Logger()
+    
+    let target = TestTarget()
+    
+    log.add(pipeline:
+      AsyncPipeline(
+        plugins: [],
+        formatter: TestFormatter(),
+        targetConfiguration: .init(target: target),
+        queue: .global()
+      )
+    )
+    
+    target.writed = {
+//      print(Thread.current)
       g.leave()
     }
     
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
+    for i in 0..<10 {
       
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
+      g.enter()
       
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
-      g.leave()
+      log.debug(i)
     }
     
     g.wait()
     
-    XCTAssert(target.results.count == 5)
+    XCTAssertEqual(target.writeCompletedCount, 10)
+    XCTAssertEqual(target.results, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
+  }
+  
+  func testMultiThread() {
+    
+    let g = DispatchGroup()
+    
+    let log = Logger()
+    
+    let target = TestTarget()
+    
+    log.add(pipeline:
+      AsyncPipeline(
+        plugins: [],
+        formatter: TestFormatter(),
+        targetConfiguration: .init(target: target),
+        queue: .global()
+      )
+    )
+    
+    target.writed = {
+//      print(Thread.current)
+      g.leave()
+    }
+    
+    for i in 0..<10 {
+      
+      g.enter()
+      
+      DispatchQueue.global().async {
+        log.debug(i)
+      }
+    }
+    
+    g.wait()
+    
+    XCTAssertEqual(target.writeCompletedCount, 10)
+    
+    // target.results will be random
   }
 }

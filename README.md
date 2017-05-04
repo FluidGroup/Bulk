@@ -33,20 +33,9 @@ let Log = Logger()
 // Logging synchronously
 Log.add(pipeline:
   Pipeline(
-    plugins: [
-      MyPlugin()
-    ],
-    formatter: BasicFormatter(),
-    target: ConsoleTarget()
-  )
-)
-
-Log.add(pipeline:
-  Pipeline(
     plugins: [],
-    formatter: BasicFormatter(),
-    target:
-    FileTarget(filePath: "/Users/muukii/Desktop/bulk.log")
+    formatter: TestFormatter(),
+    targetConfiguration: .init(target: target)  
   )
 )
 
@@ -55,11 +44,12 @@ Log.add(pipeline:
 Log.add(pipeline:
   AsyncPipeline( // <-- 😎< asynchronously
     plugins: [],
-    formatter: BasicFormatter(),
-    target: ConsoleTarget(),
-    queue: DispatchQueue.global() // <-- 🤓< Specify DispatchQueue
+    formatter: TestFormatter(),
+    targetConfiguration: .init(target: target),
+    queue: .global() // <-- 🤓< Specify DispatchQueue
   )
 )
+
 Log.verbose("Something log")
 Log.debug("Something log")
 Log.info("Something log")
@@ -112,9 +102,14 @@ Log.add(pipeline:
   Pipeline(
     plugins: [],
     formatter: BasicFormatter(),
-    bulkBuffer: MemoryBuffer(size: 10), // Send to Target every 10 Logs.
-    writeBuffer: FileBuffer(size: 40, filePath: "/path/to/bulk-buffer.log"), // Wait for writing up to 40 Logs.
-    target: ConsoleTarget()
+    bulkConfiguration: .init(
+      buffer: MemoryBuffer(size: 10),
+      timeout: .seconds(10)
+    ), // Send to Target every 10 Logs.
+    targetConfiguration: .init(
+      target: ConsoleTarget(),
+      buffer: FileBuffer(size: 40, filePath: "/path/to/bulk-buffer.log")
+    ) // Wait for writing up to 40 Logs.  
   )
 )
 
@@ -134,13 +129,13 @@ class MyPlugin: Plugin {
   }
 }
 
-Log.add(pipeline: Pipeline(plugins: [MyPlugin()], formatter: BasicFormatter(), target: ConsoleTarget()))
-
 ```
 
 ### Custom Formatter
 
 // TODO:
+
+Step of `Log` -> `String`
 
 ### Custom Target
 
@@ -160,7 +155,7 @@ open class ConsoleTarget: Target {
       print($0)
     }
     
-    completion()
+    completion() // Important
   }
 }
 ```
