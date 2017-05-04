@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B4BC3E11EBB2B9A003AD6DD /* BulkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3E01EBB2B9A003AD6DD /* BulkTests.swift */; };
 		4B4BC3E31EBB2B9A003AD6DD /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
 		4B4BC3E91EBB2BA6003AD6DD /* TestPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */; };
 		4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */; };
@@ -87,9 +86,8 @@
 /* Begin PBXFileReference section */
 		4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPipeline.swift; sourceTree = "<group>"; };
 		4B4BC3DE1EBB2B9A003AD6DD /* BulkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B4BC3E01EBB2B9A003AD6DD /* BulkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkTests.swift; sourceTree = "<group>"; };
-		4B4BC3E21EBB2B9A003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		4B4BC3EE1EBB313E003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B7BFC561EBA50DA00CB9027 /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryBuffer.swift; sourceTree = "<group>"; };
 		4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBuffer.swift; sourceTree = "<group>"; };
@@ -164,17 +162,9 @@
 		4B4BC3D81EBB2B70003AD6DD /* BulkTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B4BC3EE1EBB313E003AD6DD /* Info.plist */,
 				4B4BC3D91EBB2B70003AD6DD /* TestPipeline.swift */,
 				4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */,
-			);
-			path = BulkTests;
-			sourceTree = "<group>";
-		};
-		4B4BC3DF1EBB2B9A003AD6DD /* BulkTests */ = {
-			isa = PBXGroup;
-			children = (
-				4B4BC3E01EBB2B9A003AD6DD /* BulkTests.swift */,
-				4B4BC3E21EBB2B9A003AD6DD /* Info.plist */,
 			);
 			path = BulkTests;
 			sourceTree = "<group>";
@@ -211,7 +201,6 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				4B4BC3DF1EBB2B9A003AD6DD /* BulkTests */,
 				OBJ_13 /* Products */,
 				OBJ_7 /* Sources */,
 				OBJ_12 /* Tests */,
@@ -466,7 +455,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B4BC3E11EBB2B9A003AD6DD /* BulkTests.swift in Sources */,
 				4B4BC3E91EBB2BA6003AD6DD /* TestPipeline.swift in Sources */,
 				4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */,
 			);
@@ -614,7 +602,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = BulkTests/Info.plist;
+				INFOPLIST_FILE = ./Tests/BulkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -659,7 +647,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = BulkTests/Info.plist;
+				INFOPLIST_FILE = ./Tests/BulkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;

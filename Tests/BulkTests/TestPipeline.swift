@@ -49,4 +49,64 @@ class TestPipeline: XCTestCase {
     XCTAssert(target.results.count == 5)
     XCTAssert(target.results == ["A", "B", "C", "D", "E"])
   }
+  
+  func testMultiThread() {
+    
+    let log = Logger()
+    
+    let target = TestTarget()
+    
+    log.add(pipeline:
+      Pipeline(
+        plugins: [],
+        formatter: TestFormatter(),
+        target: target)
+    )
+    
+    let g = DispatchGroup()
+    
+    g.enter()
+    
+    DispatchQueue.global(qos: .background).async {
+      log.debug("E")
+      
+      g.leave()
+    }
+    
+    g.enter()
+    
+    DispatchQueue.global(qos: .background).async {
+      log.debug("E")
+      
+      g.leave()
+    }
+    
+    g.enter()
+    
+    DispatchQueue.global(qos: .background).async {
+      log.debug("E")
+      
+      g.leave()
+    }
+    
+    g.enter()
+    
+    DispatchQueue.global(qos: .background).async {
+      log.debug("E")
+      
+      g.leave()
+    }
+    
+    g.enter()
+    
+    DispatchQueue.global(qos: .background).async {
+      log.debug("E")
+      
+      g.leave()
+    }
+    
+    g.wait()  
+    
+    XCTAssert(target.results.count == 5)
+  }
 }
