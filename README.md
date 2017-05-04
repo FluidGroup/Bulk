@@ -14,9 +14,12 @@
 
 ---
 
-Bulk is **powerful & flexible logging framework**
+Bulk is **pipeline based** powerful & flexible logging framework.<br>
+This has basic functions as *Logger*.<br>
+In addition, this can bulk up some logs.<br>
+It will be useful when sends logs to a server.<br>
 
-<img width=348 src="arch.png">
+<img width=548 src="arch.png">
 
 # Usage
 
