@@ -5,7 +5,7 @@
 ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-333333.svg)
 ---
 
-> ⚠️ WARNING ⚠️ This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
+> 🚨⚠️ WARNING ⚠️🚨 This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
 
 ---
 
