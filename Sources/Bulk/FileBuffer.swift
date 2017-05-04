@@ -93,9 +93,10 @@ public final class FileBuffer: Buffer {
       fileHandle?.closeFile()
       fileHandle = nil
       try fileManager.removeItem(at: fileURL)
-
       
-      return lines
+      return lines.map {
+        $0.replacingOccurrences(of: "\\n", with: "\n")
+      }
       
     } catch {
              
