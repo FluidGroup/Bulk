@@ -11,7 +11,7 @@
 
 Bulk is **powerful & flexible logging framework**
 
-<img width=382 src="arch.png">
+<img width=348 src="arch.png">
 
 # Usage
 
