@@ -97,8 +97,8 @@ public class Pipeline {
         
       })
       
-      group.wait()
-      
+      _ = group.wait(timeout: DispatchTime.now() + .seconds(10))
+            
       self.isWritingTarget = false
       self.__write(self.writeBuffer.purge())   
       
