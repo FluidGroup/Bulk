@@ -30,12 +30,33 @@ public class Pipeline {
 
   public let plugins: [Plugin]
   public let formatter: Formatter
+  public let writeBuffer: Buffer
+  public let bulkBuffer: Buffer
   public let target: Target
   
-  public init(plugins: [Plugin], formatter: Formatter, target: Target) {
-    self.target = target
+  private let lock = NSRecursiveLock()
+  
+  public var isWritingTarget: Bool = false
+  
+  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer = NoBuffer(), writeBuffer: Buffer = NoBuffer(), target: Target) {
     self.plugins = plugins
     self.formatter = formatter
+    self.target = target
+    self.bulkBuffer = bulkBuffer
+    self.writeBuffer = writeBuffer
+    
+    loadBuffer()
+  }
+  
+  deinit {
+    
+    bulkBuffer.purge().forEach {
+      _ = writeBuffer.write(formatted: $0)
+    }
+  }
+  
+  func loadBuffer() {
+    __write(self.writeBuffer.purge())
   }
   
   func write(log: Log) {
@@ -46,6 +67,46 @@ public class Pipeline {
     
     let formatted = formatter.format(log: result)
     
-    target.write(formatted: formatted)
+    let r = bulkBuffer.write(formatted: formatted)
+    
+    __write(r)
+  }
+  
+  private func __write(_ r: [String]) {
+    
+    lock.lock(); defer { lock.unlock() }
+    
+    guard r.isEmpty == false else { return }
+    
+    if isWritingTarget == false {
+      
+      // to Target
+      
+      isWritingTarget = true
+      
+      let group = DispatchGroup()
+      
+      group.enter()
+      
+      target.write(formatted: r, completion: {
+        
+        group.leave()
+        
+      })
+      
+      group.wait()
+      
+      self.isWritingTarget = false
+      self.__write(self.writeBuffer.purge())   
+      
+    } else {
+      
+      // to Buffer
+      
+      for _r in r {
+        _ = writeBuffer.write(formatted: _r)
+      }
+    }
+    
   }
 }

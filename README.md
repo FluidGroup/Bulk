@@ -38,7 +38,7 @@ Log.add(pipeline:
     plugins: [],
     formatter: BasicFormatter(),
     target:
-    FileTarget(filePath: "/Users/muukii/Desktop")
+    FileTarget(filePath: "/Users/muukii/Desktop/bulk.log")
   )
 )
 
@@ -92,11 +92,104 @@ open class ConsoleTarget: Target {
     
   }
   
-  open func write(formatted string: String) {
-    print(string)
+  open func write(formatted strings: [String], completion: @escaping () -> Void) {
+    strings.forEach {
+      print($0)
+    }
+    
+    completion()
   }
 }
 ```
+
+## Buffer
+
+* `NoBuffer`
+* `MemoryBuffer`
+* `FileBuffer`
+
+### Bulk Buffer
+
+For send `formatted strings` to `Target`.
+
+### Write Buffer
+
+For waiting for processing `Target`.
+
+If `Target` is sending logs to the server,
+You may not be able to send all of them.
+`Write Buffer` will be useful in the case.
+
+In the case of FileBuffer,
+if the process ends due to an exception, it will be sent to the `Target` at the next timing.
+
+## Setting
+
+```swift
+
+let Log = Logger()
+
+Log.add(pipeline:
+  Pipeline(
+    plugins: [],
+    formatter: BasicFormatter(),
+    bulkBuffer: MemoryBuffer(size: 10), // Send to Target every 10 Logs.
+    writeBuffer: FileBuffer(size: 40, filePath: "/Users/muukii/Desktop/bulk-buffer.log"), // Wait for writing up to 40 Logs.
+    target: ConsoleTarget()
+  )
+)
+
+```
+
+## Plugins
+
+```swift
+
+class MyPlugin: Plugin {
+  func map(log: Log) -> Log {
+    var log = log
+    log.body = "Tweaked:: " + log.body
+    return log
+  }
+}
+
+Log.add(pipeline: Pipeline(plugins: [MyPlugin()], formatter: BasicFormatter(), target: ConsoleTarget()))
+
+```
+
+## Customization
+
+### CustomTarget
+
+We can create customized `Target`
+
+Example
+
+```swift
+open class ConsoleTarget: Target {
+    
+  public init() {
+    
+  }
+  
+  open func write(formatted strings: [String], completion: @escaping () -> Void) {
+    strings.forEach {
+      print($0)
+    }
+    
+    completion()
+  }
+}
+```
+
+### CustomBuffer
+
+We can create customized `Buffer`.
+
+Example,
+
+Use Realm or CoreData instead of `FileBuffer`
+It will be faster than `FileBuffer` (maybe)
 
 # Installation
 

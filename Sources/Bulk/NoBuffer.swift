@@ -1,4 +1,5 @@
-// ConsoleTarget.swift
+//
+// NoBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,17 +23,19 @@
 
 import Foundation
 
-open class ConsoleTarget: Target {
-    
-  public init() {
-    
+public struct NoBuffer: Buffer {
+  
+  public var hasSpace: Bool {
+    return false
   }
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      print($0)
-    }
-    
-    completion()
+  public init() { }
+  
+  public func write(formatted string: String) -> [String] {
+    return [string]
+  }
+  
+  public func purge() -> [String] {
+    return []
   }
 }

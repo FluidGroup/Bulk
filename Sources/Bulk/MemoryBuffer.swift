@@ -1,4 +1,5 @@
-// ConsoleTarget.swift
+//
+// MemoryBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,17 +23,45 @@
 
 import Foundation
 
-open class ConsoleTarget: Target {
-    
-  public init() {
-    
+public final class MemoryBuffer: Buffer {
+  
+  public var hasSpace: Bool {
+    return cursor < size
   }
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      print($0)
+  var buffer: [String]
+  let size: Int
+  let lock = NSRecursiveLock()
+  var cursor: Int = 0
+  
+  public init(size: Int) {
+    self.size = size
+    self.buffer = [String].init(repeating: "", count: size)
+  }
+  
+  public func write(formatted string: String) -> [String] {
+    lock.lock()
+    defer {
+      lock.unlock()
     }
     
-    completion()
+    buffer[cursor] = string
+    
+    cursor += 1
+    
+    if cursor == size {
+      return purge()
+    } else {
+      return []
+    }
+  }
+  
+  public func purge() -> [String] {
+    let _buffer = buffer
+    for i in 0..<size {
+      buffer[i] = ""
+    }
+    cursor = 0
+    return _buffer.filter { $0.isEmpty == false }
   }
 }

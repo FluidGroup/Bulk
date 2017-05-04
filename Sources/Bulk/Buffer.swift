@@ -1,4 +1,5 @@
-// ConsoleTarget.swift
+//
+// Buffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,17 +23,19 @@
 
 import Foundation
 
-open class ConsoleTarget: Target {
-    
-  public init() {
-    
-  }
+public protocol Buffer {
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      print($0)
-    }
-    
-    completion()
-  }
+  ///
+  var hasSpace: Bool { get }
+  
+  /// Buffer item
+  ///
+  /// - Parameter string:
+  /// - Returns: 
+  func write(formatted string: String) -> [String]
+  
+  /// Purge buffered items
+  ///
+  /// - Returns: purged items
+  func purge() -> [String]
 }
