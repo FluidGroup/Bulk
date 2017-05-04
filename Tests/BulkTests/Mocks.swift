@@ -1,5 +1,5 @@
 //
-// MemoryBuffer.swift
+// Mocks.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,40 +23,21 @@
 
 import Foundation
 
-public final class MemoryBuffer: Buffer {
+@testable import Bulk
+
+class TestTarget: Target {
   
-  public var hasSpace: Bool {
-    return cursor < size
+  var results: [String] = []
+  
+  func write(formatted strings: [String], completion: @escaping () -> Void) {
+    results += strings
+    completion()
   }
+}
+
+class TestFormatter: Bulk.Formatter {
   
-  var buffer: [String]
-  let size: Int
-  var cursor: Int = 0
-  
-  public init(size: Int) {
-    self.size = size
-    self.buffer = [String].init(repeating: "", count: size)
-  }
-  
-  public func write(formatted string: String) -> [String] {
-    
-    buffer[cursor] = string
-    
-    cursor += 1
-    
-    if cursor == size {
-      return purge()
-    } else {
-      return []
-    }
-  }
-  
-  public func purge() -> [String] {
-    let _buffer = buffer
-    for i in 0..<size {
-      buffer[i] = ""
-    }
-    cursor = 0
-    return _buffer.filter { $0.isEmpty == false }
+  func format(log: Log) -> String {
+    return log.body
   }
 }

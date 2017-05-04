@@ -63,6 +63,16 @@ Log.error("Something log")
 Log.verbose("a", "b", 1, 2, 3, ["a", "b"]) // => a b 1 2 3 ["a", "b"]
 ```
 
+## Pipeline
+
+### Pipeline
+
+// TODO:
+
+### AsyncPipeline
+
+// TODO:
+
 ## Plugins
 
 ```swift

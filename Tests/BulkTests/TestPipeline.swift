@@ -1,5 +1,5 @@
 //
-// MemoryBuffer.swift
+// TestPipeline.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -21,42 +21,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import XCTest
 
-public final class MemoryBuffer: Buffer {
-  
-  public var hasSpace: Bool {
-    return cursor < size
-  }
-  
-  var buffer: [String]
-  let size: Int
-  var cursor: Int = 0
-  
-  public init(size: Int) {
-    self.size = size
-    self.buffer = [String].init(repeating: "", count: size)
-  }
-  
-  public func write(formatted string: String) -> [String] {
+@testable import Bulk
+
+class TestPipeline: XCTestCase {
+
+  func testBasic() {
     
-    buffer[cursor] = string
+    let log = Logger()
     
-    cursor += 1
+    let target = TestTarget()
     
-    if cursor == size {
-      return purge()
-    } else {
-      return []
-    }
-  }
-  
-  public func purge() -> [String] {
-    let _buffer = buffer
-    for i in 0..<size {
-      buffer[i] = ""
-    }
-    cursor = 0
-    return _buffer.filter { $0.isEmpty == false }
+    log.add(pipeline:
+      Pipeline(
+        plugins: [],
+        formatter: TestFormatter(),
+        target: target)
+    )
+    
+    log.verbose("A")
+    log.debug("B")
+    log.info("C")
+    log.warn("D")
+    log.error("E")
+    
+    XCTAssert(target.results.count == 5)
+    XCTAssert(target.results == ["A", "B", "C", "D", "E"])
   }
 }

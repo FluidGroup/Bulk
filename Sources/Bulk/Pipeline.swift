@@ -61,6 +61,8 @@ public class Pipeline {
   
   func write(log: Log) {
     
+    lock.lock(); defer { lock.unlock() }
+    
     let result = plugins.reduce(log) { log, plugin in
       plugin.map(log: log)
     }
