@@ -3,3 +3,4 @@ language: objective-c
 
 script:
   - swift test
+  - pod lib lint
