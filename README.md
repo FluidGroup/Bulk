@@ -14,10 +14,10 @@
 
 ---
 
-Bulk is **pipeline based** powerful & flexible logging framework.<br>
-This has basic functions as *Logger*.<br>
-In addition, this can bulk up some logs.<br>
-It will be useful when sends logs to a server.<br>
+Bulk is *a pipeline based* powerful & flexible logging framework.<br>
+It has basic functions as a *Logger*.<br>
+In addition, it can output logs in bulk.<br>
+This is useful when sending logs to a server.<br>
 
 <img width=548 src="arch.png">
 
@@ -81,45 +81,6 @@ Log.verbose("a", "b", 1, 2, 3, ["a", "b"]) // => a b 1 2 3 ["a", "b"]
 
 // TODO:
 
-## Plugins
-
-```swift
-
-class MyPlugin: Plugin {
-  func map(log: Log) -> Log {
-    var log = log
-    log.body = "Tweaked:: " + log.body
-    return log
-  }
-}
-
-Log.add(pipeline: Pipeline(plugins: [MyPlugin()], formatter: BasicFormatter(), target: ConsoleTarget()))
-
-```
-
-## Create CustomTarget
-
-You can create customized `Target`
-
-Example
-
-```swift
-open class ConsoleTarget: Target {
-    
-  public init() {
-    
-  }
-  
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      print($0)
-    }
-    
-    completion()
-  }
-}
-```
-
 ## Buffer
 
 * `NoBuffer`
@@ -141,7 +102,7 @@ You may not be able to send all of them.
 In the case of FileBuffer,
 if the process ends due to an exception, it will be sent to the `Target` at the next timing.
 
-## Setting
+### Set Buffer
 
 ```swift
 
@@ -152,14 +113,16 @@ Log.add(pipeline:
     plugins: [],
     formatter: BasicFormatter(),
     bulkBuffer: MemoryBuffer(size: 10), // Send to Target every 10 Logs.
-    writeBuffer: FileBuffer(size: 40, filePath: "/Users/muukii/Desktop/bulk-buffer.log"), // Wait for writing up to 40 Logs.
+    writeBuffer: FileBuffer(size: 40, filePath: "/path/to/bulk-buffer.log"), // Wait for writing up to 40 Logs.
     target: ConsoleTarget()
   )
 )
 
 ```
 
-## Plugins
+## Customization
+
+### Plugins
 
 ```swift
 
@@ -175,9 +138,11 @@ Log.add(pipeline: Pipeline(plugins: [MyPlugin()], formatter: BasicFormatter(), t
 
 ```
 
-## Customization
+### Custom Formatter
 
-### CustomTarget
+// TODO:
+
+### Custom Target
 
 We can create customized `Target`
 
@@ -200,7 +165,7 @@ open class ConsoleTarget: Target {
 }
 ```
 
-### CustomBuffer
+### Custom Buffer
 
 We can create customized `Buffer`.
 
