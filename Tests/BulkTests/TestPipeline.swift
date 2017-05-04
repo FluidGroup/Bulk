@@ -21,6 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+import Dispatch
+
 import XCTest
 
 @testable import Bulk
@@ -105,7 +108,7 @@ class TestPipeline: XCTestCase {
       g.leave()
     }
     
-    g.wait()  
+    g.wait()
     
     XCTAssert(target.results.count == 5)
   }

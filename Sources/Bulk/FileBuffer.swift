@@ -98,10 +98,8 @@ public final class FileBuffer: Buffer {
       return lines
       
     } catch {
-      
-      let nsError = error as NSError
-      
-      if nsError.code == NSFileReadNoSuchFileError {
+             
+      if error._code == NSFileReadNoSuchFileError {
         return []
       }
       
