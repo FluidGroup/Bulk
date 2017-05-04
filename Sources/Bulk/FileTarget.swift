@@ -32,7 +32,7 @@ open class FileTarget: Target {
     
     // TODO: ~/ => /Users/FooBar
     
-    self.fileURL = URL(fileURLWithPath: filePath).appendingPathComponent("Bulk.log", isDirectory: false).standardized
+    self.fileURL = URL(fileURLWithPath: filePath).standardized
   }
   
   deinit {

@@ -38,6 +38,10 @@ public class Pipeline {
     self.formatter = formatter
     self.target = target
     self.buffer = buffer
+    
+    if let buffer = buffer {
+      target.write(formatted: buffer.purge())
+    }
   }
   
   deinit {

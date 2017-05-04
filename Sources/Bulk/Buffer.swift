@@ -27,9 +27,3 @@ public protocol Buffer {
   func write(formatted string: String) -> [String]
   func purge() -> [String]
 }
-
-/*
-public struct FileBuffer {
-  
-}
- */

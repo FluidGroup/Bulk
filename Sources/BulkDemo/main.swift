@@ -29,7 +29,7 @@ func basic() {
       plugins: [],
       formatter: BasicFormatter(),
       buffer: nil,
-      target: FileTarget(filePath: "/Users/muukii/Desktop")
+      target: FileTarget(filePath: "/Users/muukii/Desktop/bulk.log")
     )
   )
   
@@ -59,20 +59,30 @@ func buffer() {
   
   let log = Logger()
   
+//  log.add(pipeline:
+//    Pipeline(
+//      plugins: [],
+//      formatter: BasicFormatter(),
+//      buffer: MemoryBuffer(size: 4),
+//      target: ConsoleTarget()
+//    )
+//  )
+  
   log.add(pipeline:
     Pipeline(
       plugins: [],
       formatter: BasicFormatter(),
-      buffer: MemoryBuffer(size: 4),
+      buffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
       target: ConsoleTarget()
     )
   )
   
-  for i in 0..<20 {
+  for i in 0..<23 {
     log.debug(i)
     print("---")
   }
   
 }
 
+//basic()
 buffer()
