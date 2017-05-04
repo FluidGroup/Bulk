@@ -25,6 +25,10 @@ import Foundation
 
 public final class FileBuffer: Buffer {
   
+  public var hasSpace: Bool {
+    return lineCount() < size
+  }
+  
   private let fileManager = FileManager.default
   public let fileURL: URL
   private var fileHandle: FileHandle?

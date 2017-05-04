@@ -24,6 +24,7 @@
 import Foundation
 
 public protocol Buffer {
+  var hasSpace: Bool { get }
   func write(formatted string: String) -> [String]
   func purge() -> [String]
 }

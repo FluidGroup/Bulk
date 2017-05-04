@@ -25,6 +25,10 @@ import Foundation
 
 public final class MemoryBuffer: Buffer {
   
+  public var hasSpace: Bool {
+    return cursor < size
+  }
+  
   var buffer: [String]
   let size: Int
   let lock = NSRecursiveLock()

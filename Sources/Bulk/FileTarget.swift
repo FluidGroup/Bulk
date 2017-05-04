@@ -39,7 +39,7 @@ open class FileTarget: Target {
     fileHandle?.closeFile()
   }
   
-  open func write(formatted strings: [String]) {
+  open func write(formatted strings: [String], completion: @escaping () -> Void) {
     
     strings.forEach { string in
       
@@ -68,6 +68,8 @@ open class FileTarget: Target {
         print("[Bulk] Failed to write log : \(error)")
       }
     }
+    
+    completion()
     
   }
 }

@@ -19,7 +19,8 @@ func basic() {
         MyPlugin()
       ],
       formatter: BasicFormatter(),
-      buffer: nil,
+      bulkBuffer: nil,
+      writeBuffer: nil,
       target: ConsoleTarget()
     )
   )
@@ -28,7 +29,8 @@ func basic() {
     Pipeline(
       plugins: [],
       formatter: BasicFormatter(),
-      buffer: nil,
+      bulkBuffer: nil,
+      writeBuffer: nil,
       target: FileTarget(filePath: "/Users/muukii/Desktop/bulk.log")
     )
   )
@@ -39,7 +41,8 @@ func basic() {
         MyPlugin(),
         ],
       formatter: BasicFormatter(),
-      buffer: nil,
+      bulkBuffer: nil,
+      writeBuffer: nil,
       target: ConsoleTarget(),
       queue: DispatchQueue.global()
     )
@@ -55,34 +58,55 @@ func basic() {
   
 }
 
+class AsyncConsoleTarget: Target {
+  
+  init() {
+    
+  }
+  
+  func write(formatted strings: [String], completion: @escaping () -> Void) {
+    DispatchQueue.global(qos: .utility).async {
+      strings.forEach {
+        print($0)
+      }
+      completion()
+    }
+  }
+}
+
+
 func buffer() {
   
   let log = Logger()
-  
-//  log.add(pipeline:
-//    Pipeline(
-//      plugins: [],
-//      formatter: BasicFormatter(),
-//      buffer: MemoryBuffer(size: 4),
-//      target: ConsoleTarget()
-//    )
-//  )
   
   log.add(pipeline:
     Pipeline(
       plugins: [],
       formatter: BasicFormatter(),
-      buffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
+      bulkBuffer: MemoryBuffer(size: 2),
+      writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
       target: ConsoleTarget()
     )
   )
+  
+//  log.add(pipeline:
+//    AsyncPipeline(
+//      plugins: [],
+//      formatter: BasicFormatter(),
+//      bulkBuffer: MemoryBuffer(size: 2),
+//      writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
+//      target: AsyncConsoleTarget(),
+//      queue: DispatchQueue.init(label: "me.muukii.balk")
+//    )
+//  )
   
   for i in 0..<23 {
     log.debug(i)
     print("---")
   }
-  
 }
 
 //basic()
 buffer()
+
+sleep(3)

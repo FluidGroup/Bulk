@@ -23,5 +23,5 @@
 import Foundation
 
 public protocol Target {
-  func write(formatted strings: [String])
+  func write(formatted strings: [String], completion: @escaping () -> Void)
 }
