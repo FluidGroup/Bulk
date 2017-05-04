@@ -88,7 +88,7 @@ public class Pipeline {
       isWritingTarget = true
       
       let group = DispatchGroup()
-      
+
       group.enter()
       
       target.write(formatted: r, completion: {
@@ -109,7 +109,6 @@ public class Pipeline {
       for _r in r {
         _ = writeBuffer.write(formatted: _r)
       }
-    }
-    
+    }    
   }
 }
