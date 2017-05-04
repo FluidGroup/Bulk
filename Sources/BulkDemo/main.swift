@@ -97,11 +97,11 @@ import Dispatch
     //  )
     
     for i in 0..<23 {
-      log.debug(i)
+      log.debug("\(i)\n\(i)")
       print("---")
     }
   }
-  
+    
   //basic()
 buffer()
   
