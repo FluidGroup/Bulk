@@ -28,7 +28,7 @@ public final class AsyncPipeline: Pipeline {
   
   public let queue: DispatchQueue
   
-  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer?, writeBuffer: Buffer?, target: Target, queue: DispatchQueue) {
+  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer = NoBuffer(), writeBuffer: Buffer = NoBuffer(), target: Target, queue: DispatchQueue) {
     self.queue = queue
     super.init(plugins: plugins, formatter: formatter, bulkBuffer: bulkBuffer, writeBuffer: writeBuffer, target: target)
   }

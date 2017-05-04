@@ -19,8 +19,6 @@ func basic() {
         MyPlugin()
       ],
       formatter: BasicFormatter(),
-      bulkBuffer: nil,
-      writeBuffer: nil,
       target: ConsoleTarget()
     )
   )
@@ -29,8 +27,6 @@ func basic() {
     Pipeline(
       plugins: [],
       formatter: BasicFormatter(),
-      bulkBuffer: nil,
-      writeBuffer: nil,
       target: FileTarget(filePath: "/Users/muukii/Desktop/bulk.log")
     )
   )
@@ -41,8 +37,6 @@ func basic() {
         MyPlugin(),
         ],
       formatter: BasicFormatter(),
-      bulkBuffer: nil,
-      writeBuffer: nil,
       target: ConsoleTarget(),
       queue: DispatchQueue.global()
     )

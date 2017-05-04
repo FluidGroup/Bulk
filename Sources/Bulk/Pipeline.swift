@@ -38,12 +38,12 @@ public class Pipeline {
   
   public var isWritingTarget: Bool = false
   
-  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer?, writeBuffer: Buffer?, target: Target) {
+  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer = NoBuffer(), writeBuffer: Buffer = NoBuffer(), target: Target) {
     self.plugins = plugins
     self.formatter = formatter
     self.target = target
-    self.bulkBuffer = bulkBuffer ?? NoBuffer()
-    self.writeBuffer = writeBuffer ?? NoBuffer()
+    self.bulkBuffer = bulkBuffer
+    self.writeBuffer = writeBuffer
     
     loadBuffer()
   }
