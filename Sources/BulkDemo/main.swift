@@ -75,26 +75,26 @@ import Dispatch
     
     let log = Logger()
     
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        formatter: BasicFormatter(),
-        bulkBuffer: MemoryBuffer(size: 2),
-        writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
-        target: ConsoleTarget()
-      )
-    )
+//    log.add(pipeline:
+//      Pipeline(
+//        plugins: [],
+//        formatter: BasicFormatter(),
+//        bulkBuffer: MemoryBuffer(size: 2),
+//        writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
+//        target: ConsoleTarget()
+//      )
+//    )
     
-    //  log.add(pipeline:
-    //    AsyncPipeline(
-    //      plugins: [],
-    //      formatter: BasicFormatter(),
-    //      bulkBuffer: MemoryBuffer(size: 2),
-    //      writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
-    //      target: AsyncConsoleTarget(),
-    //      queue: DispatchQueue.init(label: "me.muukii.balk")
-    //    )
-    //  )
+      log.add(pipeline:
+        AsyncPipeline(
+          plugins: [],
+          formatter: BasicFormatter(),
+          bulkBuffer: MemoryBuffer(size: 2),
+          writeBuffer: FileBuffer(size: 4, filePath: "/Users/muukii/Desktop/bulk-buffer.log"),
+          target: AsyncConsoleTarget(),
+          queue: DispatchQueue.init(label: "me.muukii.balk")
+        )
+      )
     
     for i in 0..<23 {
       log.debug("\(i)\n\(i)")
