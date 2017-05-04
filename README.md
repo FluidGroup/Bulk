@@ -229,6 +229,18 @@ let package = Package(
 )
 ```
 
+# Development
+
+## Ubuntu
+
+Use docker
+
+```sh
+$ cd /path/to/Bulk
+$ docker run --rm -it --name swift -v $PWD:/local/dev --workdir "/local/dev" swift:3.1 /bin/bash
+$ swift build
+```
+
 # LICENSE
 
 Bulk Framework is released under the MIT License.
