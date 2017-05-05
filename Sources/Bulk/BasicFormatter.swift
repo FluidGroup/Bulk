@@ -36,7 +36,7 @@ public struct BasicFormatter: Formatter {
   public let dateFormatter: DateFormatter
   
   public var levelString = LevelString()
-  
+    
   public init() {
     
     let formatter = DateFormatter()
@@ -59,9 +59,9 @@ public struct BasicFormatter: Formatter {
     
     let timestamp = dateFormatter.string(from: log.date)
     
-    let file = URL(string: log.file.description)
+    let file = URL(string: log.file.description)?.deletingPathExtension()
     
-    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "???") \(log.function) :: \(log.line) > \(log.body)"
+    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "???").\(log.function):\(log.line) \(log.body)"
     
     return string
   }
