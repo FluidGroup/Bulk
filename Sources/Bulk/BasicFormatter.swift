@@ -1,5 +1,5 @@
 //
-// Formatter.swift
+// BasicFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,7 +23,34 @@
 
 import Foundation
 
-public protocol Formatter {
+public struct BasicFormatter: Formatter {
   
-  func format(log: Log) -> String
+  public let dateFormatter: DateFormatter
+  
+  public init() {
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    self.dateFormatter = formatter
+    
+  }
+  
+  public func format(log: Log) -> String {
+    
+    let level: String = {
+      switch log.level {
+      case .verbose: return "[VERBOSE]"
+      case .debug: return "[DEBUG]"
+      case .info: return "[INFO]"
+      case .warn: return "[WARN]"
+      case .error: return "[ERROR]"
+      }
+    }()
+    
+    let timestamp = dateFormatter.string(from: log.date)
+    
+    let string = "[\(timestamp)] \(String(log.file.characters.suffix(50))) \(log.function):\(log.line) \(level) \(log.body)"
+    
+    return string
+  }
 }

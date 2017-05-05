@@ -1,5 +1,5 @@
 //
-// Formatter.swift
+// AnyFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,7 +23,15 @@
 
 import Foundation
 
-public protocol Formatter {
+public struct AnyFormatter: Formatter {
   
-  func format(log: Log) -> String
+  let format: (Log) -> String
+  
+  public init(format: @escaping (Log) -> String) {
+    self.format = format
+  }
+  
+  public func format(log: Log) -> String {
+    return format(log)
+  }
 }
