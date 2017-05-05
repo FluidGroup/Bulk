@@ -25,12 +25,22 @@ import Foundation
 
 public struct BasicFormatter: Formatter {
   
+  public struct LevelString {
+    public var verbose = "[VERBOSE]"
+    public var debug = "[DEBUG]"
+    public var info = "[INFO]"
+    public var warn = "[WARN]"
+    public var error = "[ERROR]"
+  }
+  
   public let dateFormatter: DateFormatter
+  
+  public var levelString = LevelString()
   
   public init() {
     
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
     self.dateFormatter = formatter
     
   }
@@ -39,17 +49,19 @@ public struct BasicFormatter: Formatter {
     
     let level: String = {
       switch log.level {
-      case .verbose: return "[VERBOSE]"
-      case .debug: return "[DEBUG]"
-      case .info: return "[INFO]"
-      case .warn: return "[WARN]"
-      case .error: return "[ERROR]"
+      case .verbose: return levelString.verbose
+      case .debug: return levelString.debug
+      case .info: return levelString.info
+      case .warn: return levelString.warn
+      case .error: return levelString.error
       }
     }()
     
     let timestamp = dateFormatter.string(from: log.date)
     
-    let string = "[\(timestamp)] \(String(log.file.characters.suffix(50))) \(log.function):\(log.line) \(level) \(log.body)"
+    let file = URL(string: log.file.description)
+    
+    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "???") \(log.function) :: \(log.line) > \(log.body)"
     
     return string
   }

@@ -54,7 +54,7 @@ public final class Logger {
   // MARK: - Functions
   
   @inline(__always)
-  private func _write(level: Level, _ items: [Any], file: String = #file, function: String = #function, line: Int = #line) {
+  private func _write(level: Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     
     let now = Date()
     
@@ -67,32 +67,32 @@ public final class Logger {
     }
   }
   
-  public func write(level: Level, _ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func write(level: Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
   
   /// Verbose
-  public func verbose(_ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func verbose(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .verbose, items, file: file, function: function, line: line)
   }
   
   /// Debug
-  public func debug(_ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func debug(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .debug, items, file: file, function: function, line: line)
   }
 
   /// Info
-  public func info(_ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func info(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .info, items, file: file, function: function, line: line)
   }
 
   /// Warning
-  public func warn(_ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func warn(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .warn, items, file: file, function: function, line: line)
   }
 
   /// Error
-  public func error(_ items: Any..., file: String = #file, function: String = #function, line: Int = #line) {
+  public func error(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .error, items, file: file, function: function, line: line)
   }
   

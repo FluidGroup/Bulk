@@ -28,8 +28,8 @@ public struct Log {
   public var level: Logger.Level
   public var date: Date
   public var body: String
-  public var file: String
-  public var function: String
-  public var line: Int
+  public var file: StaticString
+  public var function: StaticString
+  public var line: UInt
   
 }
