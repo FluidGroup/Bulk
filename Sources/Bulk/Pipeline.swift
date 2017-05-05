@@ -125,6 +125,8 @@ public class Pipeline {
     
     lock.lock(); defer { lock.unlock() }
     
+    timer?.tap()
+    
     guard r.isEmpty == false else { return }
     
     if isWritingTarget == false {
