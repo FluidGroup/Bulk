@@ -24,7 +24,7 @@
 import Foundation
 
 public protocol Buffer {
-  
+    
   ///
   var hasSpace: Bool { get }
   

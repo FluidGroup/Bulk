@@ -28,22 +28,33 @@ public final class AsyncPipeline: Pipeline {
   
   public let queue: DispatchQueue
   
-  public init(plugins: [Plugin], formatter: Formatter, bulkBuffer: Buffer = NoBuffer(), writeBuffer: Buffer = NoBuffer(), target: Target, queue: DispatchQueue) {
-            
-    self.queue = DispatchQueue(label: "me.muukii.bulk.asyncpipeline", qos: .background, target: queue)
-    super.init(plugins: plugins, formatter: formatter, bulkBuffer: bulkBuffer, writeBuffer: writeBuffer, target: target)
+  public init(
+    plugins: [Plugin],
+    formatter: Formatter,
+    bulkConfiguration: BulkConfiguration? = nil,
+    targetConfiguration: TargetConfiguration,
+    queue: DispatchQueue
+    ) {
+    
+    self.queue = queue
+    super.init(
+      plugins: plugins,
+      formatter: formatter,
+      bulkConfiguration: bulkConfiguration,
+      targetConfiguration: targetConfiguration
+    )
   }
   
   override func write(log: Log) {
     
-    queue.async {
+    queue.async(flags: .barrier) {
       super.write(log: log)
     }
   }
   
   override func loadBuffer() {
     
-    queue.async {
+    queue.async(flags: .barrier) {
       super.loadBuffer()
     }
   }

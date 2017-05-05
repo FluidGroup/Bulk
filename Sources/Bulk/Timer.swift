@@ -1,5 +1,5 @@
 //
-// Mocks.swift
+// Timer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,31 +22,38 @@
 // THE SOFTWARE.
 
 import Foundation
+import Dispatch
 
-@testable import Bulk
-
-class TestTarget: Target {
+final class Timer {
   
-  var writeCompletedCount = 0
+  let interval: DispatchTimeInterval
+  let queue: DispatchQueue
+  private let timeouted: () -> Void
   
-  var writed: () -> Void = { _ in }
+  private var item: DispatchWorkItem?
   
-  var results: [String] = []
-  
-  func write(formatted strings: [String], completion: @escaping () -> Void) {
-    results += strings
-    completion()
-    writeCompletedCount += 1
-    writed()
+  init(interval: DispatchTimeInterval, queue: DispatchQueue, timeouted: @escaping () -> Void) {
+    self.interval = interval
+    self.queue = queue
+    self.timeouted = timeouted
+    
+    refresh()
   }
-}
-
-class TestFormatter: Bulk.Formatter {
   
-  var formattedCount = 0
-  
-  func format(log: Log) -> String {
-    formattedCount += 1
-    return log.body
+  func tap() {
+    refresh()
   }
+  
+  private func refresh() {
+    
+    self.item?.cancel()
+    
+    let _item = DispatchWorkItem(qos: .background, flags: []) {
+      self.timeouted()
+    }
+    
+    queue.asyncAfter(deadline: .now() + interval, execute: _item)
+    self.item = _item
+  }
+  
 }
