@@ -24,23 +24,6 @@ import Foundation
 
 public final class Logger {
   
-  // MARK: - Nested types
-  
-  /// Logging Level
-  ///
-  /// - vebose: Verbose
-  /// - debug: Debug
-  /// - info: Info
-  /// - warn: Warn
-  /// - error: Error
-  public enum Level {
-    case verbose
-    case debug
-    case info
-    case warn
-    case error
-  }
-  
   // MARK: - Properties
   
   private(set) public var pipelines: [Pipeline] = []
@@ -54,20 +37,20 @@ public final class Logger {
   // MARK: - Functions
   
   @inline(__always)
-  private func _write(level: Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  private func _write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     
     let now = Date()
     
     let body = items.map { String(describing: $0) }.joined(separator: " ")
     
-    let log = Log(level: level, date: now, body: body, file: file, function: function, line: line)
+    let log = Log(level: level, date: now, body: body, file: file, function: function, line: line, isActive: true)
     
     pipelines.forEach { target in
       target.write(log: log)
     }
   }
   
-  public func write(level: Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  public func write(level: Log.Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
   

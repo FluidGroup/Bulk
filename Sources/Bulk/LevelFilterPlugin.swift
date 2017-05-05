@@ -1,5 +1,5 @@
 //
-// Plugin.swift
+// LevelFilterPlugin.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,7 +23,21 @@
 
 import Foundation
 
-public protocol Plugin {
+/// Filter for Log.Level
+public struct LevelFilterPlugin: Plugin {
   
-  func apply(log: Log) -> Log
+  public let ignoreLevels: [Log.Level]
+  
+  public init(ignoreLevels: [Log.Level]) {
+    self.ignoreLevels = ignoreLevels
+  }
+  
+  public func apply(log: Log) -> Log {
+    if ignoreLevels.contains(log.level) {
+      var log = log
+      log.isActive = false
+      return log
+    }
+    return log
+  }
 }

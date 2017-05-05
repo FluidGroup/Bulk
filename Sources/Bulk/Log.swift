@@ -25,11 +25,29 @@ import Foundation
 
 public struct Log {
   
-  public var level: Logger.Level
+  /// Logging Level
+  ///
+  /// - vebose: Verbose
+  /// - debug: Debug
+  /// - info: Info
+  /// - warn: Warn
+  /// - error: Error
+  public enum Level {
+    case verbose
+    case debug
+    case info
+    case warn
+    case error
+  }
+  
+  public var level: Log.Level
   public var date: Date
   public var body: String
   public var file: StaticString
   public var function: StaticString
   public var line: UInt
+  
+  /// Whether send to Target
+  public var isActive: Bool = true
   
 }

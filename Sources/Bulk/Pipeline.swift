@@ -110,11 +110,16 @@ public class Pipeline {
     
     lock.lock(); defer { lock.unlock() }
     
-    let result = plugins.reduce(log) { log, plugin in
-      plugin.map(log: log)
+    let appliedLog = plugins
+      .reduce(log) { log, plugin in
+        plugin.apply(log: log)
     }
     
-    let formatted = formatter.format(log: result)
+    guard appliedLog.isActive == true else {
+      return
+    }
+    
+    let formatted = formatter.format(log: appliedLog)
     
     let r = bulkBuffer.write(formatted: formatted)
     
