@@ -47,7 +47,7 @@ public final class FileBuffer: Buffer {
     fileHandle?.closeFile()
   }
   
-  public func write(log: Log) -> [Log] {
+  public func write(log: Log) -> BufferResult {
     
     do {
       
@@ -78,9 +78,9 @@ public final class FileBuffer: Buffer {
     }
     
     if lineCount() == size {
-      return purge()
+      return .flowed(purge())
     } else {
-      return []
+      return .stored
     }
   }
   

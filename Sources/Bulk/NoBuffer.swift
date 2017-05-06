@@ -31,8 +31,8 @@ public struct NoBuffer: Buffer {
   
   public init() { }
   
-  public func write(log: Log) -> [Log] {
-    return [log]
+  public func write(log: Log) -> BufferResult {
+    return .flowed([log])
   }
   
   public func purge() -> [Log] {

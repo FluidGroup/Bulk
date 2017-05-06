@@ -155,9 +155,12 @@ public class Pipeline {
       return
     }
     
-    let r = bulkBuffer.write(log: appliedLog)
-    
-    __write(r)
+    switch bulkBuffer.write(log: appliedLog) {
+    case .flowed(let logs):
+      __write(logs)
+    case .stored:
+      break
+    }
   }
   
   private func __write(_ r: [Log]) {

@@ -38,16 +38,16 @@ public final class MemoryBuffer: Buffer {
     self.buffer = [Log?].init(repeating: nil, count: size)
   }
   
-  public func write(log: Log) -> [Log] {
+  public func write(log: Log) -> BufferResult {
     
     buffer[cursor] = .some(log)
     
     cursor += 1
     
     if cursor == size {
-      return purge()
+      return .flowed(purge())
     } else {
-      return []
+      return .stored
     }
   }
   
