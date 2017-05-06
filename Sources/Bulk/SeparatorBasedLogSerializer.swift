@@ -1,5 +1,5 @@
 //
-// SeparatorLogSerializer.swift
+// SeparatorBasedLogSerializer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct SeparatorLogSerializer: LogSerializer {
+public struct SeparatorBasedLogSerializer: LogSerializer {
   
   public enum Error: Swift.Error {
     case serializedDataIsBroken
@@ -36,24 +36,29 @@ public struct SeparatorLogSerializer: LogSerializer {
     case file = 3
     case function = 4
     case line = 5
+    case isActive = 6
   }
   
   public typealias SerializedType = String
   
-  public init() {}
+  public let separator: Character
+  
+  public init(separator: Character = "\t") {
+    self.separator = separator
+  }
   
   public func deserialize(source: String) throws -> Log {
-
-    let s = source.characters.split(separator: "\t").map { String($0) }
     
-    guard s.count == 6 else {
+    let s = source.characters.split(separator: separator, omittingEmptySubsequences: false).map { String($0) }
+    
+    guard s.count == 7 else {
       throw Error.serializedDataIsBroken
     }
     
     guard let level = Int(s[Position.level.rawValue]).map(Log.Level.init(__int: )) else {
       throw Error.serializedDataIsBroken
     }
-    guard let date = TimeInterval(s[Position.date.rawValue]).map(Date.init(timeIntervalSince1970: )) else {
+    guard let date = UInt64(s[Position.date.rawValue]).map(TimeInterval.init(bitPattern: )).map(Date.init(timeIntervalSinceReferenceDate: )) else {
       throw Error.serializedDataIsBroken
     }
     let body = s[Position.body.rawValue].replacingOccurrences(of: "\\n", with: "\n")
@@ -61,6 +66,10 @@ public struct SeparatorLogSerializer: LogSerializer {
     let function = s[Position.function.rawValue]
     
     guard let line = UInt(s[Position.line.rawValue]) else {
+      throw Error.serializedDataIsBroken
+    }
+    
+    guard let isActive = Int(s[Position.isActive.rawValue]).map(Bool.init(__int: )) else {
       throw Error.serializedDataIsBroken
     }
         
@@ -71,18 +80,19 @@ public struct SeparatorLogSerializer: LogSerializer {
       file: file,
       function: function,
       line: line,
-      isActive: true
+      isActive: isActive
     )
   }
   
   public func serialize(log: Log) throws -> String {
     
     let level = log.level.__int.description
-    let date = log.date.timeIntervalSince1970.description
+    let date = log.date.timeIntervalSinceReferenceDate.bitPattern.description
     let body = log.body.replacingOccurrences(of: "\n", with: "\\n")
     let file = log.file.description
     let function = log.function.description
     let line = log.line.description
+    let isActive = log.isActive.__int.description
     
     return [
       level,
@@ -91,8 +101,24 @@ public struct SeparatorLogSerializer: LogSerializer {
       file,
       function,
       line,
+      isActive,
       ]
-      .joined(separator: "\t")
+      .joined(separator: String(separator))
+  }
+}
+
+fileprivate extension Bool {
+  
+  fileprivate init(__int: Int) {
+    if __int == 1 {
+      self = true
+    } else {
+      self = false
+    }
+  }
+  
+  fileprivate var __int: Int {
+    return self ? 1 : 0
   }
 }
 

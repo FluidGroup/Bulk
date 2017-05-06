@@ -67,10 +67,12 @@
 		4B9FD1C11EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */; };
 		4B9FD1C21EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */; };
 		4B9FD1C31EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */; };
-		4BAED92C1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */; };
-		4BAED92D1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */; };
-		4BAED92E1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */; };
-		4BAED92F1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */; };
+		4BAED92C1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */; };
+		4BAED92D1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */; };
+		4BAED92E1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */; };
+		4BAED92F1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */; };
+		4BAED9311EBE38AF00430A28 /* FileBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED9301EBE38AF00430A28 /* FileBufferTests.swift */; };
+		4BAED9331EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */; };
 		4BC62ED11EBCC00700F68DFC /* BasicFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */; };
 		4BC62ED21EBCC00700F68DFC /* BasicFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */; };
 		4BC62ED31EBCC00700F68DFC /* BasicFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */; };
@@ -131,7 +133,9 @@
 		4B80E78E1EB9F30100C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B80E79B1EB9F31800C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFilterPlugin.swift; sourceTree = "<group>"; };
-		4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorLogSerializer.swift; sourceTree = "<group>"; };
+		4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorBasedLogSerializer.swift; sourceTree = "<group>"; };
+		4BAED9301EBE38AF00430A28 /* FileBufferTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBufferTests.swift; sourceTree = "<group>"; };
+		4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorBasedLogSerializerTests.swift; sourceTree = "<group>"; };
 		4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicFormatter.swift; sourceTree = "<group>"; };
 		4BC62ED51EBCC01600F68DFC /* AnyFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyFormatter.swift; sourceTree = "<group>"; };
 		4BDA35E11EB9ACCB00B93628 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 				4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */,
 				4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */,
 				4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */,
+				4BAED9301EBE38AF00430A28 /* FileBufferTests.swift */,
+				4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */,
 			);
 			path = BulkTests;
 			sourceTree = "<group>";
@@ -271,7 +277,7 @@
 				4BE5D6951EBE158200D1282F /* NSLogTarget.swift */,
 				4BDA35E51EB9ACD500B93628 /* FileTarget.swift */,
 				4B6618821EBE1A350052F4A5 /* LogSerializer.swift */,
-				4BAED92B1EBE2E6400430A28 /* SeparatorLogSerializer.swift */,
+				4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */,
 				4BDA35ED1EB9E72E00B93628 /* Formatter.swift */,
 				4BC62ED51EBCC01600F68DFC /* AnyFormatter.swift */,
 				4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */,
@@ -504,6 +510,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */,
+				4BAED9331EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift in Sources */,
+				4BAED9311EBE38AF00430A28 /* FileBufferTests.swift in Sources */,
 				4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */,
 				4B1C72241EBBA9BA008AA3FC /* AsyncPipelineTests.swift in Sources */,
 				4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */,
@@ -531,7 +539,7 @@
 				4B1C721E1EBBA1B6008AA3FC /* Timer.swift in Sources */,
 				4B80E7A71EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7A91EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
-				4BAED92D1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */,
+				4BAED92D1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7A61EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
@@ -558,7 +566,7 @@
 				4B1C721F1EBBA1B6008AA3FC /* Timer.swift in Sources */,
 				4B80E7B01EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7B21EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
-				4BAED92E1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */,
+				4BAED92E1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7AF1EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7AC1EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
@@ -585,7 +593,7 @@
 				4B1C72201EBBA1B6008AA3FC /* Timer.swift in Sources */,
 				4B80E7B91EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7BB1EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
-				4BAED92F1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */,
+				4BAED92F1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7B81EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7B51EB9F40700C9BE63 /* Logger.swift in Sources */,
 			);
@@ -612,7 +620,7 @@
 				4B1C721D1EBBA1B6008AA3FC /* Timer.swift in Sources */,
 				4BDA35E61EB9ACD500B93628 /* FileTarget.swift in Sources */,
 				4BDA35E81EB9ADA800B93628 /* Plugin.swift in Sources */,
-				4BAED92C1EBE2E6400430A28 /* SeparatorLogSerializer.swift in Sources */,
+				4BAED92C1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4BDA35EE1EB9E72E00B93628 /* Formatter.swift in Sources */,
 				OBJ_21 /* Logger.swift in Sources */,
 			);

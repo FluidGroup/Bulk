@@ -34,7 +34,7 @@ public final class FileBuffer: Buffer {
   private var fileHandle: FileHandle?
   public let size: Int
   
-  private let serializer = SeparatorLogSerializer()
+  private let serializer = SeparatorBasedLogSerializer()
   
   public init(size: Int, filePath: String) {
     // TODO: ~/ => /Users/FooBar
@@ -96,7 +96,7 @@ public final class FileBuffer: Buffer {
         cursor += 1
       }
       
-      let logs = try serializedLines.map(serializer.deserialize(source: ))
+      let logs = serializedLines.map { try? serializer.deserialize(source: $0) }.flatMap { $0 }
 
       fileHandle?.closeFile()
       fileHandle = nil
