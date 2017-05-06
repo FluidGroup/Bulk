@@ -26,5 +26,5 @@ public protocol Target {
   
   associatedtype FormatType
   
-  func write(formatted strings: [FormatType], completion: @escaping () -> Void)
+  func write(formatted items: [FormatType], completion: @escaping () -> Void)
 }

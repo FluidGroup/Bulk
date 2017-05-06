@@ -31,8 +31,8 @@ open class NSLogTarget: Target {
     
   }
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
+  open func write(formatted items: [String], completion: @escaping () -> Void) {
+    items.forEach {
       NSLog($0)
     }
     

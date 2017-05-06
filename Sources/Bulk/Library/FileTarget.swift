@@ -41,11 +41,11 @@ open class FileTarget: Target {
     fileHandle?.closeFile()
   }
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
+  open func write(formatted items: [String], completion: @escaping () -> Void) {
     
     lock.lock(); defer { lock.unlock() }
     
-    strings.forEach { string in
+    items.forEach { string in
       
       do {
         if fileManager.fileExists(atPath: fileURL.path) == false {
