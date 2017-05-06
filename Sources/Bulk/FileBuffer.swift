@@ -34,6 +34,8 @@ public final class FileBuffer: Buffer {
   private var fileHandle: FileHandle?
   public let size: Int
   
+  private let serializer = SeparatorLogSerializer()
+  
   public init(size: Int, filePath: String) {
     // TODO: ~/ => /Users/FooBar
     
@@ -45,11 +47,13 @@ public final class FileBuffer: Buffer {
     fileHandle?.closeFile()
   }
   
-  public func write(formatted string: String) -> [String] {
+  public func write(log: Log) -> [Log] {
     
     do {
       
-      let line = string.replacingOccurrences(of: "\n", with: "\\n") + "\n"
+      let s = try serializer.serialize(log: log)
+      
+      let line = s + "\n"
       
       if fileManager.fileExists(atPath: fileURL.path) == false {
         // create file if not existing
@@ -80,23 +84,25 @@ public final class FileBuffer: Buffer {
     }
   }
   
-  public func purge() -> [String] {
+  public func purge() -> [Log] {
+    
     var cursor = 0
-    var lines = [String].init(repeating: "", count: lineCount())
+    var serializedLines = [String].init(repeating: "", count: lineCount())
     
     do {
+      
       try String(contentsOf: fileURL).enumerateLines { l, _ in
-        lines[cursor] = l
+        serializedLines[cursor] = l
         cursor += 1
       }
+      
+      let logs = try serializedLines.map(serializer.deserialize(source: ))
 
       fileHandle?.closeFile()
       fileHandle = nil
       try fileManager.removeItem(at: fileURL)
       
-      return lines.map {
-        $0.replacingOccurrences(of: "\\n", with: "\n")
-      }
+      return logs
       
     } catch {
              

@@ -39,8 +39,7 @@ class PipelineTests: XCTestCase {
     log.add(pipeline:
       Pipeline(
         plugins: [],
-        formatter: TestFormatter(),
-        targetConfiguration: .init(target: target)
+        targetConfiguration: .init(formatter: TestFormatter(), target: target)
       )
     )
     
@@ -63,55 +62,24 @@ class PipelineTests: XCTestCase {
     log.add(pipeline:
       Pipeline(
         plugins: [],
-        formatter: TestFormatter(),
-        targetConfiguration: .init(target: target)
+        targetConfiguration: .init(formatter: TestFormatter(), target: target)
       )
     )
     
     let g = DispatchGroup()
     
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
+    for i in 0..<10 {
       
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
+      g.enter()
       
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
-      g.leave()
-    }
-    
-    g.enter()
-    
-    DispatchQueue.global(qos: .background).async {
-      log.debug("E")
-      
-      g.leave()
+      DispatchQueue.global().async {
+        log.debug(i)
+        g.leave()
+      }
     }
     
     g.wait()
     
-    XCTAssert(target.results.count == 5)
+    XCTAssertEqual(target.results.count, 10)
   }
 }

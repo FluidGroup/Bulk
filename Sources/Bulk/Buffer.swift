@@ -32,10 +32,10 @@ public protocol Buffer {
   ///
   /// - Parameter string:
   /// - Returns: 
-  func write(formatted string: String) -> [String]
+  func write(log: Log) -> [Log]
   
   /// Purge buffered items
   ///
   /// - Returns: purged items
-  func purge() -> [String]
+  func purge() -> [Log]
 }

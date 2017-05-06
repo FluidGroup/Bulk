@@ -28,18 +28,16 @@ public final class AsyncPipeline: Pipeline {
   
   public let queue: DispatchQueue
   
-  public init(
+  public init<F: Formatter, T: Target>(
     plugins: [Plugin],
-    formatter: Formatter,
     bulkConfiguration: BulkConfiguration? = nil,
-    targetConfiguration: TargetConfiguration,
+    targetConfiguration: TargetConfiguration<F, T>,
     queue: DispatchQueue
-    ) {
+    ) where F.FormatType == T.FormatType {
     
     self.queue = queue
     super.init(
       plugins: plugins,
-      formatter: formatter,
       bulkConfiguration: bulkConfiguration,
       targetConfiguration: targetConfiguration
     )

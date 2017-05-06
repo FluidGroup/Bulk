@@ -25,5 +25,7 @@ import Foundation
 
 public protocol Formatter {
   
-  func format(log: Log) -> String
+  associatedtype FormatType
+  
+  func format(log: Log) -> FormatType
 }

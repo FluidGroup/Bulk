@@ -1,5 +1,5 @@
 //
-// MemoryBuffer.swift
+// LogSerializer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,40 +23,10 @@
 
 import Foundation
 
-public final class MemoryBuffer: Buffer {
+public protocol LogSerializer {
   
-  public var hasSpace: Bool {
-    return cursor < size
-  }
+  associatedtype SerializedType
   
-  var buffer: [Log?]
-  let size: Int
-  var cursor: Int = 0
-  
-  public init(size: Int) {
-    self.size = size
-    self.buffer = [Log?].init(repeating: nil, count: size)
-  }
-  
-  public func write(log: Log) -> [Log] {
-    
-    buffer[cursor] = .some(log)
-    
-    cursor += 1
-    
-    if cursor == size {
-      return purge()
-    } else {
-      return []
-    }
-  }
-  
-  public func purge() -> [Log] {
-    let _buffer = buffer
-    for i in 0..<size {
-      buffer[i] = nil
-    }
-    cursor = 0
-    return _buffer.flatMap { $0 }
-  }
+  func serialize(log: Log) throws -> SerializedType
+  func deserialize(source: SerializedType) throws -> Log
 }

@@ -39,26 +39,23 @@ public class Pipeline {
     }
   }
   
-  public struct TargetConfiguration {
-    public let buffer: Buffer
-    public let target: Target
+  public struct TargetConfiguration<F: Formatter, T: Target> where F.FormatType == T.FormatType {
     
-    /// Init
-    ///
-    /// - Parameters:
-    ///   - target: output Target
-    ///   - buffer: default is NoBuffer()
-    public init(target: Target, buffer: Buffer = NoBuffer()) {
-      self.buffer = buffer
+    public let formatter: F
+    public let target: T
+    public let buffer: Buffer
+    
+    public init(formatter: F, target: T, buffer: Buffer = NoBuffer()) {
+      
+      self.formatter = formatter
       self.target = target
+      self.buffer = buffer
     }
   }
 
   public let plugins: [Plugin]
-  public let formatter: Formatter
   public let writeBuffer: Buffer
   public let bulkBuffer: Buffer
-  public let target: Target
   
   private let lock = NSRecursiveLock()
   
@@ -66,17 +63,19 @@ public class Pipeline {
   
   public var isWritingTarget: Bool = false
   
-  public init(
+  private var writeProcess: (([Log]) -> Void)!
+  
+  public init<F: Formatter, T: Target>(
     plugins: [Plugin],
-    formatter: Formatter,
     bulkConfiguration: BulkConfiguration? = nil,
-    targetConfiguration: TargetConfiguration
-    ) {
+    targetConfiguration: TargetConfiguration<F, T>
+    ) where F.FormatType == T.FormatType {
     
     self.plugins = plugins
-    self.formatter = formatter
-    self.target = targetConfiguration.target
     self.writeBuffer = targetConfiguration.buffer
+    
+    let formatter = targetConfiguration.formatter
+    let target = targetConfiguration.target
     
     if let c = bulkConfiguration {
       self.bulkBuffer = c.buffer
@@ -91,13 +90,50 @@ public class Pipeline {
       self.timer = nil
     }
     
+    self.writeProcess = { [weak self] r in
+      
+      guard let `self` = self else { return }
+      
+      guard r.isEmpty == false else { return }
+      
+      if self.isWritingTarget == false {
+        
+        // to Target
+        
+        self.isWritingTarget = true
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        
+        let formattedLogs = r.map(formatter.format(log: ))
+        
+        target.write(formatted: formattedLogs, completion: {
+          group.leave()
+        })
+        
+        _ = group.wait(timeout: DispatchTime.now() + .seconds(10))
+        
+        self.isWritingTarget = false
+        self.__write(self.writeBuffer.purge())
+        
+      } else {
+        
+        // to Buffer
+        
+        for _r in r {
+          _ = self.writeBuffer.write(log: _r)
+        }
+      }
+    }
+    
     loadBuffer()
   }
   
   deinit {
     
     bulkBuffer.purge().forEach {
-      _ = writeBuffer.write(formatted: $0)
+      _ = writeBuffer.write(log: $0)
     }
   }
   
@@ -119,49 +155,14 @@ public class Pipeline {
       return
     }
     
-    let formatted = formatter.format(log: appliedLog)
-    
-    let r = bulkBuffer.write(formatted: formatted)
+    let r = bulkBuffer.write(log: appliedLog)
     
     __write(r)
   }
   
-  private func __write(_ r: [String]) {
-    
+  private func __write(_ r: [Log]) {
     lock.lock(); defer { lock.unlock() }
-    
     timer?.tap()
-    
-    guard r.isEmpty == false else { return }
-    
-    if isWritingTarget == false {
-      
-      // to Target
-      
-      isWritingTarget = true
-      
-      let group = DispatchGroup()
-
-      group.enter()
-      
-      target.write(formatted: r, completion: {
-        
-        group.leave()
-        
-      })
-      
-      _ = group.wait(timeout: DispatchTime.now() + .seconds(10))
-            
-      self.isWritingTarget = false
-      self.__write(self.writeBuffer.purge())   
-      
-    } else {
-      
-      // to Buffer
-      
-      for _r in r {
-        _ = writeBuffer.write(formatted: _r)
-      }
-    }    
+    writeProcess(r)
   }
 }

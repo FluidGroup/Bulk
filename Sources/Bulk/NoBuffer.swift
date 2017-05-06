@@ -31,11 +31,11 @@ public struct NoBuffer: Buffer {
   
   public init() { }
   
-  public func write(formatted string: String) -> [String] {
-    return [string]
+  public func write(log: Log) -> [Log] {
+    return [log]
   }
   
-  public func purge() -> [String] {
+  public func purge() -> [Log] {
     return []
   }
 }
