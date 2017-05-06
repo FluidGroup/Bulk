@@ -103,7 +103,7 @@ public class Pipeline {
   
   func loadBuffer() {
     lock.lock(); defer { lock.unlock() }
-    __write(self.writeBuffer.purge())
+    __write(bulkBuffer.purge())
   }
   
   func write(log: Log) {

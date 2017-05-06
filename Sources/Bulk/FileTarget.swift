@@ -28,6 +28,8 @@ open class FileTarget: Target {
   public let fileURL: URL
   private var fileHandle: FileHandle?
   
+  private let lock = NSRecursiveLock()
+  
   public init(filePath: String) {
     
     // TODO: ~/ => /Users/FooBar
@@ -40,6 +42,8 @@ open class FileTarget: Target {
   }
   
   open func write(formatted strings: [String], completion: @escaping () -> Void) {
+    
+    lock.lock(); defer { lock.unlock() }
     
     strings.forEach { string in
       
@@ -70,7 +74,17 @@ open class FileTarget: Target {
     }
     
     completion()
-    
+  }
+  
+  open func clearFile() {
+    lock.lock(); defer { lock.unlock() }
+
+    do {
+      try fileManager.removeItem(at: fileURL)
+    } catch {
+      
+      print("[Bulk] Failed to remove file : \(error)")
+    }
   }
 }
 
