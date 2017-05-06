@@ -52,6 +52,37 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
     _fail(Log(level: .verbose, date: Date(), body: "abc\tdef", file: "", function: "", line: 0, isActive: true))
   }
   
+  func create() -> Log {
+    return Log(level: .verbose, date: Date(), body: "abc,def", file: "Sample.swift", function: "viewDidLoad()", line: 100, isActive: true)
+  }
+  
+  func testPerformance_100() {
+    
+    measure {
+      for _ in 0..<100 {
+        self._success(self.create())
+      }
+    }
+  }
+  
+  func testPerformance_1000() {
+    
+    measure {
+      for _ in 0..<1000 {
+        self._success(self.create())
+      }
+    }
+  }
+  
+  func testPerformance_10000() {
+    
+    measure {
+      for _ in 0..<10000 {
+        self._success(self.create())
+      }
+    }
+  }
+  
   func _success(_ log: Log) {
     do {
       let r = try serializer.serialize(log: log)
