@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Bulk"
-  s.version          = "0.1.0"
+  s.version          = "0.2.0"
   s.summary          = "Bulk is pipeline based powerful & flexible logging framework"
   s.homepage         = "https://github.com/muukii/Bulk"
   s.license          = 'MIT'
