@@ -33,8 +33,8 @@ class TestTarget: Target {
   
   var results: [String] = []
   
-  func write(formatted strings: [String], completion: @escaping () -> Void) {
-    results += strings
+  func write(formatted items: [String], completion: @escaping () -> Void) {
+    results += items
     completion()
     writeCompletedCount += 1
     writed()

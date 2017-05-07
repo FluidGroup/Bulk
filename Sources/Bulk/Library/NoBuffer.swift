@@ -1,5 +1,5 @@
 //
-// MemoryBuffer.swift
+// NoBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,40 +23,19 @@
 
 import Foundation
 
-public final class MemoryBuffer: Buffer {
+public struct NoBuffer: Buffer {
   
   public var hasSpace: Bool {
-    return cursor < size
+    return false
   }
   
-  var buffer: [String]
-  let size: Int
-  var cursor: Int = 0
+  public init() { }
   
-  public init(size: Int) {
-    self.size = size
-    self.buffer = [String].init(repeating: "", count: size)
+  public func write(log: Log) -> BufferResult {
+    return .flowed([log])
   }
   
-  public func write(formatted string: String) -> [String] {
-    
-    buffer[cursor] = string
-    
-    cursor += 1
-    
-    if cursor == size {
-      return purge()
-    } else {
-      return []
-    }
-  }
-  
-  public func purge() -> [String] {
-    let _buffer = buffer
-    for i in 0..<size {
-      buffer[i] = ""
-    }
-    cursor = 0
-    return _buffer.filter { $0.isEmpty == false }
+  public func purge() -> [Log] {
+    return []
   }
 }

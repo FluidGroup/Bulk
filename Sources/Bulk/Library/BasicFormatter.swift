@@ -25,6 +25,8 @@ import Foundation
 
 public struct BasicFormatter: Formatter {
   
+  public typealias FormatType = String
+  
   public struct LevelString {
     public var verbose = "[VERBOSE]"
     public var debug = "[DEBUG]"
@@ -45,7 +47,7 @@ public struct BasicFormatter: Formatter {
     
   }
   
-  public func format(log: Log) -> String {
+  public func format(log: Log) -> FormatType {
     
     let level: String = {
       switch log.level {

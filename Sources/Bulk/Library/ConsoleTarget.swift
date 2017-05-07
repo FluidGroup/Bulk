@@ -1,5 +1,4 @@
-//
-// Formatter.swift
+// ConsoleTarget.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,7 +22,17 @@
 
 import Foundation
 
-public protocol Formatter {
+open class ConsoleTarget: Target {
+    
+  public init() {
+    
+  }
   
-  func format(log: Log) -> String
+  open func write(formatted items: [String], completion: @escaping () -> Void) {
+    items.forEach {
+      print($0)
+    }
+    
+    completion()
+  }
 }

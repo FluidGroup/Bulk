@@ -19,7 +19,7 @@ It has basic functions as a *Logger*.<br>
 In addition, it can output logs in bulk.<br>
 This is useful when sending logs to a server.<br>
 
-<img width=548 src="arch.png">
+<img width=528 src="arch.png">
 
 # Usage
 
@@ -33,9 +33,11 @@ let Log = Logger()
 // Logging synchronously
 Log.add(pipeline:
   Pipeline(
-    plugins: [],
-    formatter: TestFormatter(),
-    targetConfiguration: .init(target: target)  
+    plugins: [
+      /* Some plugins */
+      /* MyPlugin() */
+    ],  
+    targetConfiguration: .init(formatter: BasicFormatter(), target: target),
   )
 )
 
@@ -43,9 +45,11 @@ Log.add(pipeline:
 
 Log.add(pipeline:
   AsyncPipeline( // <-- 😎< asynchronously
-    plugins: [],
-    formatter: TestFormatter(),
-    targetConfiguration: .init(target: target),
+    plugins: [
+      /* Some plugins */
+      /* MyPlugin() */
+    ],  
+    targetConfiguration: .init(formatter: BasicFormatter(), target: target),
     queue: .global() // <-- 🤓< Specify DispatchQueue
   )
 )
@@ -63,13 +67,22 @@ Log.verbose("a", "b", 1, 2, 3, ["a", "b"]) // => a b 1 2 3 ["a", "b"]
 
 ## Pipeline
 
+`Pipeline` perform sending `Log` from Logger to Target.
+
+**Sequence**
+📄 => Logger => [Plugin] => BulkBuffer? => WriteBuffer? => Formatter<T> => Target<T> => 📄
+
 ### Pipeline
 
-// TODO:
+`Pipeline` is basic class.
+
+Sequence perform on the queue that called Logger's method.
 
 ### AsyncPipeline
 
-// TODO:
+`AsyncPipeline` perform sequence on specified queue.
+
+📄 => Logger => **Dispatch to specified queue** => [Plugin] => BulkBuffer? => WriteBuffer? => Formatter<T> => Target<T> => 📄
 
 ## Buffer
 
@@ -95,32 +108,35 @@ if the process ends due to an exception, it will be sent to the `Target` at the 
 ### Set Buffer
 
 ```swift
-
 let Log = Logger()
 
 Log.add(pipeline:
   Pipeline(
-    plugins: [],
-    formatter: BasicFormatter(),
+    plugins: [],  
     bulkConfiguration: .init(
       buffer: MemoryBuffer(size: 10),
       timeout: .seconds(10)
     ), // Send to Target every 10 Logs.
     targetConfiguration: .init(
+      formatter: BasicFormatter(),
       target: ConsoleTarget(),
       buffer: FileBuffer(size: 40, filePath: "/path/to/bulk-buffer.log")
     ) // Wait for writing up to 40 Logs.  
   )
 )
-
 ```
+
+### if we don't need `Buffer`?
+
+It's ok.
+Use `NoBuffer`
 
 ## Customization
 
 ### Plugins
 
-```swift
 
+```swift
 class MyPlugin: Plugin {
   func map(log: Log) -> Log {
     var log = log
@@ -128,18 +144,57 @@ class MyPlugin: Plugin {
     return log
   }
 }
+```
 
+Example: Create `Log.Level` based filter.
+
+```swift
+public struct LevelFilterPlugin: Plugin {
+  
+  public let ignoreLevels: [Log.Level]
+  
+  public init(ignoreLevels: [Log.Level]) {
+    self.ignoreLevels = ignoreLevels
+  }
+  
+  public func apply(log: Log) -> Log {
+    if ignoreLevels.contains(log.level) {
+      var log = log
+      log.isActive = false
+      return log
+    }
+    return log
+  }
+}
 ```
 
 ### Custom Formatter
 
-// TODO:
+Step of `Log` -> any type
 
-Step of `Log` -> `String`
+Create customized formatter using `Formatter` protocol
+
+```swift
+public protocol Formatter {
+  
+  associatedtype FormatType
+  
+  func format(log: Log) -> FormatType
+}
+```
 
 ### Custom Target
 
-We can create customized `Target`
+Create customized target using `Target` protocol.
+
+```swift
+public protocol Target {
+  
+  associatedtype FormatType
+  
+  func write(formatted items: [FormatType], completion: @escaping () -> Void)
+}
+```
 
 Example
 
@@ -168,6 +223,24 @@ Example,
 
 Use Realm or CoreData instead of `FileBuffer`
 It will be faster than `FileBuffer` (maybe)
+
+// TODO:
+
+## Built-in Libraries
+
+- Formatters
+  - BasicFormatter
+  - RawFormatter
+
+- Targets
+  - ConsoleTarget
+  - FileTarget
+  - NSLogTarget
+  
+- Buffers
+  - NoBuffer
+  - MemoryBuffer
+  - FileBuffer (Using SeparatorBasedLogSerializer)
 
 # Installation
 

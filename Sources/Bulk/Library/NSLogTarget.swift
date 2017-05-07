@@ -1,5 +1,5 @@
 //
-// PipelineTests.swift
+// NSLogTarget.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,64 +22,22 @@
 // THE SOFTWARE.
 
 import Foundation
-import Dispatch
 
-import XCTest
+#if !os(Linux)
 
-@testable import Bulk
-
-class PipelineTests: XCTestCase {
-
-  func testBasic() {
+open class NSLogTarget: Target {
+  
+  public init() {
     
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
-      )
-    )
-    
-    log.verbose("A")
-    log.debug("B")
-    log.info("C")
-    log.warn("D")
-    log.error("E")
-    
-    XCTAssert(target.results.count == 5)
-    XCTAssert(target.results == ["A", "B", "C", "D", "E"])
   }
   
-  func testMultiThread() {
-    
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
-      )
-    )
-    
-    let g = DispatchGroup()
-    
-    for i in 0..<10 {
-      
-      g.enter()
-      
-      DispatchQueue.global().async {
-        log.debug(i)
-        g.leave()
-      }
+  open func write(formatted items: [String], completion: @escaping () -> Void) {
+    items.forEach {
+      NSLog($0)
     }
     
-    g.wait()
-    
-    XCTAssertEqual(target.results.count, 10)
+    completion()
   }
 }
+
+#endif

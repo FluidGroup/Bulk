@@ -43,7 +43,7 @@ public final class Logger {
     
     let body = items.map { String(describing: $0) }.joined(separator: " ")
     
-    let log = Log(level: level, date: now, body: body, file: file, function: function, line: line, isActive: true)
+    let log = Log(level: level, date: now, body: body, file: file.description, function: function.description, line: line, isActive: true)
     
     pipelines.forEach { target in
       target.write(log: log)

@@ -1,5 +1,5 @@
 //
-// NoBuffer.swift
+// Buffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,19 +23,24 @@
 
 import Foundation
 
-public struct NoBuffer: Buffer {
+public enum BufferResult {
+  case stored
+  case flowed([Log])
+}
+
+public protocol Buffer {
+    
+  ///
+  var hasSpace: Bool { get }
   
-  public var hasSpace: Bool {
-    return false
-  }
+  /// Buffer item
+  ///
+  /// - Parameter string:
+  /// - Returns: 
+  func write(log: Log) -> BufferResult
   
-  public init() { }
-  
-  public func write(formatted string: String) -> [String] {
-    return [string]
-  }
-  
-  public func purge() -> [String] {
-    return []
-  }
+  /// Purge buffered items
+  ///
+  /// - Returns: purged items
+  func purge() -> [Log]
 }

@@ -1,5 +1,5 @@
 //
-// NSLogTarget.swift
+// Log.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,21 +23,31 @@
 
 import Foundation
 
-#if !os(Linux)
-
-open class NSLogTarget: Target {
+public struct Log {
   
-  public init() {
-    
+  /// Logging Level
+  ///
+  /// - vebose: Verbose
+  /// - debug: Debug
+  /// - info: Info
+  /// - warn: Warn
+  /// - error: Error
+  public enum Level {
+    case verbose
+    case debug
+    case info
+    case warn
+    case error
   }
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      NSLog($0)
-    }
-    
-    completion()
-  }
+  public var level: Log.Level
+  public var date: Date
+  public var body: String
+  public var file: String
+  public var function: String
+  public var line: UInt
+  
+  /// Whether send to Target
+  public var isActive: Bool = true
+  
 }
-
-#endif

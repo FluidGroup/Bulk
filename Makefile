@@ -3,3 +3,7 @@ build:
 
 gen-xcode:
 	@swift package generate-xcodeproj
+
+.PHONY: carthage
+carthage:
+	@carthage build --no-skip-current

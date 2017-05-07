@@ -1,5 +1,5 @@
 //
-// Buffer.swift
+// RawFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,19 +23,12 @@
 
 import Foundation
 
-public protocol Buffer {
-    
-  ///
-  var hasSpace: Bool { get }
+/// For using raw `Log` `Target` 
+public struct RawFormatter {
   
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(formatted string: String) -> [String]
+  public typealias FormatType = Log
   
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [String]
+  func format(log: Log) -> FormatType {
+    return log
+  }
 }

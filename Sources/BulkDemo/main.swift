@@ -60,7 +60,7 @@ import Dispatch
       
     }
     
-    func write(formatted strings: [String], completion: @escaping () -> Void) {
+    func write(formatted items: [String], completion: @escaping () -> Void) {
       DispatchQueue.global(qos: .utility).async {
         strings.forEach {
           print($0)

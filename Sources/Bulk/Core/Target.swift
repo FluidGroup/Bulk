@@ -1,4 +1,4 @@
-// ConsoleTarget.swift
+// Target.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,17 +22,9 @@
 
 import Foundation
 
-open class ConsoleTarget: Target {
-    
-  public init() {
-    
-  }
+public protocol Target {
   
-  open func write(formatted strings: [String], completion: @escaping () -> Void) {
-    strings.forEach {
-      print($0)
-    }
-    
-    completion()
-  }
+  associatedtype FormatType
+  
+  func write(formatted items: [FormatType], completion: @escaping () -> Void)
 }

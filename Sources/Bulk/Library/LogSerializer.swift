@@ -1,5 +1,5 @@
 //
-// PipelineTests.swift
+// LogSerializer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,64 +22,11 @@
 // THE SOFTWARE.
 
 import Foundation
-import Dispatch
 
-import XCTest
-
-@testable import Bulk
-
-class PipelineTests: XCTestCase {
-
-  func testBasic() {
-    
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
-      )
-    )
-    
-    log.verbose("A")
-    log.debug("B")
-    log.info("C")
-    log.warn("D")
-    log.error("E")
-    
-    XCTAssert(target.results.count == 5)
-    XCTAssert(target.results == ["A", "B", "C", "D", "E"])
-  }
+public protocol LogSerializer {
   
-  func testMultiThread() {
-    
-    let log = Logger()
-    
-    let target = TestTarget()
-    
-    log.add(pipeline:
-      Pipeline(
-        plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
-      )
-    )
-    
-    let g = DispatchGroup()
-    
-    for i in 0..<10 {
-      
-      g.enter()
-      
-      DispatchQueue.global().async {
-        log.debug(i)
-        g.leave()
-      }
-    }
-    
-    g.wait()
-    
-    XCTAssertEqual(target.results.count, 10)
-  }
+  associatedtype SerializedType
+  
+  func serialize(log: Log) throws -> SerializedType
+  func deserialize(source: SerializedType) throws -> Log
 }
