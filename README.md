@@ -23,7 +23,41 @@ This is useful when sending logs to a server.<br>
 
 # Usage
 
-## Basic Usage
+## ✨Very Simple Usage
+
+```swift
+
+// Create Logger instance.
+// Define on global scope.
+
+let Log = Logger()
+
+// Add pipeline to Logger
+
+Log.add(pipeline:
+  Pipeline(
+    plugins: [],  
+    targetConfiguration: .init(
+      formatter: BasicFormatter(), 
+      target: ConsoleTarget()
+    )
+  )
+)
+
+// Simple logging
+
+Log.verbose("Something log")
+Log.debug("Something log")
+Log.info("Something log")
+Log.warn("Something log")
+Log.error("Something log")
+
+// And more
+// We can use this like Swift.print()
+Log.verbose("a", "b", 1, 2, 3, ["a", "b"]) // => a b 1 2 3 ["a", "b"]
+```
+
+## Advanced Settings
 
 ```swift
 let Log = Logger()
@@ -37,7 +71,7 @@ Log.add(pipeline:
       /* Some plugins */
       /* MyPlugin() */
     ],  
-    targetConfiguration: .init(formatter: BasicFormatter(), target: ConsoleTarget()),
+    targetConfiguration: .init(formatter: BasicFormatter(), target: ConsoleTarget())
   )
 )
 
@@ -53,16 +87,6 @@ Log.add(pipeline:
     queue: .global() // <-- 🤓< Specify DispatchQueue
   )
 )
-
-Log.verbose("Something log")
-Log.debug("Something log")
-Log.info("Something log")
-Log.warn("Something log")
-Log.error("Something log")
-
-// We can use this like Swift.print()
-
-Log.verbose("a", "b", 1, 2, 3, ["a", "b"]) // => a b 1 2 3 ["a", "b"]
 ```
 
 ## Pipeline
