@@ -37,7 +37,7 @@ Log.add(pipeline:
       /* Some plugins */
       /* MyPlugin() */
     ],  
-    targetConfiguration: .init(formatter: BasicFormatter(), target: target),
+    targetConfiguration: .init(formatter: BasicFormatter(), target: ConsoleTarget()),
   )
 )
 
@@ -49,7 +49,7 @@ Log.add(pipeline:
       /* Some plugins */
       /* MyPlugin() */
     ],  
-    targetConfiguration: .init(formatter: BasicFormatter(), target: target),
+    targetConfiguration: .init(formatter: BasicFormatter(), target: ConsoleTarget()),
     queue: .global() // <-- 🤓< Specify DispatchQueue
   )
 )
