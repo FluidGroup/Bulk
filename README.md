@@ -27,6 +27,8 @@ This is useful when sending logs to a server.<br>
 
 ```swift
 
+import Bulk
+
 // Create Logger instance.
 // Define on global scope.
 
