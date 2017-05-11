@@ -8,6 +8,9 @@
 [![Version](https://img.shields.io/cocoapods/v/Bulk.svg?style=flat)](http://cocoapods.org/pods/Bulk)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-333333.svg)
+
+[![forthebadge](http://forthebadge.com/images/badges/made-with-swift.svg)](http://forthebadge.com)
+
 ---
 
 > 🚨⚠️ WARNING ⚠️🚨 This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
