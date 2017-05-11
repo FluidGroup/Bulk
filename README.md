@@ -10,6 +10,7 @@
 ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-333333.svg)
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-swift.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/uses-git.svg)](http://forthebadge.com)
 
 ---
 
