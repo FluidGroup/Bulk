@@ -49,6 +49,10 @@ public final class Logger {
       target.write(log: log)
     }
   }
+
+  public func write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+    _write(level: level, items, file: file, function: function, line: line)
+  }
   
   public func write(level: Log.Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)

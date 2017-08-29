@@ -65,11 +65,11 @@ public class Pipeline {
   
   private var writeProcess: (([Log]) -> Void)!
   
-  public init<F: Formatter, T: Target>(
+  public init<F, T>(
     plugins: [Plugin],
     bulkConfiguration: BulkConfiguration? = nil,
     targetConfiguration: TargetConfiguration<F, T>
-    ) where F.FormatType == T.FormatType {
+    ) {
     
     self.plugins = plugins
     self.writeBuffer = targetConfiguration.buffer
@@ -162,7 +162,8 @@ public class Pipeline {
       break
     }
   }
-  
+
+  @inline(__always)
   private func __write(_ r: [Log]) {
     lock.lock(); defer { lock.unlock() }
     timer?.tap()
