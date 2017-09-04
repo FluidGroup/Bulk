@@ -53,10 +53,12 @@ public final class Logger {
   public func write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
-  
+
+/*
   public func write(level: Log.Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
+*/
   
   /// Verbose
   public func verbose(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
