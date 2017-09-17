@@ -6,7 +6,7 @@ import Dispatch
   func basic() {
     
     class MyPlugin: Plugin {
-      func map(log: Log) -> Log {
+      func apply(log: Log) -> Log {
         var log = log
         log.body = "Tweaked:: " + log.body
         return log

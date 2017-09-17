@@ -119,7 +119,7 @@ public final class FileBuffer: Buffer {
     do {
       var lineCount = 0
       
-      try String(contentsOf: fileURL).enumerateLines { _ in
+      try String(contentsOf: fileURL).enumerateLines { _, _ in
         lineCount += 1
       }
       

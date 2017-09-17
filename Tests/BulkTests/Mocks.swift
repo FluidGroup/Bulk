@@ -29,7 +29,7 @@ class TestTarget: Target {
   
   var writeCompletedCount = 0
   
-  var writed: () -> Void = { _ in }
+  var writed: () -> Void = { }
   
   var results: [String] = []
   
