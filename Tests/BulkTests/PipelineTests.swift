@@ -82,4 +82,35 @@ class PipelineTests: XCTestCase {
     
     XCTAssertEqual(target.results.count, 10)
   }
+
+  func testIsActive() {
+
+    final class StringFilterPlugin : Bulk.Plugin {
+
+      func apply(log: Log) -> Log {
+        if log.body.contains("[skip]") {
+          var log = log
+          log.isActive = false
+          return log
+        }
+        return log
+      }
+    }
+
+    let log = Logger()
+    let target = TestTarget()
+
+    log.add(pipeline:
+      Pipeline(
+        plugins: [StringFilterPlugin()],
+        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+      )
+    )
+
+    log.verbose("a")
+    log.verbose("[skip]a")
+    log.verbose("b")
+
+    XCTAssertEqual(target.results, ["a", "b"])
+  }
 }
