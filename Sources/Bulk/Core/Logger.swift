@@ -37,7 +37,7 @@ public final class Logger {
   // MARK: - Functions
   
   @inline(__always)
-  private func _write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  func _write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     
     let now = Date()
     
@@ -54,12 +54,6 @@ public final class Logger {
     _write(level: level, items, file: file, function: function, line: line)
   }
 
-/*
-  public func write(level: Log.Level, _ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: level, items, file: file, function: function, line: line)
-  }
-*/
-  
   /// Verbose
   public func verbose(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: .verbose, items, file: file, function: function, line: line)
@@ -87,5 +81,9 @@ public final class Logger {
   
   public func add(pipeline: Pipeline) {
     pipelines.append(pipeline)
+  }
+
+  public func context(_ items: [Any]) -> ContextLogger {
+    return ContextLogger(logger: self, prefixItemsClosure: items)
   }
 }

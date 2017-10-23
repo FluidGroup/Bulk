@@ -113,4 +113,23 @@ class PipelineTests: XCTestCase {
 
     XCTAssertEqual(target.results, ["a", "b"])
   }
+
+  func testContext() {
+
+    let log = Logger()
+    let contextLog = log.context(["Context"])
+    let target = TestTarget()
+
+    log.add(pipeline:
+      Pipeline(
+        plugins: [],
+        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+      )
+    )
+
+    log.verbose("boo")
+    contextLog.verbose("hello")
+
+    XCTAssertEqual(target.results, ["boo", "Context hello"])
+  }
 }

@@ -16,6 +16,10 @@
 		4B4BC3E31EBB2B9A003AD6DD /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
 		4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */; };
 		4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */; };
+		4B4DB98B1F9E174500B5E803 /* ContextLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */; };
+		4B4DB98C1F9E174500B5E803 /* ContextLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */; };
+		4B4DB98D1F9E174500B5E803 /* ContextLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */; };
+		4B4DB98E1F9E174500B5E803 /* ContextLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */; };
 		4B6618831EBE1A350052F4A5 /* LogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* LogSerializer.swift */; };
 		4B6618841EBE1A350052F4A5 /* LogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* LogSerializer.swift */; };
 		4B6618851EBE1A350052F4A5 /* LogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* LogSerializer.swift */; };
@@ -127,6 +131,7 @@
 		4B4BC3DE1EBB2B9A003AD6DD /* BulkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		4B4BC3EE1EBB313E003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLogger.swift; sourceTree = "<group>"; };
 		4B6618821EBE1A350052F4A5 /* LogSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogSerializer.swift; sourceTree = "<group>"; };
 		4B7BFC561EBA50DA00CB9027 /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryBuffer.swift; sourceTree = "<group>"; };
@@ -240,6 +245,7 @@
 		4BAED93A1EBE4E3F00430A28 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */,
 				4BC62ED51EBCC01600F68DFC /* AnyFormatter.swift */,
 				4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */,
 				4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */,
@@ -547,6 +553,7 @@
 				4B6618841EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
 				4BE5D6971EBE158200D1282F /* NSLogTarget.swift in Sources */,
 				4B80E7AB1EB9F40700C9BE63 /* Plugin.swift in Sources */,
+				4B4DB98C1F9E174500B5E803 /* ContextLogger.swift in Sources */,
 				4B9FD1C11EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */,
 				4BC62ED21EBCC00700F68DFC /* BasicFormatter.swift in Sources */,
 				4B7BFC621EBAD33C00CB9027 /* FileBuffer.swift in Sources */,
@@ -575,6 +582,7 @@
 				4B6618851EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
 				4BE5D6981EBE158200D1282F /* NSLogTarget.swift in Sources */,
 				4B80E7B41EB9F40700C9BE63 /* Plugin.swift in Sources */,
+				4B4DB98D1F9E174500B5E803 /* ContextLogger.swift in Sources */,
 				4B9FD1C21EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */,
 				4BC62ED31EBCC00700F68DFC /* BasicFormatter.swift in Sources */,
 				4B7BFC631EBAD33C00CB9027 /* FileBuffer.swift in Sources */,
@@ -603,6 +611,7 @@
 				4B6618861EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
 				4BE5D6991EBE158200D1282F /* NSLogTarget.swift in Sources */,
 				4B80E7BD1EB9F40700C9BE63 /* Plugin.swift in Sources */,
+				4B4DB98E1F9E174500B5E803 /* ContextLogger.swift in Sources */,
 				4B9FD1C31EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */,
 				4BC62ED41EBCC00700F68DFC /* BasicFormatter.swift in Sources */,
 				4B7BFC641EBAD33C00CB9027 /* FileBuffer.swift in Sources */,
@@ -631,6 +640,7 @@
 				4B6618831EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
 				4BE5D6961EBE158200D1282F /* NSLogTarget.swift in Sources */,
 				4BDA35F01EB9E8EB00B93628 /* Log.swift in Sources */,
+				4B4DB98B1F9E174500B5E803 /* ContextLogger.swift in Sources */,
 				4B9FD1C01EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */,
 				4BC62ED11EBCC00700F68DFC /* BasicFormatter.swift in Sources */,
 				4B7BFC611EBAD33C00CB9027 /* FileBuffer.swift in Sources */,
