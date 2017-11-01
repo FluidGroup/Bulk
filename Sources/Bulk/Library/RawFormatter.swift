@@ -23,10 +23,13 @@
 
 import Foundation
 
-/// For using raw `Log` `Target` 
+/// For using raw `Log` `Target`
 public struct RawFormatter {
   
   public typealias FormatType = Log
+  
+  public init() {
+  }
   
   func format(log: Log) -> FormatType {
     return log
