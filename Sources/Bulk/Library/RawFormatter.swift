@@ -31,7 +31,7 @@ public struct RawFormatter : Formatter {
   public init() {
   }
   
-  func format(log: Log) -> FormatType {
+  public func format(log: Log) -> FormatType {
     return log
   }
 }
