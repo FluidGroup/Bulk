@@ -24,7 +24,7 @@
 import Foundation
 
 /// For using raw `Log` `Target`
-public struct RawFormatter {
+public struct RawFormatter : Formatter {
   
   public typealias FormatType = Log
   
