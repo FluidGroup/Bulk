@@ -12,12 +12,6 @@
 [![forthebadge](http://forthebadge.com/images/badges/made-with-swift.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/uses-git.svg)](http://forthebadge.com)
 
----
-
-> 🚨⚠️ WARNING ⚠️🚨 This project is in a prerelease state. There is active work going on that will result in API changes that can/will break code while things are finished. Use with caution.
-
----
-
 Bulk is *a pipeline based* powerful & flexible logging framework.<br>
 It has basic functions as a *Logger*.<br>
 In addition, it can output logs in bulk.<br>
