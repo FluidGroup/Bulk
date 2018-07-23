@@ -96,7 +96,7 @@ public final class FileBuffer: Buffer {
         cursor += 1
       }
       
-      let logs = serializedLines.map { try? serializer.deserialize(source: $0) }.flatMap { $0 }
+      let logs = serializedLines.map { try? serializer.deserialize(source: $0) }.compactMap { $0 }
 
       fileHandle?.closeFile()
       fileHandle = nil

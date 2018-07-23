@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = "Bulk"
-  s.version          = "0.3.0"
+  s.version          = "0.4.4"
   s.summary          = "Bulk is pipeline based powerful & flexible logging framework"
   s.homepage         = "https://github.com/muukii/Bulk"
   s.license          = 'MIT'
-  s.author           = { "muukii" => "m@muukii.me" }
+  s.author           = { "muukii" => "muukii.app@gmail.com" }
   s.source           = { :git => "https://github.com/muukii/Bulk.git", :tag => s.version }
   s.social_media_url = 'https://twitter.com/muukii0803'
 

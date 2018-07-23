@@ -57,6 +57,6 @@ public final class MemoryBuffer: Buffer {
       buffer[i] = nil
     }
     cursor = 0
-    return _buffer.flatMap { $0 }
+    return _buffer.compactMap { $0 }
   }
 }

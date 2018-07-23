@@ -49,7 +49,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
   
   public func deserialize(source: String) throws -> Log {
     
-    let s = source.characters.split(separator: separator, omittingEmptySubsequences: false).map { String($0) }
+    let s = source.split(separator: separator, omittingEmptySubsequences: false).map { String($0) }
     
     guard s.count == 7 else {
       throw Error.serializedDataIsBroken
