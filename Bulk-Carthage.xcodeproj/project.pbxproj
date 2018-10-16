@@ -101,6 +101,10 @@
 		4BE5D6971EBE158200D1282F /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
 		4BE5D6981EBE158200D1282F /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
 		4BE5D6991EBE158200D1282F /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
+		4BFDCB562175A8EA0003BDDB /* OSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */; };
+		4BFDCB572175A8EA0003BDDB /* OSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */; };
+		4BFDCB582175A8EA0003BDDB /* OSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */; };
+		4BFDCB592175A8EA0003BDDB /* OSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */; };
 		OBJ_21 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		OBJ_28 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* main.swift */; };
 		OBJ_30 /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Bulk.framework */; };
@@ -157,6 +161,7 @@
 		4BDA35EF1EB9E8EB00B93628 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncPipeline.swift; sourceTree = "<group>"; };
 		4BE5D6951EBE158200D1282F /* NSLogTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogTarget.swift; sourceTree = "<group>"; };
+		4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogTarget.swift; sourceTree = "<group>"; };
 		OBJ_11 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_14 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_15 /* ZapDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ZapDemo; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +263,7 @@
 				4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */,
 				4BAED9341EBE4D5D00430A28 /* RawFormatter.swift */,
 				4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */,
+				4BFDCB552175A8EA0003BDDB /* OSLogTarget.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				4BAED9361EBE4D5D00430A28 /* RawFormatter.swift in Sources */,
 				4B80E7A71EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7A91EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
+				4BFDCB572175A8EA0003BDDB /* OSLogTarget.swift in Sources */,
 				4BAED92D1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7A61EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */,
@@ -598,6 +605,7 @@
 				4BAED9371EBE4D5D00430A28 /* RawFormatter.swift in Sources */,
 				4B80E7B01EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7B21EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
+				4BFDCB582175A8EA0003BDDB /* OSLogTarget.swift in Sources */,
 				4BAED92E1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7AF1EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7AC1EB9F40700C9BE63 /* Logger.swift in Sources */,
@@ -627,6 +635,7 @@
 				4BAED9381EBE4D5D00430A28 /* RawFormatter.swift in Sources */,
 				4B80E7B91EB9F40700C9BE63 /* Formatter.swift in Sources */,
 				4B80E7BB1EB9F40700C9BE63 /* ConsoleTarget.swift in Sources */,
+				4BFDCB592175A8EA0003BDDB /* OSLogTarget.swift in Sources */,
 				4BAED92F1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4B80E7B81EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */,
 				4B80E7B51EB9F40700C9BE63 /* Logger.swift in Sources */,
@@ -656,6 +665,7 @@
 				4BAED9351EBE4D5D00430A28 /* RawFormatter.swift in Sources */,
 				4BDA35E61EB9ACD500B93628 /* FileTarget.swift in Sources */,
 				4BDA35E81EB9ADA800B93628 /* Plugin.swift in Sources */,
+				4BFDCB562175A8EA0003BDDB /* OSLogTarget.swift in Sources */,
 				4BAED92C1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift in Sources */,
 				4BDA35EE1EB9E72E00B93628 /* Formatter.swift in Sources */,
 				OBJ_21 /* Logger.swift in Sources */,
@@ -1183,6 +1193,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Zap.xcodeproj/ZapDemo_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
@@ -1201,6 +1212,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Zap.xcodeproj/ZapDemo_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;

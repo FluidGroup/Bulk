@@ -63,7 +63,7 @@ public struct BasicFormatter: Formatter {
     
     let file = URL(string: log.file.description)?.deletingPathExtension()
     
-    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "???").\(log.function):\(log.line) \(log.body)"
+    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "").\(log.function):\(log.line) \(log.body)"
     
     return string
   }
