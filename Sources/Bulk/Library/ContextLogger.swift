@@ -18,12 +18,12 @@ public final class ContextLogger {
   }
 
   @inline(__always)
-  private func _write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  private func _write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
 
     logger._write(level: level, prefixItemsClosure() + items, file: file, function: function, line: line)
   }
 
-  public func write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  public func write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
 

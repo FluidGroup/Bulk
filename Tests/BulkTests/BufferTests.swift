@@ -87,8 +87,8 @@ class BufferTests: XCTestCase {
     }
   }
   
-  private func create() -> Log {
-    return Log(level: .verbose, date: Date(), body: "", file: "", function: "", line: 10, isActive: true)
+  private func create() -> LogData {
+    return LogData(level: .verbose, date: Date(), body: "", file: "", function: "", line: 10, isActive: true)
   }
 }
 

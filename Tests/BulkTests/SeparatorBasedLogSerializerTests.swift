@@ -33,27 +33,27 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
   
   func testEmptySerialize() {
     
-    _success(Log(level: .verbose, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
-    _success(Log(level: .debug, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
-    _success(Log(level: .info, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
-    _success(Log(level: .warn, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
-    _success(Log(level: .error, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .verbose, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .debug, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .info, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .warn, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .error, date: Date(), body: "", file: "", function: "", line: 0, isActive: true))
 
   }
   
   func testBodySerialize() {
     
-    _success(Log(level: .verbose, date: Date(), body: "abc,def", file: "", function: "", line: 0, isActive: true))
-    _success(Log(level: .verbose, date: Date(), body: "abc\ndef", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .verbose, date: Date(), body: "abc,def", file: "", function: "", line: 0, isActive: true))
+    _success(LogData(level: .verbose, date: Date(), body: "abc\ndef", file: "", function: "", line: 0, isActive: true))
 
   }
   
   func testIncludeSeparator() {
-    _fail(Log(level: .verbose, date: Date(), body: "abc\tdef", file: "", function: "", line: 0, isActive: true))
+    _fail(LogData(level: .verbose, date: Date(), body: "abc\tdef", file: "", function: "", line: 0, isActive: true))
   }
   
-  func create() -> Log {
-    return Log(level: .verbose, date: Date(), body: "abc,def", file: "Sample.swift", function: "viewDidLoad()", line: 100, isActive: true)
+  func create() -> LogData {
+    return LogData(level: .verbose, date: Date(), body: "abc,def", file: "Sample.swift", function: "viewDidLoad()", line: 100, isActive: true)
   }
   
   func testPerformance_100() {
@@ -83,7 +83,7 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
     }
   }
   
-  func _success(_ log: Log) {
+  func _success(_ log: LogData) {
     do {
       let r = try serializer.serialize(log: log)
       let _r = try serializer.deserialize(source: r)
@@ -95,7 +95,7 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
     }
   }
   
-  func _fail(_ log: Log) {
+  func _fail(_ log: LogData) {
     do {
       let r = try serializer.serialize(log: log)
       let _r = try serializer.deserialize(source: r)
@@ -109,9 +109,9 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
   }
 }
 
-extension Log: Equatable {
+extension LogData: Equatable {
   
-  public static func == (lhs: Log, rhs: Log) -> Bool {
+  public static func == (lhs: LogData, rhs: LogData) -> Bool {
     
     guard
       lhs.body == rhs.body,

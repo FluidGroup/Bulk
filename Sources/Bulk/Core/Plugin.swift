@@ -25,5 +25,5 @@ import Foundation
 
 public protocol Plugin {
   
-  func apply(log: Log) -> Log
+  func apply(log: LogData) -> LogData
 }

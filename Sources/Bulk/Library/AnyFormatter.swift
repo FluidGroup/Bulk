@@ -25,13 +25,13 @@ import Foundation
 
 public struct AnyFormatter: Formatter {
   
-  let format: (Log) -> String
+  let format: (LogData) -> String
   
-  public init(format: @escaping (Log) -> String) {
+  public init(format: @escaping (LogData) -> String) {
     self.format = format
   }
   
-  public func format(log: Log) -> String {
+  public func format(log: LogData) -> String {
     return format(log)
   }
 }

@@ -63,7 +63,7 @@ public class Pipeline {
   
   public var isWritingTarget: Bool = false
   
-  private var writeProcess: (([Log]) -> Void)!
+  private var writeProcess: (([LogData]) -> Void)!
   
   public init<F, T>(
     plugins: [Plugin],
@@ -142,7 +142,7 @@ public class Pipeline {
     __write(bulkBuffer.purge())
   }
   
-  func write(log: Log) {
+  func write(log: LogData) {
     
     lock.lock(); defer { lock.unlock() }
     
@@ -164,7 +164,7 @@ public class Pipeline {
   }
 
   @inline(__always)
-  private func __write(_ r: [Log]) {
+  private func __write(_ r: [LogData]) {
     lock.lock(); defer { lock.unlock() }
     timer?.tap()
     writeProcess(r)

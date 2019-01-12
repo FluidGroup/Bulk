@@ -47,7 +47,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
     self.separator = separator
   }
   
-  public func deserialize(source: String) throws -> Log {
+  public func deserialize(source: String) throws -> LogData {
     
     let s = source.split(separator: separator, omittingEmptySubsequences: false).map { String($0) }
     
@@ -55,7 +55,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
       throw Error.serializedDataIsBroken
     }
     
-    guard let level = Int(s[Position.level.rawValue]).map(Log.Level.init(__int: )) else {
+    guard let level = Int(s[Position.level.rawValue]).map(LogData.Level.init(__int: )) else {
       throw Error.serializedDataIsBroken
     }
     guard let date = UInt64(s[Position.date.rawValue]).map(TimeInterval.init(bitPattern: )).map(Date.init(timeIntervalSinceReferenceDate: )) else {
@@ -73,7 +73,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
       throw Error.serializedDataIsBroken
     }
         
-    return Log(
+    return LogData(
       level: level,
       date: date,
       body: body,
@@ -84,7 +84,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
     )
   }
   
-  public func serialize(log: Log) throws -> String {
+  public func serialize(log: LogData) throws -> String {
     
     let level = log.level.__int.description
     let date = log.date.timeIntervalSinceReferenceDate.bitPattern.description
@@ -122,7 +122,7 @@ fileprivate extension Bool {
   }
 }
 
-fileprivate extension Log.Level {
+fileprivate extension LogData.Level {
   
   fileprivate var __int: Int {
     switch self {

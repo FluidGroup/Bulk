@@ -27,6 +27,6 @@ public protocol LogSerializer {
   
   associatedtype SerializedType
   
-  func serialize(log: Log) throws -> SerializedType
-  func deserialize(source: SerializedType) throws -> Log
+  func serialize(log: LogData) throws -> SerializedType
+  func deserialize(source: SerializedType) throws -> LogData
 }

@@ -43,7 +43,7 @@ public final class AsyncPipeline: Pipeline {
     )
   }
   
-  override func write(log: Log) {
+  override func write(log: LogData) {
     
     queue.async(flags: .barrier) {
       super.write(log: log)

@@ -47,7 +47,7 @@ public final class FileBuffer: Buffer {
     fileHandle?.closeFile()
   }
   
-  public func write(log: Log) -> BufferResult {
+  public func write(log: LogData) -> BufferResult {
     
     do {
       
@@ -84,7 +84,7 @@ public final class FileBuffer: Buffer {
     }
   }
   
-  public func purge() -> [Log] {
+  public func purge() -> [LogData] {
     
     var cursor = 0
     var serializedLines = [String].init(repeating: "", count: lineCount())

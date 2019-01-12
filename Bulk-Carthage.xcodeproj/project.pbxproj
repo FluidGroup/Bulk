@@ -41,7 +41,7 @@
 		4B7BFC681EBAE9F400CB9027 /* NoBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */; };
 		4B7BFC691EBAE9F400CB9027 /* NoBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */; };
 		4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
-		4B80E7A41EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
+		4B80E7A41EB9F40700C9BE63 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* LogData.swift */; };
 		4B80E7A51EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7A61EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
 		4B80E7A71EB9F40700C9BE63 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35ED1EB9E72E00B93628 /* Formatter.swift */; };
@@ -50,7 +50,7 @@
 		4B80E7AA1EB9F40700C9BE63 /* FileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* FileTarget.swift */; };
 		4B80E7AB1EB9F40700C9BE63 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E71EB9ADA800B93628 /* Plugin.swift */; };
 		4B80E7AC1EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
-		4B80E7AD1EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
+		4B80E7AD1EB9F40700C9BE63 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* LogData.swift */; };
 		4B80E7AE1EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7AF1EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
 		4B80E7B01EB9F40700C9BE63 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35ED1EB9E72E00B93628 /* Formatter.swift */; };
@@ -59,7 +59,7 @@
 		4B80E7B31EB9F40700C9BE63 /* FileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* FileTarget.swift */; };
 		4B80E7B41EB9F40700C9BE63 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E71EB9ADA800B93628 /* Plugin.swift */; };
 		4B80E7B51EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
-		4B80E7B61EB9F40700C9BE63 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
+		4B80E7B61EB9F40700C9BE63 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* LogData.swift */; };
 		4B80E7B71EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4B80E7B81EB9F40700C9BE63 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
 		4B80E7B91EB9F40700C9BE63 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35ED1EB9E72E00B93628 /* Formatter.swift */; };
@@ -95,7 +95,7 @@
 		4BDA35E81EB9ADA800B93628 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E71EB9ADA800B93628 /* Plugin.swift */; };
 		4BDA35EC1EB9E58E00B93628 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
 		4BDA35EE1EB9E72E00B93628 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35ED1EB9E72E00B93628 /* Formatter.swift */; };
-		4BDA35F01EB9E8EB00B93628 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* Log.swift */; };
+		4BDA35F01EB9E8EB00B93628 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* LogData.swift */; };
 		4BDA35F21EB9EDC600B93628 /* AsyncPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */; };
 		4BE5D6961EBE158200D1282F /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
 		4BE5D6971EBE158200D1282F /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
@@ -154,7 +154,7 @@
 		4BDA35E71EB9ADA800B93628 /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
 		4BDA35ED1EB9E72E00B93628 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
-		4BDA35EF1EB9E8EB00B93628 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		4BDA35EF1EB9E8EB00B93628 /* LogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogData.swift; sourceTree = "<group>"; };
 		4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncPipeline.swift; sourceTree = "<group>"; };
 		4BE5D6951EBE158200D1282F /* NSLogTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogTarget.swift; sourceTree = "<group>"; };
 		OBJ_11 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 				4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */,
 				4B7BFC561EBA50DA00CB9027 /* Buffer.swift */,
 				4BDA35ED1EB9E72E00B93628 /* Formatter.swift */,
-				4BDA35EF1EB9E8EB00B93628 /* Log.swift */,
+				4BDA35EF1EB9E8EB00B93628 /* LogData.swift */,
 				OBJ_9 /* Logger.swift */,
 				4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */,
 				4BDA35E71EB9ADA800B93628 /* Plugin.swift */,
@@ -562,7 +562,7 @@
 				4B80E7A51EB9F40700C9BE63 /* Pipeline.swift in Sources */,
 				4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */,
 				4B80E7AA1EB9F40700C9BE63 /* FileTarget.swift in Sources */,
-				4B80E7A41EB9F40700C9BE63 /* Log.swift in Sources */,
+				4B80E7A41EB9F40700C9BE63 /* LogData.swift in Sources */,
 				4BC62ED71EBCC01600F68DFC /* AnyFormatter.swift in Sources */,
 				4B7BFC5D1EBA590200CB9027 /* MemoryBuffer.swift in Sources */,
 				4B1C721E1EBBA1B6008AA3FC /* Timer.swift in Sources */,
@@ -591,7 +591,7 @@
 				4B80E7AE1EB9F40700C9BE63 /* Pipeline.swift in Sources */,
 				4B7BFC591EBA50DA00CB9027 /* Buffer.swift in Sources */,
 				4B80E7B31EB9F40700C9BE63 /* FileTarget.swift in Sources */,
-				4B80E7AD1EB9F40700C9BE63 /* Log.swift in Sources */,
+				4B80E7AD1EB9F40700C9BE63 /* LogData.swift in Sources */,
 				4BC62ED81EBCC01600F68DFC /* AnyFormatter.swift in Sources */,
 				4B7BFC5E1EBA590200CB9027 /* MemoryBuffer.swift in Sources */,
 				4B1C721F1EBBA1B6008AA3FC /* Timer.swift in Sources */,
@@ -620,7 +620,7 @@
 				4B80E7B71EB9F40700C9BE63 /* Pipeline.swift in Sources */,
 				4B7BFC5A1EBA50DA00CB9027 /* Buffer.swift in Sources */,
 				4B80E7BC1EB9F40700C9BE63 /* FileTarget.swift in Sources */,
-				4B80E7B61EB9F40700C9BE63 /* Log.swift in Sources */,
+				4B80E7B61EB9F40700C9BE63 /* LogData.swift in Sources */,
 				4BC62ED91EBCC01600F68DFC /* AnyFormatter.swift in Sources */,
 				4B7BFC5F1EBA590200CB9027 /* MemoryBuffer.swift in Sources */,
 				4B1C72201EBBA1B6008AA3FC /* Timer.swift in Sources */,
@@ -639,7 +639,7 @@
 			files = (
 				4B6618831EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
 				4BE5D6961EBE158200D1282F /* NSLogTarget.swift in Sources */,
-				4BDA35F01EB9E8EB00B93628 /* Log.swift in Sources */,
+				4BDA35F01EB9E8EB00B93628 /* LogData.swift in Sources */,
 				4B4DB98B1F9E174500B5E803 /* ContextLogger.swift in Sources */,
 				4B9FD1C01EBCDCA40012FEBF /* LevelFilterPlugin.swift in Sources */,
 				4BC62ED11EBCC00700F68DFC /* BasicFormatter.swift in Sources */,

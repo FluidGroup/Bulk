@@ -45,7 +45,7 @@ class TestFormatter: Bulk.Formatter {
   
   var formattedCount = 0
   
-  func format(log: Log) -> String {
+  func format(log: LogData) -> String {
     formattedCount += 1
     return log.body
   }

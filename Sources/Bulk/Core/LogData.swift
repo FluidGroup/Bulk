@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct Log {
+public struct LogData {
   
   /// Logging Level
   ///
@@ -40,7 +40,7 @@ public struct Log {
     case error
   }
   
-  public var level: Log.Level
+  public var level: LogData.Level
   public var date: Date
   public var body: String
   public var file: String

@@ -29,16 +29,16 @@ public final class MemoryBuffer: Buffer {
     return cursor < size
   }
   
-  var buffer: [Log?]
+  var buffer: [LogData?]
   let size: Int
   var cursor: Int = 0
   
   public init(size: Int) {
     self.size = size
-    self.buffer = [Log?].init(repeating: nil, count: size)
+    self.buffer = [LogData?].init(repeating: nil, count: size)
   }
   
-  public func write(log: Log) -> BufferResult {
+  public func write(log: LogData) -> BufferResult {
     
     buffer[cursor] = .some(log)
     
@@ -51,7 +51,7 @@ public final class MemoryBuffer: Buffer {
     }
   }
   
-  public func purge() -> [Log] {
+  public func purge() -> [LogData] {
     let _buffer = buffer
     for i in 0..<size {
       buffer[i] = nil

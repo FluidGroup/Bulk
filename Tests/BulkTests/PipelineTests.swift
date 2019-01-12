@@ -87,7 +87,7 @@ class PipelineTests: XCTestCase {
 
     final class StringFilterPlugin : Bulk.Plugin {
 
-      func apply(log: Log) -> Log {
+      func apply(log: LogData) -> LogData {
         if log.body.contains("[skip]") {
           var log = log
           log.isActive = false

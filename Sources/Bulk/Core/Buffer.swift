@@ -25,7 +25,7 @@ import Foundation
 
 public enum BufferResult {
   case stored
-  case flowed([Log])
+  case flowed([LogData])
 }
 
 public protocol Buffer {
@@ -37,10 +37,10 @@ public protocol Buffer {
   ///
   /// - Parameter string:
   /// - Returns: 
-  func write(log: Log) -> BufferResult
+  func write(log: LogData) -> BufferResult
   
   /// Purge buffered items
   ///
   /// - Returns: purged items
-  func purge() -> [Log]
+  func purge() -> [LogData]
 }

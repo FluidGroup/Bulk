@@ -37,20 +37,20 @@ public final class Logger {
   // MARK: - Functions
   
   @inline(__always)
-  func _write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  func _write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     
     let now = Date()
     
     let body = items.map { String(describing: $0) }.joined(separator: " ")
     
-    let log = Log(level: level, date: now, body: body, file: file.description, function: function.description, line: line, isActive: true)
+    let log = LogData(level: level, date: now, body: body, file: file.description, function: function.description, line: line, isActive: true)
     
     pipelines.forEach { target in
       target.write(log: log)
     }
   }
 
-  public func write(level: Log.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  public func write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
     _write(level: level, items, file: file, function: function, line: line)
   }
 

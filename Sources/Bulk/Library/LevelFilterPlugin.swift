@@ -26,13 +26,13 @@ import Foundation
 /// Filter for Log.Level
 public struct LevelFilterPlugin: Plugin {
   
-  public let ignoreLevels: [Log.Level]
+  public let ignoreLevels: [LogData.Level]
   
-  public init(ignoreLevels: [Log.Level]) {
+  public init(ignoreLevels: [LogData.Level]) {
     self.ignoreLevels = ignoreLevels
   }
   
-  public func apply(log: Log) -> Log {
+  public func apply(log: LogData) -> LogData {
     if ignoreLevels.contains(log.level) {
       var log = log
       log.isActive = false

@@ -26,12 +26,12 @@ import Foundation
 /// For using raw `Log` `Target`
 public struct RawFormatter : Formatter {
   
-  public typealias FormatType = Log
+  public typealias FormatType = LogData
   
   public init() {
   }
   
-  public func format(log: Log) -> FormatType {
+  public func format(log: LogData) -> FormatType {
     return log
   }
 }

@@ -27,5 +27,5 @@ public protocol Formatter {
   
   associatedtype FormatType
   
-  func format(log: Log) -> FormatType
+  func format(log: LogData) -> FormatType
 }
