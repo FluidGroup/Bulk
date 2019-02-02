@@ -56,4 +56,8 @@ public final class AsyncPipeline: Pipeline {
       super.loadBuffer()
     }
   }
+  
+  public func waitUntilAllWritingAreProcessed() {
+    queue.sync(flags: .barrier, execute: {})
+  }
 }
