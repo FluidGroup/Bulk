@@ -6,10 +6,11 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "muukii" => "muukii.app@gmail.com" }
   s.source           = { :git => "https://github.com/muukii/Bulk.git", :tag => s.version }
-  s.social_media_url = 'https://twitter.com/muukii0803'
+  s.social_media_url = 'https://twitter.com/muukii_app'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Sources/Bulk/**/*.swift'
+  s.swift_versions = "5.0.1"
 end

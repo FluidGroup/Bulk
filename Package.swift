@@ -1,14 +1,19 @@
-import PackageDescription
+// swift-tools-version:5.0
 
+import PackageDescription
 let package = Package(
   name: "Bulk",
+  products: [
+    .library(
+      name: "Bulk",
+      targets: ["Bulk"]
+    )
+  ],
   targets: [
-    Target(name: "Bulk"),
-    // Target(name: "BulkDemo", dependencies: ["Bulk"]),
+    .target(
+      name: "Bulk",
+      path: "Sources/Bulk"
+    )
   ],
-  dependencies: [
-  ],
-  exclude: [
-    "Sources/BulkDemo",
-  ]
+  swiftLanguageVersions: [.v5]
 )

@@ -107,7 +107,7 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
   }
 }
 
-fileprivate extension Bool {
+extension Bool {
   
   fileprivate init(__int: Int) {
     if __int == 1 {
@@ -122,7 +122,7 @@ fileprivate extension Bool {
   }
 }
 
-fileprivate extension LogData.Level {
+extension LogData.Level {
   
   fileprivate var __int: Int {
     switch self {
