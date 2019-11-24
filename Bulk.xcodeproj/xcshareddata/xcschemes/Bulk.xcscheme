@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+               BlueprintIdentifier = "4B80E7801EB9F2DC00C9BE63"
                BuildableName = "Bulk.framework"
-               BlueprintName = "Bulk watchOS"
-               ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
+               BlueprintName = "Bulk"
+               ReferencedContainer = "container:Bulk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,8 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -45,14 +43,12 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+            BlueprintIdentifier = "4B80E7801EB9F2DC00C9BE63"
             BuildableName = "Bulk.framework"
-            BlueprintName = "Bulk watchOS"
-            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
+            BlueprintName = "Bulk"
+            ReferencedContainer = "container:Bulk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -63,10 +59,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4B80E78D1EB9F30100C9BE63"
+            BlueprintIdentifier = "4B80E7801EB9F2DC00C9BE63"
             BuildableName = "Bulk.framework"
-            BlueprintName = "Bulk watchOS"
-            ReferencedContainer = "container:Bulk-Carthage.xcodeproj">
+            BlueprintName = "Bulk"
+            ReferencedContainer = "container:Bulk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
