@@ -24,14 +24,14 @@
 import Foundation
 import Dispatch
 
-public final class AsyncPipeline: Pipeline {
+public final class AsyncPipeline<Input>: Pipeline<Input> {
   
   public let queue: DispatchQueue
   
-  public init<F, T>(
-    plugins: [Plugin],
-    bulkConfiguration: BulkConfiguration? = nil,
-    targetConfiguration: TargetConfiguration<F, T>,
+  public init<Output>(
+    plugins: [PluginWrapper<Input>],
+    bulkConfiguration: BulkConfiguration,
+    targetConfiguration: TargetConfiguration<Output>,
     queue: DispatchQueue
     ) {
     
@@ -43,10 +43,10 @@ public final class AsyncPipeline: Pipeline {
     )
   }
   
-  override func write(log: LogData) {
+  override func write(element: Input) {
     
     queue.async(flags: .barrier) {
-      super.write(log: log)
+      super.write(element: element)
     }
   }
   

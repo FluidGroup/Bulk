@@ -23,12 +23,14 @@
 
 import Foundation
 
-public enum BufferResult {
+public enum BufferResult<Element> {
   case stored
-  case flowed([LogData])
+  case flowed([Element])
 }
 
-public protocol Buffer {
+public protocol BufferType {
+  
+  associatedtype Element
     
   ///
   var hasSpace: Bool { get }
@@ -37,10 +39,38 @@ public protocol Buffer {
   ///
   /// - Parameter string:
   /// - Returns: 
-  func write(log: LogData) -> BufferResult
+  func write(element: Element) -> BufferResult<Element>
   
   /// Purge buffered items
   ///
   /// - Returns: purged items
-  func purge() -> [LogData]
+  func purge() -> [Element]
+}
+
+public struct BufferWrapper<Element>: BufferType {
+  
+  private let _hasSpace: () -> Bool
+  private let _purge: () -> [Element]
+  private let _write: (_ element: Element) -> BufferResult<Element>
+  
+  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
+    self._hasSpace = {
+      backing.hasSpace
+    }
+    self._purge = backing.purge
+    self._write = backing.write
+  }
+  
+  public var hasSpace: Bool {
+    _hasSpace()
+  }
+  
+  public func write(element: Element) -> BufferResult<Element> {
+    _write(element)
+  }
+  
+  public func purge() -> [Element] {
+    _purge()
+  }
+        
 }

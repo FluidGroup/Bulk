@@ -1,5 +1,5 @@
 //
-// NoBuffer.swift
+// LogSerializer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,19 +23,11 @@
 
 import Foundation
 
-public struct NoBuffer: Buffer {
+public protocol SerializerType {
   
-  public var hasSpace: Bool {
-    return false
-  }
+  associatedtype Element
+  associatedtype SerializedType
   
-  public init() { }
-  
-  public func write(log: LogData) -> BufferResult {
-    return .flowed([log])
-  }
-  
-  public func purge() -> [LogData] {
-    return []
-  }
+  func serialize(element: Element) throws -> SerializedType
+  func deserialize(source: SerializedType) throws -> Element
 }

@@ -23,7 +23,22 @@
 
 import Foundation
 
-public protocol Plugin {
+public protocol PluginType {
   
-  func apply(log: LogData) -> LogData
+  associatedtype Element
+  
+  func apply(_ element: Element) -> Element
+}
+
+public struct PluginWrapper<Element>: PluginType {
+  
+  private let _apply: (_ element: Element) -> Element
+  
+  public init<Plugin: PluginType>(_ backing: Plugin) where Plugin.Element == Element {
+    self._apply = backing.apply
+  }
+  
+  public func apply(_ element: Element) -> Element {
+    _apply(element)
+  }
 }

@@ -22,9 +22,22 @@
 
 import Foundation
 
-public protocol Target {
+public protocol TargetType {
   
-  associatedtype FormatType
+  associatedtype Element
   
-  func write(formatted items: [FormatType], completion: @escaping () -> Void)
+  func write(formatted items: [Element], completion: @escaping () -> Void)
+}
+
+public struct TargetWrapper<Element>: TargetType {
+  
+  private let _write: (_ formatted: [Element], _ completion: @escaping () -> Void) -> Void
+  
+  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
+    self._write = backing.write
+  }
+  
+  public func write(formatted items: [Element], completion: @escaping () -> Void) {
+    _write(items, completion)
+  }
 }

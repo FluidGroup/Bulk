@@ -1,5 +1,5 @@
 //
-// LogSerializer.swift
+// LevelFilterPlugin.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,10 +23,21 @@
 
 import Foundation
 
-public protocol LogSerializer {
+/// Filter for Log.Level
+public struct LevelFilterPlugin: PluginType {
   
-  associatedtype SerializedType
+  public let ignoreLevels: [LogData.Level]
   
-  func serialize(log: LogData) throws -> SerializedType
-  func deserialize(source: SerializedType) throws -> LogData
+  public init(ignoreLevels: [LogData.Level]) {
+    self.ignoreLevels = ignoreLevels
+  }
+  
+  public func apply(_ element: LogData) -> LogData {
+    if ignoreLevels.contains(element.level) {
+      var log = element
+      log.isActive = false
+      return log
+    }
+    return element
+  }
 }

@@ -1,5 +1,5 @@
 //
-// RawFormatter.swift
+// BasicFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,15 +23,46 @@
 
 import Foundation
 
-/// For using raw `Log` `Target`
-public struct RawFormatter : Formatter {
-  
-  public typealias FormatType = LogData
-  
-  public init() {
+public struct BasicFormatter: FormatterType {
+      
+  public struct LevelString {
+    public var verbose = "[VERBOSE]"
+    public var debug = "[DEBUG]"
+    public var info = "[INFO]"
+    public var warn = "[WARN]"
+    public var error = "[ERROR]"
   }
   
-  public func format(log: LogData) -> FormatType {
-    return log
+  public let dateFormatter: DateFormatter
+  
+  public var levelString = LevelString()
+    
+  public init() {
+    
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+    self.dateFormatter = formatter
+    
+  }
+  
+  public func format(element: LogData) -> String {
+    
+    let level: String = {
+      switch element.level {
+      case .verbose: return levelString.verbose
+      case .debug: return levelString.debug
+      case .info: return levelString.info
+      case .warn: return levelString.warn
+      case .error: return levelString.error
+      }
+    }()
+    
+    let timestamp = dateFormatter.string(from: element.date)
+    
+    let file = URL(string: element.file.description)?.deletingPathExtension()
+    
+    let string = "[\(timestamp)] \(level) \(file?.lastPathComponent ?? "???").\(element.function):\(element.line) \(element.body)"
+    
+    return string
   }
 }

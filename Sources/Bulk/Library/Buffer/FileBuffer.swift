@@ -23,8 +23,8 @@
 
 import Foundation
 
-public final class FileBuffer: Buffer {
-  
+public final class FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element, Serializer.SerializedType == String {
+    
   public var hasSpace: Bool {
     return lineCount() < size
   }
@@ -34,24 +34,25 @@ public final class FileBuffer: Buffer {
   private var fileHandle: FileHandle?
   public let size: Int
   
-  private let serializer = SeparatorBasedLogSerializer()
+  private let serializer: Serializer
   
-  public init(size: Int, filePath: String) {
+  public init(size: Int, filePath: String, serializer: Serializer) {
     // TODO: ~/ => /Users/FooBar
     
     self.size = size
     self.fileURL = URL(fileURLWithPath: filePath).standardized
+    self.serializer = serializer
   }
   
   deinit {
     fileHandle?.closeFile()
   }
   
-  public func write(log: LogData) -> BufferResult {
+  public func write(element: Element) -> BufferResult<Element> {
     
     do {
       
-      let s = try serializer.serialize(log: log)
+      let s = try serializer.serialize(element: element)
       
       let line = s + "\n"
       
@@ -84,7 +85,7 @@ public final class FileBuffer: Buffer {
     }
   }
   
-  public func purge() -> [LogData] {
+  public func purge() -> [Element] {
     
     var cursor = 0
     var serializedLines = [String].init(repeating: "", count: lineCount())
