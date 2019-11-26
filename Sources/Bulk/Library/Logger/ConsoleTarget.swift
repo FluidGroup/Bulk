@@ -1,5 +1,4 @@
-//
-// NSLogTarget.swift
+// ConsoleTarget.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,21 +22,22 @@
 
 import Foundation
 
-#if !os(Linux)
-
-open class NSLogTarget: Target {
+open class ConsoleTarget: TargetType {
   
+  private let lock = NSRecursiveLock()
+    
   public init() {
     
   }
   
   open func write(formatted items: [String], completion: @escaping () -> Void) {
+    
     items.forEach {
-      NSLog($0)
+      lock.lock()
+      print($0)
+      lock.unlock()
     }
     
     completion()
   }
 }
-
-#endif

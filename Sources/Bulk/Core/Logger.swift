@@ -26,7 +26,7 @@ public final class Logger {
   
   // MARK: - Properties
   
-  private(set) public var pipelines: [Pipeline] = []
+  private(set) public var pipelines: [Pipeline<LogData>] = []
   
   // MARK: - Initializers
   
@@ -46,7 +46,7 @@ public final class Logger {
     let log = LogData(level: level, date: now, body: body, file: file.description, function: function.description, line: line, isActive: true)
     
     pipelines.forEach { target in
-      target.write(log: log)
+      target.write(element: log)
     }
   }
 
@@ -79,7 +79,7 @@ public final class Logger {
     _write(level: .error, items, file: file, function: function, line: line)
   }
   
-  public func add(pipeline: Pipeline) {
+  public func add(pipeline: Pipeline<LogData>) {
     pipelines.append(pipeline)
   }
 

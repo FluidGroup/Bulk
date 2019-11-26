@@ -13,11 +13,11 @@
 		4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */; };
 		4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */; };
 		4B4DB98C1F9E174500B5E803 /* ContextLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */; };
-		4B6618841EBE1A350052F4A5 /* LogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* LogSerializer.swift */; };
+		4B6618841EBE1A350052F4A5 /* SerializerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* SerializerType.swift */; };
 		4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC561EBA50DA00CB9027 /* Buffer.swift */; };
 		4B7BFC5D1EBA590200CB9027 /* MemoryBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */; };
 		4B7BFC621EBAD33C00CB9027 /* FileBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */; };
-		4B7BFC671EBAE9F400CB9027 /* NoBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */; };
+		4B7BFC671EBAE9F400CB9027 /* PassthroughBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */; };
 		4B80E7A31EB9F40700C9BE63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		4B80E7A41EB9F40700C9BE63 /* LogData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EF1EB9E8EB00B93628 /* LogData.swift */; };
 		4B80E7A51EB9F40700C9BE63 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */; };
@@ -47,11 +47,11 @@
 		4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		4B4BC3EE1EBB313E003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLogger.swift; sourceTree = "<group>"; };
-		4B6618821EBE1A350052F4A5 /* LogSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogSerializer.swift; sourceTree = "<group>"; };
+		4B6618821EBE1A350052F4A5 /* SerializerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializerType.swift; sourceTree = "<group>"; };
 		4B7BFC561EBA50DA00CB9027 /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryBuffer.swift; sourceTree = "<group>"; };
 		4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBuffer.swift; sourceTree = "<group>"; };
-		4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoBuffer.swift; sourceTree = "<group>"; };
+		4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassthroughBuffer.swift; sourceTree = "<group>"; };
 		4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bulk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B80E7841EB9F2DC00C9BE63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFilterPlugin.swift; sourceTree = "<group>"; };
@@ -101,6 +101,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B24C72D238D962300B85594 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */,
+				4BC62ED51EBCC01600F68DFC /* AnyFormatter.swift */,
+				4BAED9341EBE4D5D00430A28 /* RawFormatter.swift */,
+				4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */,
+				4BDA35E51EB9ACD500B93628 /* FileTarget.swift */,
+				4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */,
+				4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */,
+				4BE5D6951EBE158200D1282F /* NSLogTarget.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		4B24C72E238D99BC00B85594 /* Buffer */ = {
+			isa = PBXGroup;
+			children = (
+				4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */,
+				4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */,
+			);
+			path = Buffer;
+			sourceTree = "<group>";
+		};
 		4B4BC3D81EBB2B70003AD6DD /* BulkTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,19 +158,11 @@
 		4BAED93A1EBE4E3F00430A28 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4B24C72E238D99BC00B85594 /* Buffer */,
+				4B24C72D238D962300B85594 /* Logger */,
 				4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */,
-				4BC62ED51EBCC01600F68DFC /* AnyFormatter.swift */,
-				4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */,
-				4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */,
-				4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */,
-				4BDA35E51EB9ACD500B93628 /* FileTarget.swift */,
-				4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */,
-				4B6618821EBE1A350052F4A5 /* LogSerializer.swift */,
-				4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */,
-				4BE5D6951EBE158200D1282F /* NSLogTarget.swift */,
-				4B7BFC651EBAE9F400CB9027 /* NoBuffer.swift */,
-				4BAED9341EBE4D5D00430A28 /* RawFormatter.swift */,
-				4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */,
+				4B6618821EBE1A350052F4A5 /* SerializerType.swift */,
+				4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -344,7 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6618841EBE1A350052F4A5 /* LogSerializer.swift in Sources */,
+				4B6618841EBE1A350052F4A5 /* SerializerType.swift in Sources */,
 				4BE5D6971EBE158200D1282F /* NSLogTarget.swift in Sources */,
 				4B80E7AB1EB9F40700C9BE63 /* Plugin.swift in Sources */,
 				4B4DB98C1F9E174500B5E803 /* ContextLogger.swift in Sources */,
@@ -352,7 +368,7 @@
 				4BC62ED21EBCC00700F68DFC /* BasicFormatter.swift in Sources */,
 				4B7BFC621EBAD33C00CB9027 /* FileBuffer.swift in Sources */,
 				4B80E7A81EB9F40700C9BE63 /* Target.swift in Sources */,
-				4B7BFC671EBAE9F400CB9027 /* NoBuffer.swift in Sources */,
+				4B7BFC671EBAE9F400CB9027 /* PassthroughBuffer.swift in Sources */,
 				4B80E7A51EB9F40700C9BE63 /* Pipeline.swift in Sources */,
 				4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */,
 				4B80E7AA1EB9F40700C9BE63 /* FileTarget.swift in Sources */,

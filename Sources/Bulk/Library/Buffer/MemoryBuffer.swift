@@ -1,5 +1,5 @@
 //
-// LevelFilterPlugin.swift
+// MemoryBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,21 +23,40 @@
 
 import Foundation
 
-/// Filter for Log.Level
-public struct LevelFilterPlugin: Plugin {
+public final class MemoryBuffer<Element>: BufferType {
   
-  public let ignoreLevels: [LogData.Level]
-  
-  public init(ignoreLevels: [LogData.Level]) {
-    self.ignoreLevels = ignoreLevels
+  public var hasSpace: Bool {
+    return cursor < size
   }
   
-  public func apply(log: LogData) -> LogData {
-    if ignoreLevels.contains(log.level) {
-      var log = log
-      log.isActive = false
-      return log
+  var buffer: [Element?]
+  let size: Int
+  var cursor: Int = 0
+  
+  public init(size: Int) {
+    self.size = size
+    self.buffer = [Element?].init(repeating: nil, count: size)
+  }
+  
+  public func write(element: Element) -> BufferResult<Element> {
+    
+    buffer[cursor] = .some(element)
+    
+    cursor += 1
+    
+    if cursor == size {
+      return .flowed(purge())
+    } else {
+      return .stored
     }
-    return log
+  }
+  
+  public func purge() -> [Element] {
+    let _buffer = buffer
+    for i in 0..<size {
+      buffer[i] = nil
+    }
+    cursor = 0
+    return _buffer.compactMap { $0 }
   }
 }

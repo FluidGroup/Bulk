@@ -1,5 +1,5 @@
 //
-// AnyFormatter.swift
+// NSLogTarget.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,15 +23,21 @@
 
 import Foundation
 
-public struct AnyFormatter: Formatter {
+#if !os(Linux)
+
+open class NSLogTarget: TargetType {
   
-  let format: (LogData) -> String
-  
-  public init(format: @escaping (LogData) -> String) {
-    self.format = format
+  public init() {
+    
   }
   
-  public func format(log: LogData) -> String {
-    return format(log)
+  open func write(formatted items: [String], completion: @escaping () -> Void) {
+    items.forEach {
+      NSLog($0)
+    }
+    
+    completion()
   }
 }
+
+#endif

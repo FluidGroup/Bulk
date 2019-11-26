@@ -1,5 +1,5 @@
 //
-// MemoryBuffer.swift
+// AnyFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,40 +23,18 @@
 
 import Foundation
 
-public final class MemoryBuffer: Buffer {
+public struct AnyFormatter: FormatterType {
+ 
+  public typealias Element = LogData
+  public typealias FormatType = String
   
-  public var hasSpace: Bool {
-    return cursor < size
+  let format: (LogData) -> String
+  
+  public init(format: @escaping (LogData) -> String) {
+    self.format = format
   }
   
-  var buffer: [LogData?]
-  let size: Int
-  var cursor: Int = 0
-  
-  public init(size: Int) {
-    self.size = size
-    self.buffer = [LogData?].init(repeating: nil, count: size)
-  }
-  
-  public func write(log: LogData) -> BufferResult {
-    
-    buffer[cursor] = .some(log)
-    
-    cursor += 1
-    
-    if cursor == size {
-      return .flowed(purge())
-    } else {
-      return .stored
-    }
-  }
-  
-  public func purge() -> [LogData] {
-    let _buffer = buffer
-    for i in 0..<size {
-      buffer[i] = nil
-    }
-    cursor = 0
-    return _buffer.compactMap { $0 }
+  public func format(element log: LogData) -> String {
+    return format(log)
   }
 }

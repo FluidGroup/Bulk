@@ -23,9 +23,24 @@
 
 import Foundation
 
-public protocol Formatter {
+public protocol FormatterType {
   
+  associatedtype Element
   associatedtype FormatType
   
-  func format(log: LogData) -> FormatType
+  func format(element: Element) -> FormatType
+}
+
+public struct FormatterWrapper<Element, FormatType>: FormatterType {
+  
+  private let _format: (_ element: Element) -> FormatType
+  
+  public init<Formatter: FormatterType>(backing: Formatter) where Formatter.Element == Element, Formatter.FormatType == FormatType {
+    self._format = backing.format
+  }
+  
+  public func format(element: Element) -> FormatType {
+    _format(element)
+  }
+  
 }

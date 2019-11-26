@@ -27,25 +27,29 @@ import Dispatch
 /**
  * Logs => plugins => Target
  */
-public class Pipeline {
+public class Pipeline<Input> {
   
   public struct BulkConfiguration {
-    public let buffer: Buffer
+    public let buffer: BufferWrapper<Input>
     public let timeout: DispatchTimeInterval
 
-    public init(buffer: Buffer, timeout: DispatchTimeInterval) {
+    public init(buffer: BufferWrapper<Input>, timeout: DispatchTimeInterval) {
       self.buffer = buffer
       self.timeout = timeout
     }
   }
   
-  public struct TargetConfiguration<F: Formatter, T: Target> where F.FormatType == T.FormatType {
+  public struct TargetConfiguration<Output> {
     
-    public let formatter: F
-    public let target: T
-    public let buffer: Buffer
+    public let formatter: FormatterWrapper<Input, Output>
+    public let target: TargetWrapper<Output>
+    public let buffer: BufferWrapper<Input>
     
-    public init(formatter: F, target: T, buffer: Buffer = NoBuffer()) {
+    public init(
+      formatter: FormatterWrapper<Input, Output>,
+      target: TargetWrapper<Output>,
+      buffer: BufferWrapper<Input>
+    ) {
       
       self.formatter = formatter
       self.target = target
@@ -53,9 +57,9 @@ public class Pipeline {
     }
   }
 
-  public let plugins: [Plugin]
-  public let writeBuffer: Buffer
-  public let bulkBuffer: Buffer
+  private let plugins: [PluginWrapper<Input>]
+  public let writeBuffer: BufferWrapper<Input>
+  public let bulkBuffer: BufferWrapper<Input>
   
   private let lock = NSRecursiveLock()
   
@@ -63,13 +67,13 @@ public class Pipeline {
   
   public var isWritingTarget: Bool = false
   
-  private var writeProcess: (([LogData]) -> Void)!
+  private var writeProcess: (([Input]) -> Void)!
   
-  public init<F, T>(
-    plugins: [Plugin],
-    bulkConfiguration: BulkConfiguration? = nil,
-    targetConfiguration: TargetConfiguration<F, T>
-    ) {
+  public init<Output>(
+    plugins: [PluginWrapper<Input>],
+    bulkConfiguration: BulkConfiguration,
+    targetConfiguration: TargetConfiguration<Output>
+  ) {
     
     self.plugins = plugins
     self.writeBuffer = targetConfiguration.buffer
@@ -77,24 +81,20 @@ public class Pipeline {
     let formatter = targetConfiguration.formatter
     let target = targetConfiguration.target
     
-    if let c = bulkConfiguration {
-      self.bulkBuffer = c.buffer
-      self.timer = Timer(
-        interval: c.timeout,
-        queue: .global(),
-        timeouted: { [weak self] in
-          self?.loadBuffer()
-      })
-    } else {
-      self.bulkBuffer = NoBuffer()
-      self.timer = nil
-    }
-    
-    self.writeProcess = { [weak self] r in
+    let c = bulkConfiguration
+    self.bulkBuffer = c.buffer
+    self.timer = Timer(
+      interval: c.timeout,
+      queue: .global(),
+      timeouted: { [weak self] in
+        self?.loadBuffer()
+    })
+        
+    self.writeProcess = { [weak self] elements in
       
       guard let `self` = self else { return }
       
-      guard r.isEmpty == false else { return }
+      guard elements.isEmpty == false else { return }
       
       if self.isWritingTarget == false {
         
@@ -106,9 +106,9 @@ public class Pipeline {
         
         group.enter()
         
-        let formattedLogs = r.map(formatter.format(log: ))
-        
-        target.write(formatted: formattedLogs, completion: {
+        let formatted = elements.map(formatter.format)
+                
+        target.write(formatted: formatted, completion: {
           group.leave()
         })
         
@@ -121,8 +121,8 @@ public class Pipeline {
         
         // to Buffer
         
-        for _r in r {
-          _ = self.writeBuffer.write(log: _r)
+        for _r in elements {
+          _ = self.writeBuffer.write(element: _r)
         }
       }
     }
@@ -133,7 +133,7 @@ public class Pipeline {
   deinit {
     
     bulkBuffer.purge().forEach {
-      _ = writeBuffer.write(log: $0)
+      _ = writeBuffer.write(element: $0)
     }
   }
   
@@ -142,20 +142,16 @@ public class Pipeline {
     __write(bulkBuffer.purge())
   }
   
-  func write(log: LogData) {
+  func write(element: Input) {
     
     lock.lock(); defer { lock.unlock() }
     
     let appliedLog = plugins
-      .reduce(log) { log, plugin in
-        plugin.apply(log: log)
+      .reduce(element) { element, plugin in
+        plugin.apply(element)
     }
     
-    guard appliedLog.isActive == true else {
-      return
-    }
-    
-    switch bulkBuffer.write(log: appliedLog) {
+    switch bulkBuffer.write(element: appliedLog) {
     case .flowed(let logs):
       __write(logs)
     case .stored:
@@ -164,7 +160,7 @@ public class Pipeline {
   }
 
   @inline(__always)
-  private func __write(_ r: [LogData]) {
+  private func __write(_ r: [Input]) {
     lock.lock(); defer { lock.unlock() }
     timer?.tap()
     writeProcess(r)

@@ -1,4 +1,5 @@
-// ConsoleTarget.swift
+//
+// NoBuffer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,22 +23,19 @@
 
 import Foundation
 
-open class ConsoleTarget: Target {
+public struct PassthroughBuffer<Element>: BufferType {
   
-  private let lock = NSRecursiveLock()
-    
-  public init() {
-    
+  public var hasSpace: Bool {
+    return false
   }
   
-  open func write(formatted items: [String], completion: @escaping () -> Void) {
-    
-    items.forEach {
-      lock.lock()
-      print($0)
-      lock.unlock()
-    }
-    
-    completion()
+  public init() { }
+  
+  public func write(element: Element) -> BufferResult<Element> {
+    return .flowed([element])
+  }
+  
+  public func purge() -> [Element] {
+    return []
   }
 }

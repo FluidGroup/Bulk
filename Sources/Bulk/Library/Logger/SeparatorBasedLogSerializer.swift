@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct SeparatorBasedLogSerializer: LogSerializer {
+public struct SeparatorBasedLogSerializer: SerializerType {
   
   public enum Error: Swift.Error {
     case serializedDataIsBroken
@@ -84,15 +84,15 @@ public struct SeparatorBasedLogSerializer: LogSerializer {
     )
   }
   
-  public func serialize(log: LogData) throws -> String {
+  public func serialize(element: LogData) throws -> String {
     
-    let level = log.level.__int.description
-    let date = log.date.timeIntervalSinceReferenceDate.bitPattern.description
-    let body = log.body.replacingOccurrences(of: "\n", with: "\\n")
-    let file = log.file.description
-    let function = log.function.description
-    let line = log.line.description
-    let isActive = log.isActive.__int.description
+    let level = element.level.__int.description
+    let date = element.date.timeIntervalSinceReferenceDate.bitPattern.description
+    let body = element.body.replacingOccurrences(of: "\n", with: "\\n")
+    let file = element.file.description
+    let function = element.function.description
+    let line = element.line.description
+    let isActive = element.isActive.__int.description
     
     return [
       level,
