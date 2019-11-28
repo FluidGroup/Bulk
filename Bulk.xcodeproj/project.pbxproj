@@ -145,12 +145,11 @@
 				4BDA35F11EB9EDC600B93628 /* AsyncPipeline.swift */,
 				4B7BFC561EBA50DA00CB9027 /* Buffer.swift */,
 				4BDA35ED1EB9E72E00B93628 /* Formatter.swift */,
-				4BDA35EF1EB9E8EB00B93628 /* LogData.swift */,
-				OBJ_9 /* Logger.swift */,
 				4BDA35EB1EB9E58E00B93628 /* Pipeline.swift */,
 				4BDA35E71EB9ADA800B93628 /* Plugin.swift */,
 				4BDA35E11EB9ACCB00B93628 /* Target.swift */,
 				4B1C721C1EBBA1B6008AA3FC /* Timer.swift */,
+				4B6618821EBE1A350052F4A5 /* SerializerType.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -158,10 +157,11 @@
 		4BAED93A1EBE4E3F00430A28 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4BDA35EF1EB9E8EB00B93628 /* LogData.swift */,
+				OBJ_9 /* Logger.swift */,
 				4B24C72E238D99BC00B85594 /* Buffer */,
 				4B24C72D238D962300B85594 /* Logger */,
 				4B4DB98A1F9E174500B5E803 /* ContextLogger.swift */,
-				4B6618821EBE1A350052F4A5 /* SerializerType.swift */,
 				4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */,
 			);
 			path = Library;

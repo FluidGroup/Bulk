@@ -28,14 +28,14 @@ final class Timer {
   
   let interval: DispatchTimeInterval
   let queue: DispatchQueue
-  private let timeouted: () -> Void
+  private let onTimeout: () -> Void
   
   private var item: DispatchWorkItem?
   
-  init(interval: DispatchTimeInterval, queue: DispatchQueue, timeouted: @escaping () -> Void) {
+  init(interval: DispatchTimeInterval, queue: DispatchQueue, onTimeout: @escaping () -> Void) {
     self.interval = interval
     self.queue = queue
-    self.timeouted = timeouted
+    self.onTimeout = onTimeout
     
     refresh()
   }
@@ -49,7 +49,7 @@ final class Timer {
     self.item?.cancel()
     
     let _item = DispatchWorkItem(qos: .background, flags: []) {
-      self.timeouted()
+      self.onTimeout()
     }
     
     queue.asyncAfter(deadline: .now() + interval, execute: _item)

@@ -31,6 +31,13 @@ public protocol FormatterType {
   func format(element: Element) -> FormatType
 }
 
+extension FormatterType {
+  
+  public func wrapped() -> FormatterWrapper<Element, FormatType> {
+    .init(backing: self)
+  }
+}
+
 public struct FormatterWrapper<Element, FormatType>: FormatterType {
   
   private let _format: (_ element: Element) -> FormatType

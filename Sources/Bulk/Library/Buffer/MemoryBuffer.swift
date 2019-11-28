@@ -29,13 +29,13 @@ public final class MemoryBuffer<Element>: BufferType {
     return cursor < size
   }
   
-  var buffer: [Element?]
+  var buffer: ContiguousArray<Element?>
   let size: Int
   var cursor: Int = 0
   
   public init(size: Int) {
     self.size = size
-    self.buffer = [Element?].init(repeating: nil, count: size)
+    self.buffer = ContiguousArray<Element?>.init(repeating: nil, count: size)
   }
   
   public func write(element: Element) -> BufferResult<Element> {
@@ -51,12 +51,12 @@ public final class MemoryBuffer<Element>: BufferType {
     }
   }
   
-  public func purge() -> [Element] {
+  public func purge() -> ContiguousArray<Element> {
     let _buffer = buffer
     for i in 0..<size {
       buffer[i] = nil
     }
     cursor = 0
-    return _buffer.compactMap { $0 }
+    return .init(_buffer.compactMap { $0 })
   }
 }

@@ -25,7 +25,7 @@ import Foundation
 
 public enum BufferResult<Element> {
   case stored
-  case flowed([Element])
+  case flowed(ContiguousArray<Element>)
 }
 
 public protocol BufferType {
@@ -44,13 +44,20 @@ public protocol BufferType {
   /// Purge buffered items
   ///
   /// - Returns: purged items
-  func purge() -> [Element]
+  func purge() -> ContiguousArray<Element>
+}
+
+extension BufferType {
+  
+  public func wrapped() -> BufferWrapper<Element> {
+    .init(backing: self)
+  }
 }
 
 public struct BufferWrapper<Element>: BufferType {
   
   private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
+  private let _purge: () -> ContiguousArray<Element>
   private let _write: (_ element: Element) -> BufferResult<Element>
   
   public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
@@ -69,7 +76,7 @@ public struct BufferWrapper<Element>: BufferType {
     _write(element)
   }
   
-  public func purge() -> [Element] {
+  public func purge() -> ContiguousArray<Element> {
     _purge()
   }
         

@@ -29,6 +29,13 @@ public protocol TargetType {
   func write(formatted items: [Element], completion: @escaping () -> Void)
 }
 
+extension TargetType {
+  
+  public func wrapped() -> TargetWrapper<Element> {
+    .init(backing: self)
+  }
+}
+
 public struct TargetWrapper<Element>: TargetType {
   
   private let _write: (_ formatted: [Element], _ completion: @escaping () -> Void) -> Void

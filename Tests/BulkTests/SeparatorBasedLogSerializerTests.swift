@@ -85,7 +85,7 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
   
   func _success(_ log: LogData) {
     do {
-      let r = try serializer.serialize(log: log)
+      let r = try serializer.serialize(element: log)
       let _r = try serializer.deserialize(source: r)
       
       XCTAssertEqual(log, _r)
@@ -97,7 +97,7 @@ class SeparatorBasedLogSerializerTests: XCTestCase {
   
   func _fail(_ log: LogData) {
     do {
-      let r = try serializer.serialize(log: log)
+      let r = try serializer.serialize(element: log)
       let _r = try serializer.deserialize(source: r)
       
       XCTAssertEqual(log, _r)

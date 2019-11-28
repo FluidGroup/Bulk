@@ -41,7 +41,11 @@ class AsyncPipelineTests: XCTestCase {
     log.add(pipeline:
       AsyncPipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target),
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped(),
         queue: .global()
       )
     )
@@ -71,7 +75,11 @@ class AsyncPipelineTests: XCTestCase {
     log.add(pipeline:
       AsyncPipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target),
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped(),
         queue: .global()
       )
     )
@@ -105,7 +113,11 @@ class AsyncPipelineTests: XCTestCase {
     log.add(pipeline:
       AsyncPipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target),
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped(),
         queue: .global()
       )
     )

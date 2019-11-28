@@ -45,7 +45,7 @@ public struct BasicFormatter: FormatterType {
     
   }
   
-  public func format(element: LogData) -> String {
+  public func format(element: LogData) -> String? {
     
     let level: String = {
       switch element.level {

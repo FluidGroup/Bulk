@@ -39,7 +39,11 @@ class PipelineTests: XCTestCase {
     log.add(pipeline:
       Pipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped()
       )
     )
     
@@ -62,7 +66,11 @@ class PipelineTests: XCTestCase {
     log.add(pipeline:
       Pipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped()
       )
     )
     
@@ -85,15 +93,15 @@ class PipelineTests: XCTestCase {
 
   func testIsActive() {
 
-    final class StringFilterPlugin : Bulk.Plugin {
-
-      func apply(log: LogData) -> LogData {
-        if log.body.contains("[skip]") {
-          var log = log
+    final class StringFilterPlugin : PluginType {
+      
+      func apply(_ element: LogData) -> LogData {
+        if element.body.contains("[skip]") {
+          var log = element
           log.isActive = false
           return log
         }
-        return log
+        return element
       }
     }
 
@@ -102,8 +110,12 @@ class PipelineTests: XCTestCase {
 
     log.add(pipeline:
       Pipeline(
-        plugins: [StringFilterPlugin()],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+        plugins: [StringFilterPlugin().wrapped()],
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped()
       )
     )
 
@@ -123,7 +135,11 @@ class PipelineTests: XCTestCase {
     log.add(pipeline:
       Pipeline(
         plugins: [],
-        targetConfiguration: .init(formatter: TestFormatter(), target: target)
+        inputBuffer: PassthroughBuffer().wrapped(),
+        inputTimebox: .seconds(0),
+        outputBuffer: PassthroughBuffer().wrapped(),
+        formatter: TestFormatter().wrapped(),
+        target: target.wrapped()
       )
     )
 

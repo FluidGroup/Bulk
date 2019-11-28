@@ -25,7 +25,7 @@ import Foundation
 
 @testable import Bulk
 
-class TestTarget: Target {
+class TestTarget: TargetType {
   
   var writeCompletedCount = 0
   
@@ -41,12 +41,12 @@ class TestTarget: Target {
   }
 }
 
-class TestFormatter: Bulk.Formatter {
-  
+class TestFormatter: FormatterType {
+    
   var formattedCount = 0
   
-  func format(log: LogData) -> String {
+  func format(element: LogData) -> String {
     formattedCount += 1
-    return log.body
+    return element.body
   }
 }
