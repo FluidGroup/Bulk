@@ -32,12 +32,7 @@ public struct LevelFilterPlugin: PluginType {
     self.ignoreLevels = ignoreLevels
   }
   
-  public func apply(_ element: LogData) -> LogData {
-    if ignoreLevels.contains(element.level) {
-      var log = element
-      log.isActive = false
-      return log
-    }
-    return element
+  public func filter(element: LogData) -> Bool {
+    !ignoreLevels.contains(element.level)
   }
 }

@@ -94,14 +94,9 @@ class PipelineTests: XCTestCase {
   func testIsActive() {
 
     final class StringFilterPlugin : PluginType {
-      
-      func apply(_ element: LogData) -> LogData {
-        if element.body.contains("[skip]") {
-          var log = element
-          log.isActive = false
-          return log
-        }
-        return element
+           
+      func filter(element: LogData) -> Bool {
+        !element.body.contains("[skip]")
       }
     }
 

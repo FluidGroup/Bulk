@@ -127,11 +127,13 @@ class AsyncPipelineTests: XCTestCase {
       g.leave()
     }
     
+    let queue = DispatchQueue.global()
+    
     for i in 0..<10 {
       
       g.enter()
       
-      DispatchQueue.global().async {
+      queue.async {
         log.debug(i)
       }
     }

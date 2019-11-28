@@ -116,12 +116,16 @@ public class Pipeline<Input> {
     
     lock.lock(); defer { lock.unlock() }
     
-    let appliedLog = plugins
-      .reduce(element) { element, plugin in
-        plugin.apply(element)
-    }
+    var _element = element
     
-    switch inputBuffer.write(element: appliedLog) {
+    for plugin in plugins {
+      _element = plugin.apply(element: _element)
+      guard plugin.filter(element: _element) else {
+        return
+      }
+    }
+                  
+    switch inputBuffer.write(element: _element) {
     case .flowed(let logs):
       __write(logs)
     case .stored:

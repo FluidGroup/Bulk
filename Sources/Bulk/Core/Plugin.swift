@@ -27,7 +27,20 @@ public protocol PluginType {
   
   associatedtype Element
   
-  func apply(_ element: Element) -> Element
+  func apply(element: Element) -> Element
+  
+  func filter(element: Element) -> Bool
+}
+
+extension PluginType {
+  
+  public func apply(element: Element) -> Element {
+    element
+  }
+  
+  public func filter(element: Element) -> Bool {
+    true
+  }
 }
 
 extension PluginType {
@@ -40,12 +53,18 @@ extension PluginType {
 public struct PluginWrapper<Element>: PluginType {
   
   private let _apply: (_ element: Element) -> Element
+  private let _filter: (_ element: Element) -> Bool
   
   public init<Plugin: PluginType>(backing: Plugin) where Plugin.Element == Element {
     self._apply = backing.apply
+    self._filter = backing.filter
   }
   
-  public func apply(_ element: Element) -> Element {
+  public func apply(element: Element) -> Element {
     _apply(element)
+  }
+  
+  public func filter(element: Element) -> Bool {
+    _filter(element)
   }
 }
