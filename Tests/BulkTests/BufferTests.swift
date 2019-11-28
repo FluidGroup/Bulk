@@ -29,11 +29,11 @@ import XCTest
 
 class BufferTests: XCTestCase {
   
-  var fileBuffer: FileBuffer!
-  var memoryBuffer: MemoryBuffer!
+  var fileBuffer: FileBuffer<LogData, SeparatorBasedLogSerializer>!
+  var memoryBuffer: MemoryBuffer<LogData>!
   
   override func setUp() {
-    fileBuffer = FileBuffer(size: 5, filePath: "/var/tmp/bulk-test.log")
+    fileBuffer = FileBuffer(size: 5, filePath: "/var/tmp/bulk-test.log", serializer: .init())
     _ = fileBuffer.purge()
     
     memoryBuffer = MemoryBuffer(size: 5)
@@ -41,46 +41,46 @@ class BufferTests: XCTestCase {
   
   func testFileBuffer() {
     
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
     
-    beFlowed(fileBuffer.write(log: create()))
+    beFlowed(fileBuffer.write(element: create()))
     
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
-    beStored(fileBuffer.write(log: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
+    beStored(fileBuffer.write(element: create()))
     
-    beFlowed(fileBuffer.write(log: create()))
+    beFlowed(fileBuffer.write(element: create()))
   }
   
   func testMemoryBuffer() {
     
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
     
-    beFlowed(memoryBuffer.write(log: create()))
+    beFlowed(memoryBuffer.write(element: create()))
     
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
-    beStored(memoryBuffer.write(log: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
+    beStored(memoryBuffer.write(element: create()))
     
-    beFlowed(memoryBuffer.write(log: create()))
+    beFlowed(memoryBuffer.write(element: create()))
   }
   
-  public func beStored(_ r: BufferResult) {
+  public func beStored(_ r: BufferResult<LogData>) {
     guard case .stored = r else {
       XCTFail("")
       return
     }
   }
   
-  public func beFlowed(_ r: BufferResult) {
+  public func beFlowed(_ r: BufferResult<LogData>) {
     guard case .flowed = r else {
       XCTFail("")
       return

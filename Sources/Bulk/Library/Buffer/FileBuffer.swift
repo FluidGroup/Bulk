@@ -85,10 +85,10 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
     }
   }
   
-  public func purge() -> [Element] {
+  public func purge() -> ContiguousArray<Element> {
     
     var cursor = 0
-    var serializedLines = [String].init(repeating: "", count: lineCount())
+    var serializedLines = ContiguousArray<String>(repeating: "", count: lineCount())
     
     do {
       
@@ -103,7 +103,7 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
       fileHandle = nil
       try fileManager.removeItem(at: fileURL)
       
-      return logs
+      return .init(logs)
       
     } catch {
              

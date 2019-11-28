@@ -30,16 +30,22 @@ public final class AsyncPipeline<Input>: Pipeline<Input> {
   
   public init<Output>(
     plugins: [PluginWrapper<Input>],
-    bulkConfiguration: BulkConfiguration,
-    targetConfiguration: TargetConfiguration<Output>,
+    inputBuffer: BufferWrapper<Input>,
+    inputTimebox: DispatchTimeInterval,
+    outputBuffer: BufferWrapper<Input>,
+    formatter: FormatterWrapper<Input, Output>,
+    target: TargetWrapper<Output>,
     queue: DispatchQueue
     ) {
     
     self.queue = queue
     super.init(
       plugins: plugins,
-      bulkConfiguration: bulkConfiguration,
-      targetConfiguration: targetConfiguration
+      inputBuffer: inputBuffer,
+      inputTimebox: inputTimebox,
+      outputBuffer: outputBuffer,
+      formatter: formatter,
+      target: target
     )
   }
   

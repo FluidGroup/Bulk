@@ -30,11 +30,18 @@ public protocol PluginType {
   func apply(_ element: Element) -> Element
 }
 
+extension PluginType {
+  
+  public func wrapped() -> PluginWrapper<Element> {
+    .init(backing: self)
+  }
+}
+
 public struct PluginWrapper<Element>: PluginType {
   
   private let _apply: (_ element: Element) -> Element
   
-  public init<Plugin: PluginType>(_ backing: Plugin) where Plugin.Element == Element {
+  public init<Plugin: PluginType>(backing: Plugin) where Plugin.Element == Element {
     self._apply = backing.apply
   }
   

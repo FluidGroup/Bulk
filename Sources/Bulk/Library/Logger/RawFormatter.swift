@@ -29,7 +29,7 @@ public struct RawFormatter : FormatterType {
   public init() {
   }
   
-  public func format(element: LogData) -> LogData {
+  public func format(element: LogData) -> LogData? {
     return element
   }
 }

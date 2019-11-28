@@ -31,11 +31,11 @@ public struct PassthroughBuffer<Element>: BufferType {
   
   public init() { }
   
-  public func write(element: Element) -> BufferResult<Element> {
-    return .flowed([element])
+  public func write(element: Element) -> BufferResult<Element> {    
+    return .flowed(ContiguousArray<Element>.init(arrayLiteral: element))
   }
   
-  public func purge() -> [Element] {
-    return []
+  public func purge() -> ContiguousArray<Element> {
+    return .init()
   }
 }

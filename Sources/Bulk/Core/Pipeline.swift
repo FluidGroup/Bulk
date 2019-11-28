@@ -28,38 +28,10 @@ import Dispatch
  * Logs => plugins => Target
  */
 public class Pipeline<Input> {
-  
-  public struct BulkConfiguration {
-    public let buffer: BufferWrapper<Input>
-    public let timeout: DispatchTimeInterval
-
-    public init(buffer: BufferWrapper<Input>, timeout: DispatchTimeInterval) {
-      self.buffer = buffer
-      self.timeout = timeout
-    }
-  }
-  
-  public struct TargetConfiguration<Output> {
-    
-    public let formatter: FormatterWrapper<Input, Output>
-    public let target: TargetWrapper<Output>
-    public let buffer: BufferWrapper<Input>
-    
-    public init(
-      formatter: FormatterWrapper<Input, Output>,
-      target: TargetWrapper<Output>,
-      buffer: BufferWrapper<Input>
-    ) {
-      
-      self.formatter = formatter
-      self.target = target
-      self.buffer = buffer
-    }
-  }
 
   private let plugins: [PluginWrapper<Input>]
-  public let writeBuffer: BufferWrapper<Input>
-  public let bulkBuffer: BufferWrapper<Input>
+  public let inputBuffer: BufferWrapper<Input>
+  public let outbutBuffer: BufferWrapper<Input>
   
   private let lock = NSRecursiveLock()
   
@@ -67,26 +39,24 @@ public class Pipeline<Input> {
   
   public var isWritingTarget: Bool = false
   
-  private var writeProcess: (([Input]) -> Void)!
+  private var writeProcess: ((ContiguousArray<Input>) -> Void)!
   
   public init<Output>(
     plugins: [PluginWrapper<Input>],
-    bulkConfiguration: BulkConfiguration,
-    targetConfiguration: TargetConfiguration<Output>
+    inputBuffer: BufferWrapper<Input>,
+    inputTimebox: DispatchTimeInterval,
+    outputBuffer: BufferWrapper<Input>,
+    formatter: FormatterWrapper<Input, Output>,
+    target: TargetWrapper<Output>
   ) {
     
     self.plugins = plugins
-    self.writeBuffer = targetConfiguration.buffer
-    
-    let formatter = targetConfiguration.formatter
-    let target = targetConfiguration.target
-    
-    let c = bulkConfiguration
-    self.bulkBuffer = c.buffer
+    self.outbutBuffer = outputBuffer
+    self.inputBuffer = inputBuffer
     self.timer = Timer(
-      interval: c.timeout,
+      interval: inputTimebox,
       queue: .global(),
-      timeouted: { [weak self] in
+      onTimeout: { [weak self] in
         self?.loadBuffer()
     })
         
@@ -106,8 +76,8 @@ public class Pipeline<Input> {
         
         group.enter()
         
-        let formatted = elements.map(formatter.format)
-                
+        let formatted = elements.map(formatter.format).compactMap { $0 }
+                        
         target.write(formatted: formatted, completion: {
           group.leave()
         })
@@ -115,14 +85,14 @@ public class Pipeline<Input> {
         _ = group.wait(timeout: DispatchTime.now() + .seconds(10))
         
         self.isWritingTarget = false
-        self.__write(self.writeBuffer.purge())
+        self.__write(self.outbutBuffer.purge())
         
       } else {
         
         // to Buffer
         
         for _r in elements {
-          _ = self.writeBuffer.write(element: _r)
+          _ = self.outbutBuffer.write(element: _r)
         }
       }
     }
@@ -132,14 +102,14 @@ public class Pipeline<Input> {
   
   deinit {
     
-    bulkBuffer.purge().forEach {
-      _ = writeBuffer.write(element: $0)
+    inputBuffer.purge().forEach {
+      _ = outbutBuffer.write(element: $0)
     }
   }
   
   func loadBuffer() {
     lock.lock(); defer { lock.unlock() }
-    __write(bulkBuffer.purge())
+    __write(inputBuffer.purge())
   }
   
   func write(element: Input) {
@@ -151,7 +121,7 @@ public class Pipeline<Input> {
         plugin.apply(element)
     }
     
-    switch bulkBuffer.write(element: appliedLog) {
+    switch inputBuffer.write(element: appliedLog) {
     case .flowed(let logs):
       __write(logs)
     case .stored:
@@ -160,7 +130,7 @@ public class Pipeline<Input> {
   }
 
   @inline(__always)
-  private func __write(_ r: [Input]) {
+  private func __write(_ r: ContiguousArray<Input>) {
     lock.lock(); defer { lock.unlock() }
     timer?.tap()
     writeProcess(r)
