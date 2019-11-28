@@ -27,6 +27,7 @@ import Dispatch
 public final class AsyncPipeline<Input>: Pipeline<Input> {
   
   public let queue: DispatchQueue
+  private let inputQueue: DispatchQueue
   
   public init<Output>(
     plugins: [PluginWrapper<Input>],
@@ -39,6 +40,15 @@ public final class AsyncPipeline<Input>: Pipeline<Input> {
     ) {
     
     self.queue = queue
+
+    self.inputQueue = DispatchQueue.init(
+      label: "me.muukii.Bulk.AsyncPipeline.input",
+      qos: .default,
+      attributes: [],
+      autoreleaseFrequency: .inherit,
+      target: queue
+    )
+
     super.init(
       plugins: plugins,
       inputBuffer: inputBuffer,
@@ -47,23 +57,23 @@ public final class AsyncPipeline<Input>: Pipeline<Input> {
       formatter: formatter,
       target: target
     )
+
   }
   
   override func write(element: Input) {
-    
-    queue.async(flags: .barrier) {
+    inputQueue.async(flags: .barrier) {
       super.write(element: element)
     }
   }
   
   override func loadBuffer() {
     
-    queue.async(flags: .barrier) {
+    inputQueue.async(flags: .barrier) {
       super.loadBuffer()
     }
   }
   
   public func waitUntilAllWritingAreProcessed() {
-    queue.sync(flags: .barrier, execute: {})
+    inputQueue.sync(flags: .barrier, execute: {})
   }
 }
