@@ -97,7 +97,7 @@ public final class CombineBulkSink<Element>: BulkSinkType {
   
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 extension Publisher where Failure == Never {
   
   fileprivate func useBuffer(
@@ -115,7 +115,7 @@ extension Publisher where Failure == Never {
   
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 fileprivate struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Output == Element, Upstream.Failure == Never {
   
   typealias Output = [Element]
@@ -143,7 +143,7 @@ fileprivate struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Up
     upstream.subscribe(inner)
   }
   
-  @available(iOS 13.0, *)
+  @available(iOS 13.0, macOS 10.15, *)
   final class Inner<Downstream: Subscriber, Element>: Subscriber where Upstream.Output == Element, Downstream.Input == [Element], Downstream.Failure == Never {
       
     typealias Input = Element
