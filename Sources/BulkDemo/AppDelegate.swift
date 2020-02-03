@@ -10,22 +10,25 @@ import UIKit
 import Bulk
 import BulkLogger
 
+let logger = Logger(context: "", sinks: [
+  CombineBulkSink<LogData>(
+    buffer: MemoryBuffer.init(size: 10).asAny(),
+    targets: [
+      TargetUmbrella.init(transform: LogBasicFormatter().format, targets: [LogConsoleTarget.init().asAny()]).asAny(),
+      OSLogTarget(subsystem: "BulkDemo", category: "Demo").asAny()
+    ]
+  ).asAny()
+])
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  
-  let logger = Logger(context: "", sinks: [
-    CombineBulkSink<LogData>(
-      buffer: MemoryBuffer.init(size: 10).asAny(),
-      targets: [TargetUmbrella.init(transform: LogBasicFormatter().format, targets: [LogConsoleTarget.init().asAny()]).asAny()]
-    ).asAny()
-  ])
+class AppDelegate: UIResponder, UIApplicationDelegate {    
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
             
-    
-    logger.debug("Hello")
-    logger.debug("Hello")
+    for i in 0..<20 {
+      logger.info("Hello \(i)")
+    }
 
     
     return true

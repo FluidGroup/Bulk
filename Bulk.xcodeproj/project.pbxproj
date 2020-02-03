@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B14242923E89006005B802A /* OSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B14242823E89006005B802A /* OSLogTarget.swift */; };
 		4B1C721E1EBBA1B6008AA3FC /* BulkBufferTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C721C1EBBA1B6008AA3FC /* BulkBufferTimer.swift */; };
 		4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */; };
 		4B251C9F23E748AF0075A8AB /* CombineBulkSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B251C9E23E748AF0075A8AB /* CombineBulkSink.swift */; };
@@ -127,6 +128,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B14242823E89006005B802A /* OSLogTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogTarget.swift; sourceTree = "<group>"; };
 		4B1C721C1EBBA1B6008AA3FC /* BulkBufferTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulkBufferTimer.swift; sourceTree = "<group>"; };
 		4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		4B251C9E23E748AF0075A8AB /* CombineBulkSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineBulkSink.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				4BDA35E51EB9ACD500B93628 /* LogFileTarget.swift */,
 				4B9FD1BF1EBCDCA40012FEBF /* LogLevelFilterPlugin.swift */,
 				4BE5D6951EBE158200D1282F /* NSLogTarget.swift */,
+				4B14242823E89006005B802A /* OSLogTarget.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 				4B97C17D23E85BFF00AFC336 /* LogData.swift in Sources */,
 				4B97C18D23E85C2F00AFC336 /* LogLevelFilterPlugin.swift in Sources */,
 				4B97C18023E85BFF00AFC336 /* Logger.swift in Sources */,
+				4B14242923E89006005B802A /* OSLogTarget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
