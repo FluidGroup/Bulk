@@ -1,7 +1,5 @@
 //
-// AnyFormatter.swift
-//
-// Copyright (c) 2017 muukii
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,19 +20,38 @@
 // THE SOFTWARE.
 
 import Foundation
+import Dispatch
 
-public struct AnyFormatter: FormatterType {
- 
-  public typealias Element = LogData
-  public typealias FormatType = String
+public final class BulkBufferTimer {
   
-  let format: (LogData) -> String
+  let interval: DispatchTimeInterval
+  let queue: DispatchQueue
+  private let onTimeout: () -> Void
   
-  public init(format: @escaping (LogData) -> String) {
-    self.format = format
+  private var item: DispatchWorkItem?
+  
+  public init(interval: DispatchTimeInterval, queue: DispatchQueue, onTimeout: @escaping () -> Void) {
+    self.interval = interval
+    self.queue = queue
+    self.onTimeout = onTimeout
+    
+    refresh()
   }
   
-  public func format(element log: LogData) -> String {
-    return format(log)
+  public func tap() {
+    refresh()
   }
+  
+  private func refresh() {
+    
+    self.item?.cancel()
+    
+    let _item = DispatchWorkItem(qos: .background, flags: []) {
+      self.onTimeout()
+    }
+    
+    queue.asyncAfter(deadline: .now() + interval, execute: _item)
+    self.item = _item
+  }
+  
 }

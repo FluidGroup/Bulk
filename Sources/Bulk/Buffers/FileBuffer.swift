@@ -1,7 +1,5 @@
 //
-// FileBuffer.swift
-//
-// Copyright (c) 2017 muukii
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,11 +34,15 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
   
   private let serializer: Serializer
   
-  public init(size: Int, filePath: String, serializer: Serializer) {
+  public init(
+    size: Int,
+    filePath: String,
+    serializer: Serializer
+  ) {
     // TODO: ~/ => /Users/FooBar
-    
+            
     self.size = size
-    self.fileURL = URL(fileURLWithPath: filePath).standardized
+    self.fileURL = URL(fileURLWithPath: (filePath as NSString).standardizingPath).standardized
     self.serializer = serializer
   }
   

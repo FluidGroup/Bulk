@@ -1,5 +1,5 @@
 //
-// Plugin.swift
+// AnyFormatter.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,48 +23,20 @@
 
 import Foundation
 
-public protocol PluginType {
-  
-  associatedtype Element
-  
-  func apply(element: Element) -> Element
-  
-  func filter(element: Element) -> Bool
-}
+import Bulk
 
-extension PluginType {
+public struct AnyFormatter: FormatterType {
+ 
+  public typealias Element = LogData
+  public typealias FormatType = String
   
-  public func apply(element: Element) -> Element {
-    element
+  let format: (LogData) -> String
+  
+  public init(format: @escaping (LogData) -> String) {
+    self.format = format
   }
   
-  public func filter(element: Element) -> Bool {
-    true
-  }
-}
-
-extension PluginType {
-  
-  public func wrapped() -> PluginWrapper<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct PluginWrapper<Element>: PluginType {
-  
-  private let _apply: (_ element: Element) -> Element
-  private let _filter: (_ element: Element) -> Bool
-  
-  public init<Plugin: PluginType>(backing: Plugin) where Plugin.Element == Element {
-    self._apply = backing.apply
-    self._filter = backing.filter
-  }
-  
-  public func apply(element: Element) -> Element {
-    _apply(element)
-  }
-  
-  public func filter(element: Element) -> Bool {
-    _filter(element)
+  public func format(element log: LogData) -> String {
+    return format(log)
   }
 }

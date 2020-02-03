@@ -1,7 +1,5 @@
 //
-// Formatter.swift
-//
-// Copyright (c) 2017 muukii
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,31 +21,22 @@
 
 import Foundation
 
-public protocol FormatterType {
+public final class BulkSinkGroup<Element>: BulkSinkType {
+     
+  private let sinks: AnyCollection<AnyBulkSink<Element>>
   
-  associatedtype Element
-  associatedtype FormatType
-  
-  func format(element: Element) -> FormatType
-}
-
-extension FormatterType {
-  
-  public func wrapped() -> FormatterWrapper<Element, FormatType> {
-    .init(backing: self)
-  }
-}
-
-public struct FormatterWrapper<Element, FormatType>: FormatterType {
-  
-  private let _format: (_ element: Element) -> FormatType
-  
-  public init<Formatter: FormatterType>(backing: Formatter) where Formatter.Element == Element, Formatter.FormatType == FormatType {
-    self._format = backing.format
+  public init<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == Element {
+    self.sinks = AnyCollection(CollectionOfOne<AnyBulkSink<Element>>.init(.init(sink)))
   }
   
-  public func format(element: Element) -> FormatType {
-    _format(element)
+  public init<C: Collection>(_ sinks: C) where C.Element == AnyBulkSink<Element> {
+    self.sinks = AnyCollection(sinks)
+  }
+  
+  public func send(_ element: Element) {
+    sinks.forEach {
+      $0.send(element)
+    }
   }
   
 }

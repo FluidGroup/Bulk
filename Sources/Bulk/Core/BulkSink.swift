@@ -1,18 +1,60 @@
 //
-//  BulkStream.swift
-//  Bulk
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
-//  Created by muukii on 2020/02/03.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import Foundation
+
+public protocol BulkSinkType {
+  
+  associatedtype Element
+    
+  func send(_ element: Element)
+}
+
+extension BulkSinkType {
+  
+  public func wrapped() -> AnyBulkSink<Element> {
+    .init(self)
+  }
+}
+
+public final class AnyBulkSink<Element>: BulkSinkType {
+  
+  private let _send: (Element) -> Void
+
+  public init<Sink: BulkSinkType>(_ source: Sink) where Sink.Element == Element {
+    self._send = source.send
+  }
+  
+  public func send(_ element: Element) {
+    _send(element)
+  }
+  
+}
 
 #if canImport(Combine)
 
 import Combine
 
 @available(iOS 13, macOS 10.15, *)
-public final class BulkStream<Element> {
+public final class BulkSink<Element>: BulkSinkType {
   
   private let stream = PassthroughSubject<Element, Never>()
   
@@ -24,20 +66,20 @@ public final class BulkStream<Element> {
   
   public init(
     buffer: BufferWrapper<Element>,
-    maxInterval: DispatchTimeInterval = .seconds(10),
+    debounceDueTime: DispatchTimeInterval = .seconds(10),
     targets: [TargetWrapper<Element>]
   ) {
     
     self.targets = targets
     
     stream
-      .useBuffer(buffer, interval: maxInterval, queue: targetQueue)
+      .useBuffer(buffer, debounceDueTime: debounceDueTime, queue: targetQueue)
       .sink { (elements) in
         
         targets.forEach {
           // TODO: align interface of Collection
           $0.write(formatted: elements.map { $0 }) {
-            
+            // TODO:
           }
         }
     }
@@ -59,18 +101,23 @@ public final class BulkStream<Element> {
 @available(iOS 13.0, *)
 extension Publisher where Failure == Never {
   
-  func useBuffer(
+  fileprivate func useBuffer(
     _ buffer: BufferWrapper<Output>,
-    interval: DispatchTimeInterval,
+    debounceDueTime: DispatchTimeInterval,
     queue: DispatchQueue
   ) -> UsingBuffer<Self, Output> {
-    .init(upstream: self, buffer: buffer, interval: interval, queue: queue)
+    .init(
+      upstream: self,
+      buffer: buffer,
+      debounceDueTime: debounceDueTime,
+      queue: queue
+    )
   }
   
 }
 
 @available(iOS 13.0, *)
-struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Output == Element, Upstream.Failure == Never {
+fileprivate struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Output == Element, Upstream.Failure == Never {
   
   typealias Output = ContiguousArray<Element>
   typealias Failure = Never
@@ -83,12 +130,12 @@ struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Outpu
   init(
     upstream: Upstream,
     buffer: BufferWrapper<Element>,
-    interval: DispatchTimeInterval,
+    debounceDueTime: DispatchTimeInterval,
     queue: DispatchQueue
   ) {
     self.upstream = upstream
     self.buffer = buffer
-    self.interval = interval
+    self.interval = debounceDueTime
     self.queue = queue
   }
   
@@ -105,7 +152,7 @@ struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Outpu
     
     private let downstream: Downstream
     private let buffer: BufferWrapper<Element>
-    private var timer: Timer!
+    private var timer: BulkBufferTimer!
     
     init(
       downstream: Downstream,
@@ -117,7 +164,7 @@ struct UsingBuffer<Upstream: Publisher, Element>: Publisher where Upstream.Outpu
       self.downstream = downstream
       self.buffer = buffer
       
-      self.timer = Timer(interval: interval, queue: queue) { [weak self] in
+      self.timer = BulkBufferTimer(interval: interval, queue: queue) { [weak self] in
         guard let self = self else { return }
         let elements = self.buffer.purge()
         _ = self.downstream.receive(elements)

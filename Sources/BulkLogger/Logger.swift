@@ -22,6 +22,8 @@
 
 import Foundation
 
+@_exported import Bulk
+
 public final class Logger {
   
   // MARK: - Properties

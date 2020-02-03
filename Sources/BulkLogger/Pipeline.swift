@@ -35,7 +35,7 @@ public class Pipeline<Input> {
   
   private let lock = NSRecursiveLock()
   
-  private var timer: Timer?
+  private var timer: BulkBufferTimer?
   
   public var isWritingTarget: Bool = false
   
@@ -53,7 +53,7 @@ public class Pipeline<Input> {
     self.plugins = plugins
     self.outbutBuffer = outputBuffer
     self.inputBuffer = inputBuffer
-    self.timer = Timer(
+    self.timer = BulkBufferTimer(
       interval: inputTimebox,
       queue: .global(),
       onTimeout: { [weak self] in

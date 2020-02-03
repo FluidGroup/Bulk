@@ -12,7 +12,7 @@ import Bulk
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  let stream = BulkStream<String>(
+  let stream = BulkSink<String>(
     buffer: MemoryBuffer.init(size: 10).wrapped(),
     targets: [ConsoleTarget.init().wrapped()]
   )

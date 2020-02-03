@@ -1,7 +1,5 @@
 //
-// Timer.swift
-//
-// Copyright (c) 2017 muukii
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,38 +20,41 @@
 // THE SOFTWARE.
 
 import Foundation
-import Dispatch
 
-final class Timer {
+public final class MemoryBuffer<Element>: BufferType {
   
-  let interval: DispatchTimeInterval
-  let queue: DispatchQueue
-  private let onTimeout: () -> Void
-  
-  private var item: DispatchWorkItem?
-  
-  init(interval: DispatchTimeInterval, queue: DispatchQueue, onTimeout: @escaping () -> Void) {
-    self.interval = interval
-    self.queue = queue
-    self.onTimeout = onTimeout
-    
-    refresh()
+  public var hasSpace: Bool {
+    return cursor < size
   }
   
-  func tap() {
-    refresh()
+  var buffer: ContiguousArray<Element?>
+  let size: Int
+  var cursor: Int = 0
+  
+  public init(size: Int) {
+    self.size = size
+    self.buffer = ContiguousArray<Element?>.init(repeating: nil, count: size)
   }
   
-  private func refresh() {
+  public func write(element: Element) -> BufferResult<Element> {
     
-    self.item?.cancel()
+    buffer[cursor] = .some(element)
     
-    let _item = DispatchWorkItem(qos: .background, flags: []) {
-      self.onTimeout()
+    cursor += 1
+    
+    if cursor == size {
+      return .flowed(purge())
+    } else {
+      return .stored
     }
-    
-    queue.asyncAfter(deadline: .now() + interval, execute: _item)
-    self.item = _item
   }
   
+  public func purge() -> ContiguousArray<Element> {
+    let _buffer = buffer
+    for i in 0..<size {
+      buffer[i] = nil
+    }
+    cursor = 0
+    return .init(_buffer.compactMap { $0 })
+  }
 }
