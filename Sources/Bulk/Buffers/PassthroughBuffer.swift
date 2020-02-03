@@ -32,10 +32,10 @@ public struct PassthroughBuffer<Element>: BufferType {
   public init() { }
   
   public func write(element: Element) -> BufferResult<Element> {    
-    return .flowed(ContiguousArray<Element>.init(arrayLiteral: element))
+    return .flowed([Element].init(arrayLiteral: element))
   }
   
-  public func purge() -> ContiguousArray<Element> {
+  public func purge() -> [Element] {
     return .init()
   }
 }

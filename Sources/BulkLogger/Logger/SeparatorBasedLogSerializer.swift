@@ -25,131 +25,21 @@ import Foundation
 
 public struct SeparatorBasedLogSerializer: SerializerType {
   
-  public enum Error: Swift.Error {
-    case serializedDataIsBroken
+  private enum Static {
+    static let decoder = JSONDecoder()
+    static let encoder = JSONEncoder()
+  }
+    
+  public init() {
   }
   
-  private enum Position: Int {
-    case level = 0
-    case date = 1
-    case body = 2
-    case file = 3
-    case function = 4
-    case line = 5
-    case isActive = 6
+  public func deserialize(source: Data) throws -> LogData {
+    return try Static.decoder.decode(LogData.self, from: source)
   }
   
-  public typealias SerializedType = String
-  
-  public let separator: Character
-  
-  public init(separator: Character = "\t") {
-    self.separator = separator
-  }
-  
-  public func deserialize(source: String) throws -> LogData {
+  public func serialize(element: LogData) throws -> Data {
     
-    let s = source.split(separator: separator, omittingEmptySubsequences: false).map { String($0) }
-    
-    guard s.count == 7 else {
-      throw Error.serializedDataIsBroken
-    }
-    
-    guard let level = Int(s[Position.level.rawValue]).map(LogData.Level.init(__int: )) else {
-      throw Error.serializedDataIsBroken
-    }
-    guard let date = UInt64(s[Position.date.rawValue]).map(TimeInterval.init(bitPattern: )).map(Date.init(timeIntervalSinceReferenceDate: )) else {
-      throw Error.serializedDataIsBroken
-    }
-    let body = s[Position.body.rawValue].replacingOccurrences(of: "\\n", with: "\n")
-    let file = s[Position.file.rawValue]
-    let function = s[Position.function.rawValue]
-    
-    guard let line = UInt(s[Position.line.rawValue]) else {
-      throw Error.serializedDataIsBroken
-    }
-    
-    guard let isActive = Int(s[Position.isActive.rawValue]).map(Bool.init(__int: )) else {
-      throw Error.serializedDataIsBroken
-    }
-        
-    return LogData(
-      level: level,
-      date: date,
-      body: body,
-      file: file,
-      function: function,
-      line: line,
-      isActive: isActive
-    )
-  }
-  
-  public func serialize(element: LogData) throws -> String {
-    
-    let level = element.level.__int.description
-    let date = element.date.timeIntervalSinceReferenceDate.bitPattern.description
-    let body = element.body.replacingOccurrences(of: "\n", with: "\\n")
-    let file = element.file.description
-    let function = element.function.description
-    let line = element.line.description
-    let isActive = element.isActive.__int.description
-    
-    return [
-      level,
-      date,
-      body,
-      file,
-      function,
-      line,
-      isActive,
-      ]
-      .joined(separator: String(separator))
+    let data = try Static.encoder.encode(element)
+    return data
   }
 }
-
-extension Bool {
-  
-  fileprivate init(__int: Int) {
-    if __int == 1 {
-      self = true
-    } else {
-      self = false
-    }
-  }
-  
-  fileprivate var __int: Int {
-    return self ? 1 : 0
-  }
-}
-
-extension LogData.Level {
-  
-  fileprivate var __int: Int {
-    switch self {
-    case .verbose: return 0
-    case .debug: return 1
-    case .info: return 2
-    case .warn: return 3
-    case .error: return 4
-    }
-  }
-  
-  fileprivate init(__int: Int) {
-    switch __int {
-    case 0:
-      self = .verbose
-    case 1:
-      self = .debug
-    case 2:
-      self = .info
-    case 3:
-      self = .warn
-    case 4:
-      self = .error
-    default:
-      assertionFailure()
-      self = .verbose
-    }
-  }
-}
-

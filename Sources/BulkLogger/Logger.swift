@@ -28,12 +28,20 @@ public final class Logger {
   
   // MARK: - Properties
   
-  private(set) public var pipelines: [Pipeline<LogData>] = []
+  private(set) public var sinks: [AnyBulkSink<LogData>]
   
+  public let context: [String]
+    
   // MARK: - Initializers
   
-  public init() {
-    
+  public init(context: String, sinks: [AnyBulkSink<LogData>]) {
+    self.context = [context]
+    self.sinks = sinks
+  }
+  
+  private init(context: String, source: Logger) {
+    self.context = source.context + CollectionOfOne(context)
+    self.sinks = source.sinks
   }
   
   // MARK: - Functions
@@ -43,12 +51,22 @@ public final class Logger {
     
     let now = Date()
     
-    let body = items.map { String(describing: $0) }.joined(separator: " ")
+    let body = items
+      .map { String(describing: $0) }
+      .joined(separator: " ")
     
-    let log = LogData(level: level, date: now, body: body, file: file.description, function: function.description, line: line, isActive: true)
+    let log = LogData(
+      context: context,
+      level: level,
+      date: now,
+      body: body,
+      file: file.description,
+      function: function.description,
+      line: line
+    )
     
-    pipelines.forEach { target in
-      target.write(element: log)
+    sinks.forEach { target in
+      target.send(log)
     }
   }
 
@@ -81,11 +99,11 @@ public final class Logger {
     _write(level: .error, items, file: file, function: function, line: line)
   }
   
-  public func add(pipeline: Pipeline<LogData>) {
-    pipelines.append(pipeline)
+  public func addSink<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == LogData {
+    sinks.append(.init(sink))
   }
 
-  public func context(_ items: [Any]) -> ContextLogger {
-    return ContextLogger(logger: self, prefixItemsClosure: items)
+  public func makeContextualLogger(context: String) -> Logger {
+    return .init(context: context, source: self)
   }
 }

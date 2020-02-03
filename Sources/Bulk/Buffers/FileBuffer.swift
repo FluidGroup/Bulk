@@ -21,7 +21,7 @@
 
 import Foundation
 
-public final class FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element, Serializer.SerializedType == String {
+public final class FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element {
     
   public var hasSpace: Bool {
     return lineCount() < size
@@ -54,9 +54,9 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
     
     do {
       
-      let s = try serializer.serialize(element: element)
-      
-      let line = s + "\n"
+      let data = try serializer.serialize(element: element)
+                  
+      let line = data.base64EncodedString() + "\n"
       
       if fileManager.fileExists(atPath: fileURL.path) == false {
         // create file if not existing
@@ -87,7 +87,7 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
     }
   }
   
-  public func purge() -> ContiguousArray<Element> {
+  public func purge() -> [Element] {
     
     var cursor = 0
     var serializedLines = ContiguousArray<String>(repeating: "", count: lineCount())
@@ -98,8 +98,11 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
         serializedLines[cursor] = l
         cursor += 1
       }
-      
-      let logs = serializedLines.map { try? serializer.deserialize(source: $0) }.compactMap { $0 }
+                  
+      let logs = serializedLines
+        .compactMap { Data.init(base64Encoded: $0) }
+        .map { try? serializer.deserialize(source: $0) }
+        .compactMap { $0 }
 
       fileHandle?.closeFile()
       fileHandle = nil

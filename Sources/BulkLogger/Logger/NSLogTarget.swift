@@ -31,12 +31,10 @@ open class NSLogTarget: TargetType {
     
   }
   
-  open func write(formatted items: [String], completion: @escaping () -> Void) {
+  open func write(formatted items: [String]) {
     items.forEach {
       NSLog($0)
     }
-    
-    completion()
   }
 }
 

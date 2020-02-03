@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct LogData {
+public struct LogData: Codable {
   
   /// Logging Level
   ///
@@ -32,7 +32,7 @@ public struct LogData {
   /// - info: Info
   /// - warn: Warn
   /// - error: Error
-  public enum Level {
+  public enum Level: String, Codable {
     case verbose
     case debug
     case info
@@ -40,14 +40,12 @@ public struct LogData {
     case error
   }
   
+  public var context: [String]
   public var level: LogData.Level
   public var date: Date
   public var body: String
   public var file: String
   public var function: String
   public var line: UInt
-  
-  /// Whether send to Target
-  public var isActive: Bool = true
-  
+    
 }

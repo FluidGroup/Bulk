@@ -23,21 +23,16 @@
 import Foundation
 
 open class ConsoleTarget: TargetType {
-  
-  private let lock = NSRecursiveLock()
-    
+      
   public init() {
     
   }
   
-  open func write(formatted items: [String], completion: @escaping () -> Void) {
+  open func write(formatted items: [String]) {
     
     items.forEach {
-      lock.lock()
       print($0)
-      lock.unlock()
     }
     
-    completion()
   }
 }

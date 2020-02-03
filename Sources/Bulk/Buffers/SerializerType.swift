@@ -24,8 +24,7 @@ import Foundation
 public protocol SerializerType {
   
   associatedtype Element
-  associatedtype SerializedType
   
-  func serialize(element: Element) throws -> SerializedType
-  func deserialize(source: SerializedType) throws -> Element
+  func serialize(element: Element) throws -> Data
+  func deserialize(source: Data) throws -> Element
 }

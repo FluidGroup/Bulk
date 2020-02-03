@@ -49,7 +49,7 @@ public final class MemoryBuffer<Element>: BufferType {
     }
   }
   
-  public func purge() -> ContiguousArray<Element> {
+  public func purge() -> [Element] {
     let _buffer = buffer
     for i in 0..<size {
       buffer[i] = nil

@@ -41,7 +41,7 @@ open class FileTarget: TargetType {
     fileHandle?.closeFile()
   }
   
-  open func write(formatted items: [String], completion: @escaping () -> Void) {
+  open func write(formatted items: [String]) {
     
     lock.lock(); defer { lock.unlock() }
     
@@ -73,7 +73,6 @@ open class FileTarget: TargetType {
       }
     }
     
-    completion()
   }
   
   open func clearFile() {

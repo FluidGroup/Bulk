@@ -38,23 +38,22 @@ public final class RxBulkSink<Element>: BulkSinkType {
   private var timer: BulkBufferTimer!
   
   public init(
-    buffer: BufferWrapper<Element>,
+    buffer: AnyBuffer<Element>,
     debounceDueTime: DispatchTimeInterval = .seconds(10),
-    targets: [TargetWrapper<Element>]
+    targets: [AnyTarget<Element>]
   ) {
     
     self.timer = BulkBufferTimer(interval: debounceDueTime, queue: targetQueue) { [weak self] in
       guard let self = self else { return }
       let elements = buffer.purge()
-      _ = self.output.onNext(elements.map { $0 })
+      _ = self.output.onNext(elements)
     }
         
     output
+      .observeOn(SerialDispatchQueueScheduler(queue: targetQueue, internalSerialQueueName: ""))
       .subscribe(onNext: { elements in
         targets.forEach {
-          $0.write(formatted: elements) {
-            // TODO:
-          }
+          $0.write(formatted: elements)
         }
       })
       .disposed(by: disposeBag)
@@ -63,8 +62,7 @@ public final class RxBulkSink<Element>: BulkSinkType {
       .flatMap { element -> Maybe<[Element]> in
         switch buffer.write(element: element) {
         case .flowed(let elements):
-          // TODO: align interface of Collection
-          return .just(elements.map { $0 })
+          return .just(elements)
         case .stored:
           return .empty()
         }

@@ -8,21 +8,24 @@
 import UIKit
 
 import Bulk
+import BulkLogger
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  let stream = BulkSink<String>(
-    buffer: MemoryBuffer.init(size: 10).wrapped(),
-    targets: [ConsoleTarget.init().wrapped()]
-  )
-
+  let logger = Logger(context: "", sinks: [
+    CombineBulkSink<LogData>(
+      buffer: MemoryBuffer.init(size: 10).asAny(),
+      targets: [TargetUmbrella.init(transform: BasicFormatter().format, targets: [ConsoleTarget.init().asAny()]).asAny()]
+    ).asAny()
+  ])
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
             
-    for i in 0..<21 {
-      stream.send("\(i)")
-    }
+    
+    logger.debug("Hello")
+    logger.debug("Hello")
 
     
     return true

@@ -1,7 +1,5 @@
 //
-// AnyFormatter.swift
-//
-// Copyright (c) 2017 muukii
+// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +21,23 @@
 
 import Foundation
 
-import Bulk
-
-public struct AnyFormatter: FormatterType {
- 
-  public typealias Element = LogData
-  public typealias FormatType = String
+public struct TargetUmbrella<Element>: TargetType {
   
-  let format: (LogData) -> String
-  
-  public init(format: @escaping (LogData) -> String) {
-    self.format = format
+  private let _write: ([Element]) -> Void
+     
+  public init<U>(
+    transform: @escaping (Element) -> U?,
+    targets: [AnyTarget<U>]
+  ) {
+    self._write = { elements in
+      let results = elements.compactMap(transform)
+      targets.forEach {
+        $0.write(formatted: results)
+      }
+    }
   }
-  
-  public func format(element log: LogData) -> String {
-    return format(log)
+
+  public func write(formatted items: [Element]) {
+    _write(items)
   }
 }

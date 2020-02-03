@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct BasicFormatter: FormatterType {
+public struct BasicFormatter {
       
   public struct LevelString {
     public var verbose = "[VERBOSE]"

@@ -24,7 +24,7 @@
 import Foundation
 
 /// Filter for Log.Level
-public struct LevelFilterPlugin: PluginType {
+public struct LevelFilterPlugin {
   
   public let ignoreLevels: [LogData.Level]
   

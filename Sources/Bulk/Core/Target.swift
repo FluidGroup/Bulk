@@ -25,25 +25,25 @@ public protocol TargetType {
   
   associatedtype Element
   
-  func write(formatted items: [Element], completion: @escaping () -> Void)
+  func write(formatted items: [Element])
 }
 
 extension TargetType {
   
-  public func wrapped() -> TargetWrapper<Element> {
+  public func asAny() -> AnyTarget<Element> {
     .init(backing: self)
   }
 }
 
-public struct TargetWrapper<Element>: TargetType {
+public struct AnyTarget<Element>: TargetType {
   
-  private let _write: (_ formatted: [Element], _ completion: @escaping () -> Void) -> Void
+  private let _write: (_ formatted: [Element]) -> Void
   
   public init<Target: TargetType>(backing: Target) where Target.Element == Element {
     self._write = backing.write
   }
   
-  public func write(formatted items: [Element], completion: @escaping () -> Void) {
-    _write(items, completion)
+  public func write(formatted items: [Element]) {
+    _write(items)
   }
 }
