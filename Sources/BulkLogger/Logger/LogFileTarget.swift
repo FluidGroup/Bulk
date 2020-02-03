@@ -22,7 +22,7 @@
 
 import Foundation
 
-open class FileTarget: TargetType {
+open class LogFileTarget: TargetType {
   
   private let fileManager = FileManager.default
   public let fileURL: URL

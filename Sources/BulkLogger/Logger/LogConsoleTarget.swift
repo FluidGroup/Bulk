@@ -1,5 +1,4 @@
-//
-// LevelFilterPlugin.swift
+// ConsoleTarget.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,16 +22,17 @@
 
 import Foundation
 
-/// Filter for Log.Level
-public struct LevelFilterPlugin {
-  
-  public let ignoreLevels: [LogData.Level]
-  
-  public init(ignoreLevels: [LogData.Level]) {
-    self.ignoreLevels = ignoreLevels
+open class LogConsoleTarget: TargetType {
+      
+  public init() {
+    
   }
   
-  public func filter(element: LogData) -> Bool {
-    !ignoreLevels.contains(element.level)
+  open func write(formatted items: [String]) {
+    
+    items.forEach {
+      print($0)
+    }
+    
   }
 }

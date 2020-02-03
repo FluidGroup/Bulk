@@ -26,11 +26,15 @@ public struct TargetUmbrella<Element>: TargetType {
   private let _write: ([Element]) -> Void
      
   public init<U>(
-    transform: @escaping (Element) -> U?,
+    filter: @escaping (Element) -> Bool = { _ in true },
+    transform: @escaping (Element) -> U,
     targets: [AnyTarget<U>]
   ) {
     self._write = { elements in
-      let results = elements.compactMap(transform)
+      let results = elements
+        .filter(filter)
+        .map(transform)
+      
       targets.forEach {
         $0.write(formatted: results)
       }

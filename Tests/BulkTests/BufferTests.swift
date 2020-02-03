@@ -29,8 +29,15 @@ import XCTest
 
 class BufferTests: XCTestCase {
   
-  var fileBuffer: FileBuffer<LogData, SeparatorBasedLogSerializer>!
-  var memoryBuffer: MemoryBuffer<LogData>!
+  struct Model: Codable {
+    var name: String
+    var count: Int
+  }
+  
+  typealias Element = Model
+  
+  var fileBuffer: FileBuffer<Element, CodableSerializer<Element>>!
+  var memoryBuffer: MemoryBuffer<Element>!
   
   override func setUp() {
     fileBuffer = FileBuffer(size: 5, filePath: "/var/tmp/bulk-test.log", serializer: .init())
@@ -73,22 +80,22 @@ class BufferTests: XCTestCase {
     beFlowed(memoryBuffer.write(element: create()))
   }
   
-  public func beStored(_ r: BufferResult<LogData>) {
+  public func beStored(_ r: BufferResult<Element>) {
     guard case .stored = r else {
       XCTFail("")
       return
     }
   }
   
-  public func beFlowed(_ r: BufferResult<LogData>) {
+  public func beFlowed(_ r: BufferResult<Element>) {
     guard case .flowed = r else {
       XCTFail("")
       return
     }
   }
   
-  private func create() -> LogData {
-    return LogData(level: .verbose, date: Date(), body: "", file: "", function: "", line: 10, isActive: true)
+  private func create() -> Element {
+    return .init(name: "Hello", count: 1)
   }
 }
 

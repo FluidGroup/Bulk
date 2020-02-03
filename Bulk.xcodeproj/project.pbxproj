@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4B1C721E1EBBA1B6008AA3FC /* BulkBufferTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C721C1EBBA1B6008AA3FC /* BulkBufferTimer.swift */; };
 		4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */; };
-		4B1C72241EBBA9BA008AA3FC /* AsyncPipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */; };
 		4B251C9F23E748AF0075A8AB /* CombineBulkSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B251C9E23E748AF0075A8AB /* CombineBulkSink.swift */; };
 		4B251CAD23E74F130075A8AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B251CAC23E74F130075A8AB /* AppDelegate.swift */; };
 		4B251CAF23E74F130075A8AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B251CAE23E74F130075A8AB /* SceneDelegate.swift */; };
@@ -19,13 +18,11 @@
 		4B251CB923E74F160075A8AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B251CB723E74F160075A8AB /* LaunchScreen.storyboard */; };
 		4B251CBE23E74F1C0075A8AB /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */; };
 		4B251CBF23E74F1C0075A8AB /* Bulk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */; };
-		4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */; };
 		4B581F2823E85D940009203F /* BulkSinkGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B581F2723E85D940009203F /* BulkSinkGroup.swift */; };
 		4B581F3E23E86BD20009203F /* PassthroughBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */; };
-		4B581F4023E86DC00009203F /* SeparatorBasedLogSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */; };
 		4B581F4223E8714B0009203F /* TargetUmbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B581F4123E8714B0009203F /* TargetUmbrella.swift */; };
 		4B581F4423E8736D0009203F /* BulkSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B581F4323E8736D0009203F /* BulkSink.swift */; };
+		4B581F4523E878E50009203F /* CodableSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED92B1EBE2E6400430A28 /* CodableSerializer.swift */; };
 		4B6618841EBE1A350052F4A5 /* SerializerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6618821EBE1A350052F4A5 /* SerializerType.swift */; };
 		4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC561EBA50DA00CB9027 /* Buffer.swift */; };
 		4B7BFC5D1EBA590200CB9027 /* MemoryBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */; };
@@ -45,13 +42,12 @@
 		4B97C18023E85BFF00AFC336 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		4B97C18123E85C0800AFC336 /* Bulk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */; };
 		4B97C18223E85C0800AFC336 /* Bulk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B80E7811EB9F2DC00C9BE63 /* Bulk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B97C18A23E85C2F00AFC336 /* ConsoleTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */; };
-		4B97C18B23E85C2F00AFC336 /* FileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* FileTarget.swift */; };
-		4B97C18C23E85C2F00AFC336 /* BasicFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */; };
-		4B97C18D23E85C2F00AFC336 /* LevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */; };
+		4B97C18A23E85C2F00AFC336 /* LogConsoleTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E31EB9ACD100B93628 /* LogConsoleTarget.swift */; };
+		4B97C18B23E85C2F00AFC336 /* LogFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA35E51EB9ACD500B93628 /* LogFileTarget.swift */; };
+		4B97C18C23E85C2F00AFC336 /* LogBasicFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC62ED01EBCC00700F68DFC /* LogBasicFormatter.swift */; };
+		4B97C18D23E85C2F00AFC336 /* LogLevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LogLevelFilterPlugin.swift */; };
 		4B97C18E23E85C2F00AFC336 /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
 		4BAED9311EBE38AF00430A28 /* BufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED9301EBE38AF00430A28 /* BufferTests.swift */; };
-		4BAED9331EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +129,6 @@
 /* Begin PBXFileReference section */
 		4B1C721C1EBBA1B6008AA3FC /* BulkBufferTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulkBufferTimer.swift; sourceTree = "<group>"; };
 		4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
-		4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncPipelineTests.swift; sourceTree = "<group>"; };
 		4B251C9E23E748AF0075A8AB /* CombineBulkSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineBulkSink.swift; sourceTree = "<group>"; };
 		4B251CAA23E74F130075A8AB /* BulkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BulkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B251CAC23E74F130075A8AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,9 +138,7 @@
 		4B251CB523E74F160075A8AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4B251CB823E74F160075A8AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B251CBA23E74F160075A8AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineTests.swift; sourceTree = "<group>"; };
 		4B4BC3DE1EBB2B9A003AD6DD /* BulkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		4B4BC3EE1EBB313E003AD6DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B581F2723E85D940009203F /* BulkSinkGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkSinkGroup.swift; sourceTree = "<group>"; };
 		4B581F4123E8714B0009203F /* TargetUmbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetUmbrella.swift; sourceTree = "<group>"; };
@@ -164,14 +157,13 @@
 		4B97C17123E85B6E00AFC336 /* BulkLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BulkLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B97C17323E85B6E00AFC336 /* BulkLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BulkLogger.h; sourceTree = "<group>"; };
 		4B97C17423E85B6E00AFC336 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelFilterPlugin.swift; sourceTree = "<group>"; };
-		4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorBasedLogSerializer.swift; sourceTree = "<group>"; };
+		4B9FD1BF1EBCDCA40012FEBF /* LogLevelFilterPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevelFilterPlugin.swift; sourceTree = "<group>"; };
+		4BAED92B1EBE2E6400430A28 /* CodableSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableSerializer.swift; sourceTree = "<group>"; };
 		4BAED9301EBE38AF00430A28 /* BufferTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferTests.swift; sourceTree = "<group>"; };
-		4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorBasedLogSerializerTests.swift; sourceTree = "<group>"; };
-		4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicFormatter.swift; sourceTree = "<group>"; };
+		4BC62ED01EBCC00700F68DFC /* LogBasicFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogBasicFormatter.swift; sourceTree = "<group>"; };
 		4BDA35E11EB9ACCB00B93628 /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
-		4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleTarget.swift; sourceTree = "<group>"; };
-		4BDA35E51EB9ACD500B93628 /* FileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTarget.swift; sourceTree = "<group>"; };
+		4BDA35E31EB9ACD100B93628 /* LogConsoleTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogConsoleTarget.swift; sourceTree = "<group>"; };
+		4BDA35E51EB9ACD500B93628 /* LogFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFileTarget.swift; sourceTree = "<group>"; };
 		4BDA35EF1EB9E8EB00B93628 /* LogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogData.swift; sourceTree = "<group>"; };
 		4BE5D6951EBE158200D1282F /* NSLogTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogTarget.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -226,11 +218,10 @@
 		4B24C72D238D962300B85594 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				4BAED92B1EBE2E6400430A28 /* SeparatorBasedLogSerializer.swift */,
-				4BC62ED01EBCC00700F68DFC /* BasicFormatter.swift */,
-				4BDA35E31EB9ACD100B93628 /* ConsoleTarget.swift */,
-				4BDA35E51EB9ACD500B93628 /* FileTarget.swift */,
-				4B9FD1BF1EBCDCA40012FEBF /* LevelFilterPlugin.swift */,
+				4BC62ED01EBCC00700F68DFC /* LogBasicFormatter.swift */,
+				4BDA35E31EB9ACD100B93628 /* LogConsoleTarget.swift */,
+				4BDA35E51EB9ACD500B93628 /* LogFileTarget.swift */,
+				4B9FD1BF1EBCDCA40012FEBF /* LogLevelFilterPlugin.swift */,
 				4BE5D6951EBE158200D1282F /* NSLogTarget.swift */,
 			);
 			path = Logger;
@@ -241,6 +232,7 @@
 			children = (
 				4B7BFC651EBAE9F400CB9027 /* PassthroughBuffer.swift */,
 				4B7BFC601EBAD33C00CB9027 /* FileBuffer.swift */,
+				4BAED92B1EBE2E6400430A28 /* CodableSerializer.swift */,
 				4B6618821EBE1A350052F4A5 /* SerializerType.swift */,
 				4B7BFC5B1EBA590200CB9027 /* MemoryBuffer.swift */,
 			);
@@ -279,12 +271,8 @@
 		4B4BC3D81EBB2B70003AD6DD /* BulkTests */ = {
 			isa = PBXGroup;
 			children = (
-				4B1C72231EBBA9BA008AA3FC /* AsyncPipelineTests.swift */,
 				4BAED9301EBE38AF00430A28 /* BufferTests.swift */,
 				4B4BC3EE1EBB313E003AD6DD /* Info.plist */,
-				4B4BC3EA1EBB2D12003AD6DD /* Mocks.swift */,
-				4B4BC3D91EBB2B70003AD6DD /* PipelineTests.swift */,
-				4BAED9321EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift */,
 				4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */,
 			);
 			path = BulkTests;
@@ -619,11 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B4BC3E91EBB2BA6003AD6DD /* PipelineTests.swift in Sources */,
-				4BAED9331EBE3A9E00430A28 /* SeparatorBasedLogSerializerTests.swift in Sources */,
 				4BAED9311EBE38AF00430A28 /* BufferTests.swift in Sources */,
-				4B4BC3EB1EBB2D12003AD6DD /* Mocks.swift in Sources */,
-				4B1C72241EBBA9BA008AA3FC /* AsyncPipelineTests.swift in Sources */,
 				4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,6 +626,7 @@
 				4B251C9F23E748AF0075A8AB /* CombineBulkSink.swift in Sources */,
 				4B7BFC581EBA50DA00CB9027 /* Buffer.swift in Sources */,
 				4B7BFC5D1EBA590200CB9027 /* MemoryBuffer.swift in Sources */,
+				4B581F4523E878E50009203F /* CodableSerializer.swift in Sources */,
 				4B1C721E1EBBA1B6008AA3FC /* BulkBufferTimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,13 +643,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B581F4023E86DC00009203F /* SeparatorBasedLogSerializer.swift in Sources */,
-				4B97C18A23E85C2F00AFC336 /* ConsoleTarget.swift in Sources */,
-				4B97C18C23E85C2F00AFC336 /* BasicFormatter.swift in Sources */,
-				4B97C18B23E85C2F00AFC336 /* FileTarget.swift in Sources */,
+				4B97C18A23E85C2F00AFC336 /* LogConsoleTarget.swift in Sources */,
+				4B97C18C23E85C2F00AFC336 /* LogBasicFormatter.swift in Sources */,
+				4B97C18B23E85C2F00AFC336 /* LogFileTarget.swift in Sources */,
 				4B97C18E23E85C2F00AFC336 /* NSLogTarget.swift in Sources */,
 				4B97C17D23E85BFF00AFC336 /* LogData.swift in Sources */,
-				4B97C18D23E85C2F00AFC336 /* LevelFilterPlugin.swift in Sources */,
+				4B97C18D23E85C2F00AFC336 /* LogLevelFilterPlugin.swift in Sources */,
 				4B97C18023E85BFF00AFC336 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -939,7 +923,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ./Sources/Bulk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1001,7 +984,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ./Sources/Bulk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1254,7 +1236,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DXcode";
@@ -1303,7 +1285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";

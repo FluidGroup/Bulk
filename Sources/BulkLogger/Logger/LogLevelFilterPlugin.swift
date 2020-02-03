@@ -1,5 +1,5 @@
 //
-// Mocks.swift
+// LevelFilterPlugin.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -23,30 +23,16 @@
 
 import Foundation
 
-@testable import Bulk
-
-class TestTarget: TargetType {
+/// Filter for Log.Level
+public struct LogLevelFilterPlugin {
   
-  var writeCompletedCount = 0
+  public let ignoreLevels: [LogData.Level]
   
-  var writed: () -> Void = { }
-  
-  var results: [String] = []
-  
-  func write(formatted items: [String], completion: @escaping () -> Void) {
-    results += items
-    completion()
-    writeCompletedCount += 1
-    writed()
+  public init(ignoreLevels: [LogData.Level]) {
+    self.ignoreLevels = ignoreLevels
   }
-}
-
-class TestFormatter: FormatterType {
-    
-  var formattedCount = 0
   
-  func format(element: LogData) -> String {
-    formattedCount += 1
-    return element.body
+  public func filter(element: LogData) -> Bool {
+    !ignoreLevels.contains(element.level)
   }
 }

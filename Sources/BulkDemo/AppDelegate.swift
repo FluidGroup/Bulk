@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let logger = Logger(context: "", sinks: [
     CombineBulkSink<LogData>(
       buffer: MemoryBuffer.init(size: 10).asAny(),
-      targets: [TargetUmbrella.init(transform: BasicFormatter().format, targets: [ConsoleTarget.init().asAny()]).asAny()]
+      targets: [TargetUmbrella.init(transform: LogBasicFormatter().format, targets: [LogConsoleTarget.init().asAny()]).asAny()]
     ).asAny()
   ])
   

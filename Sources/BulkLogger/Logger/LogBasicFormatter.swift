@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct BasicFormatter {
+public struct LogBasicFormatter {
       
   public struct LevelString {
     public var verbose = "[VERBOSE]"
@@ -45,7 +45,7 @@ public struct BasicFormatter {
     
   }
   
-  public func format(element: LogData) -> String? {
+  public func format(element: LogData) -> String {
     
     let level: String = {
       switch element.level {

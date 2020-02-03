@@ -1,4 +1,5 @@
-// ConsoleTarget.swift
+//
+// SeparatorBasedLogSerializer.swift
 //
 // Copyright (c) 2017 muukii
 //
@@ -22,17 +23,23 @@
 
 import Foundation
 
-open class ConsoleTarget: TargetType {
-      
+private enum Static {
+  static let decoder = JSONDecoder()
+  static let encoder = JSONEncoder()
+}
+
+public struct CodableSerializer<Element: Codable>: SerializerType {
+       
   public init() {
-    
   }
   
-  open func write(formatted items: [String]) {
+  public func deserialize(source: Data) throws -> Element {
+    return try Static.decoder.decode(Element.self, from: source)
+  }
+  
+  public func serialize(element: Element) throws -> Data {
     
-    items.forEach {
-      print($0)
-    }
-    
+    let data = try Static.encoder.encode(element)
+    return data
   }
 }
