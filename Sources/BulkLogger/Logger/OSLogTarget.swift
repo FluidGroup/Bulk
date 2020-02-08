@@ -35,7 +35,6 @@ open class OSLogTarget: TargetType {
         body = item.body
       }
       
-      os_log("%{public}@", log: oslog, type: item.level.asOSLogLevel(), body)
       os_log("%{public}@ %{public}@ %{public}@ %{public}d %{public}@", log: oslog, type: item.level.asOSLogLevel(), timestamp, item.file, item.function, item.line, body)
     }
   }
