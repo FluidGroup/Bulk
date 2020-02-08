@@ -11,31 +11,40 @@ import os
 
 open class OSLogTarget: TargetType {
   
-  private let oslog: OSLog
+  private static let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+    return dateFormatter
+  }()
   
-  public let dateFormatter: DateFormatter
-  
-  public init(subsystem: String, category: String) {
-    self.oslog = OSLog(subsystem: subsystem, category: category)
+  public static func basicFormat(log: LogData) -> String {
+    let timestamp = dateFormatter.string(from: log.date)
     
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-    self.dateFormatter = formatter
+    let body: String
+    if log.context.isEmpty {
+      body = "[\(log.context.joined(separator: "::"))] item.body)"
+    } else {
+      body = log.body
+    }
+    return "\(body)\n\nLog_Info=>\(timestamp) \(log.file)::\(log.function)::\(log.line)"
+  }
+  
+  private let oslog: OSLog
+  public let formatter: (LogData) -> String
+  
+  public init(
+    subsystem: String,
+    category: String,
+    formatter: @escaping (LogData) -> String = { basicFormat(log: $0) }
+  ) {
+    self.oslog = OSLog(subsystem: subsystem, category: category)
+    self.formatter = formatter
   }
   
   open func write(formatted items: [LogData]) {
     items.forEach { item in
       
-      let timestamp = dateFormatter.string(from: item.date)
-      
-      let body: String
-      if item.context.isEmpty {
-        body = "[\(item.context.joined(separator: "::"))] item.body)"
-      } else {
-        body = item.body
-      }
-      
-      os_log("%{public}@ %{public}@ %{public}@ %{public}d %{public}@", log: oslog, type: item.level.asOSLogLevel(), timestamp, item.file, item.function, item.line, body)
+      os_log("%{public}@", log: oslog, type: item.level.asOSLogLevel(), formatter(item))
     }
   }
 }
