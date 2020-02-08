@@ -29,22 +29,39 @@ open class OSLogTarget: TargetType {
     return "\(body)\n\nLog_Info=>\(timestamp) \(log.file)::\(log.function)::\(log.line)"
   }
   
-  private let oslog: OSLog
   public let formatter: (LogData) -> String
+  
+  private var loggerStorage: [String : OSLog] = [:]
+  
+  private let subsystem: String
+  private let category: String
   
   public init(
     subsystem: String,
     category: String,
     formatter: @escaping (LogData) -> String = { basicFormat(log: $0) }
   ) {
-    self.oslog = OSLog(subsystem: subsystem, category: category)
+    self.subsystem = subsystem
+    self.category = category
     self.formatter = formatter
   }
   
   open func write(formatted items: [LogData]) {
     items.forEach { item in
       
-      os_log("%{public}@", log: oslog, type: item.level.asOSLogLevel(), formatter(item))
+      let loggerKey = item.context.joined(separator: ".")
+      
+      let targetLogger: OSLog
+      
+      if let oslog = loggerStorage[loggerKey] {
+        targetLogger = oslog
+      } else {
+        let logger = OSLog(subsystem: subsystem, category: [category, loggerKey].joined(separator: "."))
+        loggerStorage[loggerKey] = logger
+        targetLogger = logger
+      }
+      
+      os_log("%{public}@", log: targetLogger, type: item.level.asOSLogLevel(), formatter(item))
     }
   }
 }
