@@ -48,7 +48,7 @@ open class OSLogTarget: TargetType {
   
   open func write(formatted items: [LogData]) {
     items.forEach { item in
-      
+            
       let loggerKey = item.context.joined(separator: ".")
       
       let targetLogger: OSLog
@@ -56,7 +56,7 @@ open class OSLogTarget: TargetType {
       if let oslog = loggerStorage[loggerKey] {
         targetLogger = oslog
       } else {
-        let logger = OSLog(subsystem: subsystem, category: [category, loggerKey].joined(separator: "."))
+        let logger = OSLog(subsystem: subsystem, category: [category, loggerKey].filter { !$0.isEmpty }.joined(separator: "."))
         loggerStorage[loggerKey] = logger
         targetLogger = logger
       }
