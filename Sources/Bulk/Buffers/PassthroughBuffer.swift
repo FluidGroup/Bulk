@@ -1,5 +1,7 @@
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// NoBuffer.swift
+//
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,61 +23,19 @@
 
 import Foundation
 
-public enum BufferResult<Element> {
-  case stored
-  case flowed([Element])
-}
-
-public protocol BufferType {
-  
-  associatedtype Element
-    
-  ///
-  var hasSpace: Bool { get }
-  
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(element: Element) -> BufferResult<Element>
-  
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [Element]
-}
-
-extension BufferType {
-  
-  public func asAny() -> AnyBuffer<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyBuffer<Element>: BufferType {
-  
-  private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
-  private let _write: (_ element: Element) -> BufferResult<Element>
-  
-  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
-    self._hasSpace = {
-      backing.hasSpace
-    }
-    self._purge = backing.purge
-    self._write = backing.write
-  }
+public struct PassthroughBuffer<Element>: BufferType {
   
   public var hasSpace: Bool {
-    _hasSpace()
+    return false
   }
   
-  public func write(element: Element) -> BufferResult<Element> {
-    _write(element)
+  public init() { }
+  
+  public func write(element: Element) -> BufferResult<Element> {    
+    return .flowed([Element].init(arrayLiteral: element))
   }
   
   public func purge() -> [Element] {
-    _purge()
+    return .init()
   }
-        
 }

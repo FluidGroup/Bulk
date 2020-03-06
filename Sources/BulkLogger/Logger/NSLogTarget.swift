@@ -1,5 +1,7 @@
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// NSLogTarget.swift
+//
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +23,19 @@
 
 import Foundation
 
-public protocol TargetType {
+#if !os(Linux)
+
+open class NSLogTarget: TargetType {
   
-  associatedtype Element
+  public init() {
+    
+  }
   
-  func write(items: [Element])
+  open func write(items: [String]) {
+    items.forEach {
+      NSLog($0)
+    }
+  }
 }
 
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
-  }
-  
-  public func write(items: [Element]) {
-    _write(items)
-  }
-}
+#endif

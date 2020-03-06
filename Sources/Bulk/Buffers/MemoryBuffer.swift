@@ -21,61 +21,40 @@
 
 import Foundation
 
-public enum BufferResult<Element> {
-  case stored
-  case flowed([Element])
-}
-
-public protocol BufferType {
-  
-  associatedtype Element
-    
-  ///
-  var hasSpace: Bool { get }
-  
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(element: Element) -> BufferResult<Element>
-  
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [Element]
-}
-
-extension BufferType {
-  
-  public func asAny() -> AnyBuffer<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyBuffer<Element>: BufferType {
-  
-  private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
-  private let _write: (_ element: Element) -> BufferResult<Element>
-  
-  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
-    self._hasSpace = {
-      backing.hasSpace
-    }
-    self._purge = backing.purge
-    self._write = backing.write
-  }
+public final class MemoryBuffer<Element>: BufferType {
   
   public var hasSpace: Bool {
-    _hasSpace()
+    return cursor < size
+  }
+  
+  var buffer: ContiguousArray<Element?>
+  let size: Int
+  var cursor: Int = 0
+  
+  public init(size: Int) {
+    self.size = size
+    self.buffer = ContiguousArray<Element?>.init(repeating: nil, count: size)
   }
   
   public func write(element: Element) -> BufferResult<Element> {
-    _write(element)
+    
+    buffer[cursor] = .some(element)
+    
+    cursor += 1
+    
+    if cursor == size {
+      return .flowed(purge())
+    } else {
+      return .stored
+    }
   }
   
   public func purge() -> [Element] {
-    _purge()
+    let _buffer = buffer
+    for i in 0..<size {
+      buffer[i] = nil
+    }
+    cursor = 0
+    return .init(_buffer.compactMap { $0 })
   }
-        
 }

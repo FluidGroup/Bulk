@@ -21,61 +21,22 @@
 
 import Foundation
 
-public enum BufferResult<Element> {
-  case stored
-  case flowed([Element])
-}
-
-public protocol BufferType {
+public final class BulkSinkGroup<Element>: BulkSinkType {
+     
+  private let sinks: AnyCollection<AnyBulkSink<Element>>
   
-  associatedtype Element
-    
-  ///
-  var hasSpace: Bool { get }
-  
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(element: Element) -> BufferResult<Element>
-  
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [Element]
-}
-
-extension BufferType {
-  
-  public func asAny() -> AnyBuffer<Element> {
-    .init(backing: self)
+  public init<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == Element {
+    self.sinks = AnyCollection(CollectionOfOne<AnyBulkSink<Element>>.init(.init(sink)))
   }
-}
-
-public struct AnyBuffer<Element>: BufferType {
   
-  private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
-  private let _write: (_ element: Element) -> BufferResult<Element>
+  public init<C: Collection>(_ sinks: C) where C.Element == AnyBulkSink<Element> {
+    self.sinks = AnyCollection(sinks)
+  }
   
-  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
-    self._hasSpace = {
-      backing.hasSpace
+  public func send(_ element: Element) {
+    sinks.forEach {
+      $0.send(element)
     }
-    self._purge = backing.purge
-    self._write = backing.write
   }
   
-  public var hasSpace: Bool {
-    _hasSpace()
-  }
-  
-  public func write(element: Element) -> BufferResult<Element> {
-    _write(element)
-  }
-  
-  public func purge() -> [Element] {
-    _purge()
-  }
-        
 }

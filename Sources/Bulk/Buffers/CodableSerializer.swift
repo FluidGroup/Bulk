@@ -1,5 +1,7 @@
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// SeparatorBasedLogSerializer.swift
+//
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +23,23 @@
 
 import Foundation
 
-public protocol TargetType {
-  
-  associatedtype Element
-  
-  func write(items: [Element])
+private enum Static {
+  static let decoder = JSONDecoder()
+  static let encoder = JSONEncoder()
 }
 
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
+public struct CodableSerializer<Element: Codable>: SerializerType {
+       
+  public init() {
   }
   
-  public func write(items: [Element]) {
-    _write(items)
+  public func deserialize(source: Data) throws -> Element {
+    return try Static.decoder.decode(Element.self, from: source)
+  }
+  
+  public func serialize(element: Element) throws -> Data {
+    
+    let data = try Static.encoder.encode(element)
+    return data
   }
 }

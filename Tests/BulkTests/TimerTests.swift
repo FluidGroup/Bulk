@@ -22,7 +22,7 @@ class TimerTests: XCTestCase {
     
     var count: Int = 0
     
-    let timer = Bulk.Timer(interval: .milliseconds(100), queue: .global()) {
+    let timer = Bulk.BulkBufferTimer(interval: .milliseconds(100), queue: .global()) {
       count += 1
       g.leave()
     }

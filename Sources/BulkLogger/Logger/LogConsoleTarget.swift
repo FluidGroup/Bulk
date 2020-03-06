@@ -1,5 +1,6 @@
+// ConsoleTarget.swift
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +22,17 @@
 
 import Foundation
 
-public protocol TargetType {
-  
-  associatedtype Element
-  
-  func write(items: [Element])
-}
-
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
+open class LogConsoleTarget: TargetType {
+      
+  public init() {
+    
   }
   
-  public func write(items: [Element]) {
-    _write(items)
+  open func write(items: [String]) {
+    
+    items.forEach {
+      print($0)
+    }
+    
   }
 }

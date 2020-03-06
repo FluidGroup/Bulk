@@ -1,5 +1,7 @@
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// Log.swift
+//
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +23,29 @@
 
 import Foundation
 
-public protocol TargetType {
+public struct LogData: Codable {
   
-  associatedtype Element
-  
-  func write(items: [Element])
-}
-
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
+  /// Logging Level
+  ///
+  /// - vebose: Verbose
+  /// - debug: Debug
+  /// - info: Info
+  /// - warn: Warn
+  /// - error: Error
+  public enum Level: String, Codable {
+    case verbose
+    case debug
+    case info
+    case warn
+    case error
   }
   
-  public func write(items: [Element]) {
-    _write(items)
-  }
+  public var context: [String]
+  public var level: LogData.Level
+  public var date: Date
+  public var body: String
+  public var file: String
+  public var function: String
+  public var line: UInt
+    
 }

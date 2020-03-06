@@ -1,5 +1,7 @@
 //
-// Copyright (c) 2020 Hiroshi Kimura(Muukii) <muuki.app@gmail.com>
+// LevelFilterPlugin.swift
+//
+// Copyright (c) 2017 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +23,16 @@
 
 import Foundation
 
-public protocol TargetType {
+/// Filter for Log.Level
+public struct LogLevelFilterPlugin {
   
-  associatedtype Element
+  public let ignoreLevels: [LogData.Level]
   
-  func write(items: [Element])
-}
-
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
+  public init(ignoreLevels: [LogData.Level]) {
+    self.ignoreLevels = ignoreLevels
   }
   
-  public func write(items: [Element]) {
-    _write(items)
+  public func filter(element: LogData) -> Bool {
+    !ignoreLevels.contains(element.level)
   }
 }

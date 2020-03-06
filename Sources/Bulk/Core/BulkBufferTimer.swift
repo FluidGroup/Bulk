@@ -20,62 +20,38 @@
 // THE SOFTWARE.
 
 import Foundation
+import Dispatch
 
-public enum BufferResult<Element> {
-  case stored
-  case flowed([Element])
-}
-
-public protocol BufferType {
+public final class BulkBufferTimer {
   
-  associatedtype Element
+  let interval: DispatchTimeInterval
+  let queue: DispatchQueue
+  private let onTimeout: () -> Void
+  
+  private var item: DispatchWorkItem?
+  
+  public init(interval: DispatchTimeInterval, queue: DispatchQueue, onTimeout: @escaping () -> Void) {
+    self.interval = interval
+    self.queue = queue
+    self.onTimeout = onTimeout
     
-  ///
-  var hasSpace: Bool { get }
-  
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(element: Element) -> BufferResult<Element>
-  
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [Element]
-}
-
-extension BufferType {
-  
-  public func asAny() -> AnyBuffer<Element> {
-    .init(backing: self)
+    refresh()
   }
-}
-
-public struct AnyBuffer<Element>: BufferType {
   
-  private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
-  private let _write: (_ element: Element) -> BufferResult<Element>
+  public func tap() {
+    refresh()
+  }
   
-  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
-    self._hasSpace = {
-      backing.hasSpace
+  private func refresh() {
+    
+    self.item?.cancel()
+    
+    let _item = DispatchWorkItem(qos: .background, flags: []) {
+      self.onTimeout()
     }
-    self._purge = backing.purge
-    self._write = backing.write
+    
+    queue.asyncAfter(deadline: .now() + interval, execute: _item)
+    self.item = _item
   }
   
-  public var hasSpace: Bool {
-    _hasSpace()
-  }
-  
-  public func write(element: Element) -> BufferResult<Element> {
-    _write(element)
-  }
-  
-  public func purge() -> [Element] {
-    _purge()
-  }
-        
 }

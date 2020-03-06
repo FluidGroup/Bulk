@@ -21,61 +21,10 @@
 
 import Foundation
 
-public enum BufferResult<Element> {
-  case stored
-  case flowed([Element])
-}
-
-public protocol BufferType {
+public protocol SerializerType {
   
   associatedtype Element
-    
-  ///
-  var hasSpace: Bool { get }
   
-  /// Buffer item
-  ///
-  /// - Parameter string:
-  /// - Returns: 
-  func write(element: Element) -> BufferResult<Element>
-  
-  /// Purge buffered items
-  ///
-  /// - Returns: purged items
-  func purge() -> [Element]
-}
-
-extension BufferType {
-  
-  public func asAny() -> AnyBuffer<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyBuffer<Element>: BufferType {
-  
-  private let _hasSpace: () -> Bool
-  private let _purge: () -> [Element]
-  private let _write: (_ element: Element) -> BufferResult<Element>
-  
-  public init<Buffer: BufferType>(backing: Buffer) where Buffer.Element == Element {
-    self._hasSpace = {
-      backing.hasSpace
-    }
-    self._purge = backing.purge
-    self._write = backing.write
-  }
-  
-  public var hasSpace: Bool {
-    _hasSpace()
-  }
-  
-  public func write(element: Element) -> BufferResult<Element> {
-    _write(element)
-  }
-  
-  public func purge() -> [Element] {
-    _purge()
-  }
-        
+  func serialize(element: Element) throws -> Data
+  func deserialize(source: Data) throws -> Element
 }
