@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Bulk"
   s.version          = "0.7.0"
-  s.summary          = "Bulk is pipeline based powerful & flexible logging framework"
+  s.summary          = "Bulk is a library for buffering the objects. Pipeline(Sink) receives the object and emits the object bulked."
   s.homepage         = "https://github.com/muukii/Bulk"
   s.license          = 'MIT'
   s.author           = { "muukii" => "muukii.app@gmail.com" }
