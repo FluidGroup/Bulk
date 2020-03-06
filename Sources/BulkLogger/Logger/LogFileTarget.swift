@@ -41,7 +41,7 @@ open class LogFileTarget: TargetType {
     fileHandle?.closeFile()
   }
   
-  open func write(formatted items: [String]) {
+  open func write(items: [String]) {
     
     lock.lock(); defer { lock.unlock() }
     

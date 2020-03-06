@@ -25,7 +25,7 @@ public protocol TargetType {
   
   associatedtype Element
   
-  func write(formatted items: [Element])
+  func write(items: [Element])
 }
 
 extension TargetType {
@@ -43,7 +43,7 @@ public struct AnyTarget<Element>: TargetType {
     self._write = backing.write
   }
   
-  public func write(formatted items: [Element]) {
+  public func write(items: [Element]) {
     _write(items)
   }
 }

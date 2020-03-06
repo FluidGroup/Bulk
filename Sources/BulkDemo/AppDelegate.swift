@@ -11,13 +11,19 @@ import Bulk
 import BulkLogger
 
 let logger = Logger(context: "", sinks: [
-  CombineBulkSink<LogData>(
+  BulkSink<LogData>(
     buffer: MemoryBuffer.init(size: 10).asAny(),
     targets: [
-      TargetUmbrella.init(transform: LogBasicFormatter().format, targets: [LogConsoleTarget.init().asAny()]).asAny(),
+      TargetUmbrella.init(
+        transform: LogBasicFormatter().format,
+        targets: [
+          LogConsoleTarget.init().asAny()
+        ]
+      ).asAny(),
       OSLogTarget(subsystem: "BulkDemo", category: "Demo").asAny()
     ]
-  ).asAny()
+  )
+    .asAny()
 ])
 
 @UIApplicationMain

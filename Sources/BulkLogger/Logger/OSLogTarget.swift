@@ -46,7 +46,7 @@ open class OSLogTarget: TargetType {
     self.formatter = formatter
   }
   
-  open func write(formatted items: [LogData]) {
+  open func write(items: [LogData]) {
     items.forEach { item in
             
       let loggerKey = item.context.joined(separator: ".")

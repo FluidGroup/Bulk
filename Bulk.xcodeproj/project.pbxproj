@@ -49,6 +49,7 @@
 		4B97C18D23E85C2F00AFC336 /* LogLevelFilterPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FD1BF1EBCDCA40012FEBF /* LogLevelFilterPlugin.swift */; };
 		4B97C18E23E85C2F00AFC336 /* NSLogTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE5D6951EBE158200D1282F /* NSLogTarget.swift */; };
 		4BAED9311EBE38AF00430A28 /* BufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAED9301EBE38AF00430A28 /* BufferTests.swift */; };
+		4BE8F3EC2412B8C200B88515 /* BasicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE8F3EB2412B8C200B88515 /* BasicTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,7 @@
 		4BDA35E51EB9ACD500B93628 /* LogFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFileTarget.swift; sourceTree = "<group>"; };
 		4BDA35EF1EB9E8EB00B93628 /* LogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogData.swift; sourceTree = "<group>"; };
 		4BE5D6951EBE158200D1282F /* NSLogTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogTarget.swift; sourceTree = "<group>"; };
+		4BE8F3EB2412B8C200B88515 /* BasicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,6 +279,7 @@
 				4BAED9301EBE38AF00430A28 /* BufferTests.swift */,
 				4B4BC3EE1EBB313E003AD6DD /* Info.plist */,
 				4B1C72211EBBA1E8008AA3FC /* TimerTests.swift */,
+				4BE8F3EB2412B8C200B88515 /* BasicTests.swift */,
 			);
 			path = BulkTests;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 			files = (
 				4BAED9311EBE38AF00430A28 /* BufferTests.swift in Sources */,
 				4B1C72221EBBA1E8008AA3FC /* TimerTests.swift in Sources */,
+				4BE8F3EC2412B8C200B88515 /* BasicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

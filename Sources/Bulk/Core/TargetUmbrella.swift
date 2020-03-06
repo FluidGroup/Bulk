@@ -36,12 +36,12 @@ public struct TargetUmbrella<Element>: TargetType {
         .map(transform)
       
       targets.forEach {
-        $0.write(formatted: results)
+        $0.write(items: results)
       }
     }
   }
 
-  public func write(formatted items: [Element]) {
+  public func write(items: [Element]) {
     _write(items)
   }
 }

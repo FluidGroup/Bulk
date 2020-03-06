@@ -53,7 +53,7 @@ public final class RxBulkSink<Element>: BulkSinkType {
       .observeOn(SerialDispatchQueueScheduler(queue: targetQueue, internalSerialQueueName: ""))
       .subscribe(onNext: { elements in
         targets.forEach {
-          $0.write(formatted: elements)
+          $0.write(items: elements)
         }
       })
       .disposed(by: disposeBag)

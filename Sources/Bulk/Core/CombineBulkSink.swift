@@ -78,8 +78,7 @@ public final class CombineBulkSink<Element>: BulkSinkType {
       .sink { (elements) in
         
         targets.forEach {
-          // TODO: align interface of Collection
-          $0.write(formatted: elements.map { $0 })
+          $0.write(items: elements)
         }
     }
     .store(in: &subscriptions)

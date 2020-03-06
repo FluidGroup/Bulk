@@ -31,7 +31,7 @@ open class NSLogTarget: TargetType {
     
   }
   
-  open func write(formatted items: [String]) {
+  open func write(items: [String]) {
     items.forEach {
       NSLog($0)
     }

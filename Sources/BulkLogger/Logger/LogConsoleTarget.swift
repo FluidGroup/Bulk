@@ -28,7 +28,7 @@ open class LogConsoleTarget: TargetType {
     
   }
   
-  open func write(formatted items: [String]) {
+  open func write(items: [String]) {
     
     items.forEach {
       print($0)

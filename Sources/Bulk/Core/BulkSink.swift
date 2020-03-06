@@ -27,7 +27,7 @@ public final class BulkSink<Element>: BulkSinkType {
     
     let output: ([Element]) -> Void = { elements in
       targets.forEach {
-        $0.write(formatted: elements)
+        $0.write(items: elements)
       }
     }
     
