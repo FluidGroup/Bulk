@@ -121,4 +121,9 @@ public final class Logger {
   public func makeContextualLogger(context: String) -> Logger {
     return .init(context: context, source: self)
   }
+
+  public func setIsEnabled(_ flag: Bool) -> Logger {
+    isEnabled = flag
+    return self
+  }
 }
