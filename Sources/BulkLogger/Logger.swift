@@ -25,6 +25,19 @@ import Foundation
 @_exported import Bulk
 
 public final class Logger {
+
+  public var isEnabled: Bool {
+    get {
+      _isEnabled
+    }
+    set {
+      lock.lock(); defer { lock.unlock() }
+      _isEnabled = newValue
+    }
+  }
+
+  private var _isEnabled: Bool = true
+  private let lock = NSLock()
   
   // MARK: - Properties
   
@@ -48,6 +61,8 @@ public final class Logger {
   
   @inline(__always)
   func _write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+
+    guard isEnabled else { return }
     
     let now = Date()
     
@@ -105,5 +120,10 @@ public final class Logger {
 
   public func makeContextualLogger(context: String) -> Logger {
     return .init(context: context, source: self)
+  }
+
+  public func setIsEnabled(_ flag: Bool) -> Logger {
+    isEnabled = flag
+    return self
   }
 }
