@@ -40,15 +40,17 @@ public final class BulkSink<Element>: BulkSinkType {
       output(elements)
     }
           
-    self._send = { newElement in
-      
-      switch buffer.write(element: newElement) {
-      case .flowed(let elements):
-        // TODO: align interface of Collection
-        return output(elements.map { $0 })
-      case .stored:
-        break
-      }
+    self._send = { [targetQueue] newElement in
+
+      targetQueue.async {
+        switch buffer.write(element: newElement) {
+        case .flowed(let elements):
+          // TODO: align interface of Collection
+          return output(elements.map { $0 })
+        case .stored:
+          break
+        }
+      }      
       
     }
 
