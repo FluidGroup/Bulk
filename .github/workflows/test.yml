@@ -8,9 +8,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - name: Force xcode 12.4
-      run: sudo xcode-select -switch /Applications/Xcode_12.4.app
-    - uses: actions/checkout@v1
+    - uses: maxim-lobanov/setup-xcode@v1.1
+      with:
+        xcode-version: "12.4"
+    - uses: actions/checkout@v2
     - name: webfactory/ssh-agent
       uses: webfactory/ssh-agent@v0.4.1
       with:
