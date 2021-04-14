@@ -60,6 +60,8 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
       
       if fileManager.fileExists(atPath: fileURL.path) == false {
         // create file if not existing
+
+        try createSubfoldersBeforeCreatingFile(at: fileURL)
         try line.write(to: fileURL, atomically: true, encoding: .utf8)
         
       } else {
@@ -137,3 +139,22 @@ public final class FileBuffer<Element, Serializer: SerializerType>: BufferType w
   }
   
 }
+
+private func createSubfoldersBeforeCreatingFile(at url: URL) throws {
+  do {
+    let subfolderUrl = url.deletingLastPathComponent()
+    var subfolderExists = false
+    var isDirectory: ObjCBool = false
+    if FileManager.default.fileExists(atPath: subfolderUrl.path, isDirectory: &isDirectory) {
+      if isDirectory.boolValue {
+        subfolderExists = true
+      }
+    }
+    if !subfolderExists {
+      try FileManager.default.createDirectory(at: subfolderUrl, withIntermediateDirectories: true, attributes: nil)
+    }
+  } catch {
+    throw error
+  }
+}
+
