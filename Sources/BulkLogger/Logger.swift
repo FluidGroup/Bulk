@@ -42,6 +42,7 @@ public final class Logger {
   // MARK: - Properties
   
   private(set) public var sinks: [AnyBulkSink<LogData>]
+  private(set) public var downstream: Logger?
   
   public let context: [String]
     
@@ -54,7 +55,8 @@ public final class Logger {
   
   private init(context: String, source: Logger) {
     self.context = source.context + CollectionOfOne(context)
-    self.sinks = source.sinks
+    self.sinks = []
+    self.downstream = source
   }
   
   // MARK: - Functions
@@ -81,6 +83,10 @@ public final class Logger {
     )
     
     sinks.forEach { target in
+      target.send(log)
+    }
+    
+    downstream?.sinks.forEach { target in
       target.send(log)
     }
   }
