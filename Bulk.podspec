@@ -12,17 +12,11 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.default_subspec = 'Bulk'
-  s.swift_version = '5.1'
+  s.swift_version = '5.6'
   s.weak_frameworks = ['Combine']
 
   s.subspec 'Bulk' do |ss|
     ss.source_files = 'Sources/Bulk/**/*.swift'    
-  end
-
-  s.subspec 'RxBulk' do |ss|
-    ss.source_files = 'Sources/RxBulk/**/*.swift'    
-    ss.dependency 'RxSwift', '~> 5.0.0'
-    ss.dependency 'Bulk/Bulk'  
   end
 
   s.subspec 'BulkLogger' do |ss|
