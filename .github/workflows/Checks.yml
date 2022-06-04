@@ -27,7 +27,7 @@ jobs:
           xcode-version: "13.3"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme BulkLogger -sdk iphoneos
+        run: xcodebuild -scheme BulkLogger -sdk iphoneos -destination 'generic/platform=iOS'
 
   build-swiftpm:
     runs-on: macos-12
