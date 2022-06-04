@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
@@ -18,5 +18,6 @@ let package = Package(
   targets: [
     .target(name: "Bulk", dependencies: []),
     .target(name: "BulkLogger", dependencies: ["Bulk"]),
+    .testTarget(name: "BulkTests", dependencies: ["Bulk"]),
   ]
 )
