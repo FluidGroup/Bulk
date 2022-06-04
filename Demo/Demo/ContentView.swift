@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import BulkLogger
+
+let logger = Logger(context: "", sinks: [])
 
 struct ContentView: View {
   var body: some View {
