@@ -14,9 +14,6 @@ public final class BulkSink<Element>: BulkSinkType {
   private let targets: [AnyTarget<Element>]
   
   private var timer: BulkBufferTimer!
-  
-  private let _send: (Element) -> Void
-  private let _onFlush: () -> Void
 
   private let buffer: AnyBuffer<Element>
     
@@ -28,35 +25,18 @@ public final class BulkSink<Element>: BulkSinkType {
 
     self.buffer = buffer
     self.targets = targets
-    
-    let output: ([Element]) -> Void = { elements in
-      targets.forEach {
+
+    self.timer = BulkBufferTimer(interval: debounceDueTime) { [weak self] in
+
+      guard let self else { return }
+
+      let elements = buffer.purge()
+
+      self.targets.forEach {
         $0.write(items: elements)
       }
-    }
-    
-    self.timer = BulkBufferTimer(interval: debounceDueTime, queue: targetQueue) {
-      let elements = buffer.purge()
-      output(elements)
-    }
-          
-    self._send = { [targetQueue] newElement in
 
-      targetQueue.async {
-        switch buffer.write(element: newElement) {
-        case .flowed(let elements):
-          // TODO: align interface of Collection
-          return output(elements.map { $0 })
-        case .stored:
-          break
-        }
-      }      
-      
-    }
-
-    self._onFlush = {
-      let elements = buffer.purge()
-      output(elements)
+      self.timer.tap()
     }
             
   }
@@ -65,15 +45,26 @@ public final class BulkSink<Element>: BulkSinkType {
     
   }
   
-  public func send(_ element: Element) {
-    targetQueue.async {
-      self._send(element)
+  public func send(_ newElement: Element) {
+    targetQueue.async { [self] in
+      switch buffer.write(element: newElement) {
+      case .flowed(let elements):
+        // TODO: align interface of Collection
+        targets.forEach {
+          $0.write(items: elements)
+        }
+      case .stored:
+        break
+      }
     }
   }
 
   public func flush() {
-    targetQueue.async {
-      self._onFlush()
+    targetQueue.async { [self] in
+      let elements = buffer.purge()
+      targets.forEach {
+        $0.write(items: elements)
+      }
     }
   }
   

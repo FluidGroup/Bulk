@@ -47,5 +47,5 @@ public struct LogData: Codable {
   public var file: String
   public var function: String
   public var line: UInt
-    
+
 }

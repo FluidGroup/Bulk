@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 @_exported import Bulk
+import Foundation
 
 public final class Logger {
 
@@ -31,45 +30,54 @@ public final class Logger {
       _isEnabled
     }
     set {
-      lock.lock(); defer { lock.unlock() }
+      lock.lock()
+      defer { lock.unlock() }
       _isEnabled = newValue
     }
   }
 
   private var _isEnabled: Bool = true
   private let lock = NSLock()
-  
+
   // MARK: - Properties
-  
+
   private(set) public var sinks: [AnyBulkSink<LogData>]
-  
+
   public let context: [String]
-    
+
   // MARK: - Initializers
-  
+
   public init(context: String, sinks: [AnyBulkSink<LogData>]) {
     self.context = [context]
     self.sinks = sinks
   }
-  
+
   private init(context: String, source: Logger) {
     self.context = source.context + CollectionOfOne(context)
     self.sinks = source.sinks
   }
-  
+
   // MARK: - Functions
-  
+
   @inline(__always)
-  func _write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+  func _write(
+    level: LogData.Level,
+    _ items: [Any],
+    file: StaticString,
+    function: StaticString,
+    line: UInt,
+    dsoHandle: UnsafeRawPointer
+  ) {
 
     guard isEnabled else { return }
-    
+
     let now = Date()
-    
-    let body = items
+
+    let body =
+      items
       .map { String(describing: $0) }
       .joined(separator: " ")
-    
+
     let log = LogData(
       context: context,
       level: level,
@@ -79,41 +87,78 @@ public final class Logger {
       function: function.description,
       line: line
     )
-    
+
     sinks.forEach { target in
       target.send(log)
     }
   }
 
-  public func write(level: LogData.Level, _ items: [Any], file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: level, items, file: file, function: function, line: line)
+  public func write(
+    level: LogData.Level,
+    _ items: [Any],
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: level, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
 
   /// Verbose
-  public func verbose(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: .verbose, items, file: file, function: function, line: line)
+  public func verbose(
+    _ items: Any...,
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: .verbose, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
-  
+
   /// Debug
-  public func debug(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: .debug, items, file: file, function: function, line: line)
+  public func debug(
+    _ items: Any...,
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: .debug, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
 
   /// Info
-  public func info(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: .info, items, file: file, function: function, line: line)
+  public func info(
+    _ items: Any...,
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: .info, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
 
   /// Warning
-  public func warn(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: .warn, items, file: file, function: function, line: line)
+  public func warn(
+    _ items: Any...,
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: .warn, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
 
   /// Error
-  public func error(_ items: Any..., file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
-    _write(level: .error, items, file: file, function: function, line: line)
+  public func error(
+    _ items: Any...,
+    file: StaticString = #file,
+    function: StaticString = #function,
+    line: UInt = #line,
+    dsoHandle: UnsafeRawPointer = #dsohandle
+  ) {
+    _write(level: .error, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
-  
+
   public func addSink<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == LogData {
     sinks.append(.init(sink))
   }
