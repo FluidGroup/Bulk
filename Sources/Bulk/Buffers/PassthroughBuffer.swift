@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct PassthroughBuffer<Element>: BufferType {
+public actor PassthroughBuffer<Element>: BufferType {
   
   public var hasSpace: Bool {
     return false

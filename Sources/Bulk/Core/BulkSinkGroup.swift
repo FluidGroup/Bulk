@@ -21,22 +21,22 @@
 
 import Foundation
 
-public final class BulkSinkGroup<Element>: BulkSinkType {
-     
-  private let sinks: AnyCollection<AnyBulkSink<Element>>
-  
-  public init<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == Element {
-    self.sinks = AnyCollection(CollectionOfOne<AnyBulkSink<Element>>.init(.init(sink)))
-  }
-  
-  public init<C: Collection>(_ sinks: C) where C.Element == AnyBulkSink<Element> {
-    self.sinks = AnyCollection(sinks)
-  }
-  
-  public func send(_ element: Element) {
-    sinks.forEach {
-      $0.send(element)
-    }
-  }
-  
-}
+//public final class BulkSinkGroup<Element>: BulkSinkType {
+//     
+//  private let sinks: AnyCollection<AnyBulkSink<Element>>
+//  
+//  public init<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == Element {
+//    self.sinks = AnyCollection(CollectionOfOne<AnyBulkSink<Element>>.init(.init(sink)))
+//  }
+//  
+//  public init<C: Collection>(_ sinks: C) where C.Element == AnyBulkSink<Element> {
+//    self.sinks = AnyCollection(sinks)
+//  }
+//  
+//  public func send(_ element: Element) {
+//    sinks.forEach {
+//      $0.send(element)
+//    }
+//  }
+//  
+//}

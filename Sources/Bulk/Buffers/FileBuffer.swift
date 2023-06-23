@@ -21,8 +21,8 @@
 
 import Foundation
 
-public final class FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element {
-    
+public struct FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element {
+
   public var hasSpace: Bool {
     return lineCount() < size
   }

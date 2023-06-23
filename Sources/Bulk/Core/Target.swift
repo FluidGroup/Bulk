@@ -21,7 +21,7 @@
 
 import Foundation
 
-public protocol TargetType {
+public protocol TargetType<Element> {
   
   associatedtype Element
   
