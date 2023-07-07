@@ -30,13 +30,15 @@ public final class BulkSink<Element>: BulkSinkType {
 
       guard let self else { return }
 
-      let elements = buffer.purge()
-
-      self.targets.forEach {
-        $0.write(items: elements)
+      self.targetQueue.async { [self] in
+        let elements = buffer.purge()
+        
+        self.targets.forEach {
+          $0.write(items: elements)
+        }
+        
+        self.timer.tap()
       }
-
-      self.timer.tap()
     }
             
   }
