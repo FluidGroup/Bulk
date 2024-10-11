@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct LogData: Codable {
+public struct LogData: Codable, Sendable {
   
   /// Logging Level
   ///
@@ -32,7 +32,7 @@ public struct LogData: Codable {
   /// - info: Info
   /// - warn: Warn
   /// - error: Error
-  public enum Level: String, Codable {
+  public enum Level: String, Codable, Sendable {
     case verbose
     case debug
     case info

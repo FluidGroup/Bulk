@@ -21,14 +21,16 @@
 
 import Foundation
 
-public struct FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element {
+public final class FileBuffer<Element, Serializer: SerializerType>: Buffer where Serializer.Element == Element {
 
-  public var hasSpace: Bool {
+  public func hasSpace(isolation: isolated (any Actor)? = #isolation) -> Bool {    
     return lineCount() < size
   }
   
-  private let fileManager = FileManager.default
+  nonisolated(unsafe) private let fileManager = FileManager.default
   public let fileURL: URL
+  
+  nonisolated(unsafe)
   private var fileHandle: FileHandle?
   public let size: Int
   
@@ -50,7 +52,7 @@ public struct FileBuffer<Element, Serializer: SerializerType>: BufferType where 
     fileHandle?.closeFile()
   }
   
-  public func write(element: Element) -> BufferResult<Element> {
+  public func write(element: Element, isolation: isolated (any Actor)? = #isolation) -> BufferResult<Element> {
     
     do {
       
@@ -89,7 +91,7 @@ public struct FileBuffer<Element, Serializer: SerializerType>: BufferType where 
     }
   }
   
-  public func purge() -> [Element] {
+  public func purge(isolation: isolated (any Actor)? = #isolation) -> [Element] {
     
     var cursor = 0
     var serializedLines = ContiguousArray<String>(repeating: "", count: lineCount())

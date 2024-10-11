@@ -21,61 +21,43 @@
 
 import Foundation
 
-public struct BulkBufferTimer {
+public actor BulkBufferTimer {
 
-  private let interval: DispatchTimeInterval
+  private var interval: Duration
 
-  private let onTimeout: @Sendable () async -> Void
+  private var onTimeout: (isolated (any Actor)?) async -> Void
   private var item: Task<(), Never>?
 
   public init(
-    interval: DispatchTimeInterval,
-    @_inheritActorContext onTimeout: @escaping @Sendable () async -> Void
+    interval: Duration,
+    onTimeout: sending @escaping () async -> Void
   ) {
 
     self.interval = interval
-    self.onTimeout = onTimeout
+    self.onTimeout = { a in 
+      await onTimeout()
+    }
+  
+  }
 
+  public func tap() {
     refresh()
   }
 
-  public mutating func tap() {
-    refresh()
-  }
-
-  private mutating func refresh() {
+  private func refresh() {
 
     self.item?.cancel()
 
     let task = Task { [onTimeout, interval] in
 
-      try? await Task.sleep(nanoseconds: interval.makeNanoseconds())
+      try? await Task.sleep(for: interval)
 
       guard Task.isCancelled == false else { return }
 
-      await onTimeout()
+      await onTimeout(self)
     }
 
     self.item = task
-  }
-
-}
-
-extension DispatchTimeInterval {
-
-  fileprivate func makeNanoseconds() -> UInt64 {
-
-    switch self {
-    case .nanoseconds(let v): return UInt64(v)
-    case .microseconds(let v): return UInt64(v) * 1_000
-    case .milliseconds(let v): return UInt64(v) * 1_000_000
-    case .seconds(let v): return UInt64(v) * 1_000_000_000
-    case .never: return UInt64.max
-    @unknown default:
-      assertionFailure()
-      return 0
-    }
-
   }
 
 }

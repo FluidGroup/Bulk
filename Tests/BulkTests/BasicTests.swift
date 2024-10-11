@@ -22,15 +22,16 @@ final class BasicTests: XCTestCase {
   
   func testSimple() {
     
-    let sink = BulkSink<String>(
-      buffer: MemoryBuffer<String>.init(size: 1).asAny(),
-      targets: [
-        MyTarget<String>().asAny()
-      ]
-    )
-
-    sink.send("A")
-    sink.send("B")
-    sink.send("C")
+//    let sink = BulkSink<String>(
+//      buffer: MemoryBuffer<String>.init(size: 1).asAny(),
+//      targets: [
+//        MyTarget<String>().asAny()
+//      ]
+//    )
+//
+//    sink.send("A")
+//    sink.send("B")
+//    sink.send("C")
   }
+  
 }

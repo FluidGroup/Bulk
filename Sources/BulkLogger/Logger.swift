@@ -41,13 +41,13 @@ public final class Logger {
   
   // MARK: - Properties
   
-  private(set) public var sinks: [AnyBulkSink<LogData>]
+  private(set) public var sinks: [any BulkSinkType<LogData>]
   
   public let context: [String]
     
   // MARK: - Initializers
   
-  public init(context: String, sinks: [AnyBulkSink<LogData>]) {
+  public init(context: String, sinks: [any BulkSinkType<LogData>]) {
     self.context = [context]
     self.sinks = sinks
   }
@@ -80,8 +80,10 @@ public final class Logger {
       line: line
     )
     
-    sinks.forEach { target in
-      target.send(log)
+    Task { [sinks] in
+      for sink in sinks {
+        await sink.send(log)
+      }
     }
   }
 
@@ -114,8 +116,8 @@ public final class Logger {
     _write(level: .error, items, file: file, function: function, line: line)
   }
   
-  public func addSink<Sink: BulkSinkType>(_ sink: Sink) where Sink.Element == LogData {
-    sinks.append(.init(sink))
+  public func addSink(_ sink: any BulkSinkType<LogData>) {
+    sinks.append(sink)
   }
 
   public func makeContextualLogger(context: String) -> Logger {

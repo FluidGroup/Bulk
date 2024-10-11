@@ -23,19 +23,19 @@
 
 import Foundation
 
-public actor PassthroughBuffer<Element>: BufferType {
+public struct PassthroughBuffer<Element>: Buffer {
   
-  public var hasSpace: Bool {
-    return false
+  public func hasSpace(isolation: isolated (any Actor)? = #isolation) -> Bool {
+    return false 
   }
   
   public init() { }
   
-  public func write(element: Element) -> BufferResult<Element> {    
+  public func write(element: Element, isolation: isolated (any Actor)? = #isolation) -> BufferResult<Element> {    
     return .flowed([Element].init(arrayLiteral: element))
   }
   
-  public func purge() -> [Element] {
+  public func purge(isolation: isolated (any Actor)? = #isolation) -> [Element] {
     return .init()
   }
 }

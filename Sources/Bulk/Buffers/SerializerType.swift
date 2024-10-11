@@ -21,7 +21,7 @@
 
 import Foundation
 
-public protocol SerializerType {
+public protocol SerializerType: Sendable {
   
   associatedtype Element
   

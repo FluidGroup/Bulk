@@ -21,7 +21,7 @@
 
 import Foundation
 
-public protocol BulkSinkType: Actor {
+public protocol BulkSinkType<Element>: Actor {
   
   associatedtype Element
     

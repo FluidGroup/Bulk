@@ -1,20 +1,19 @@
-// swift-tools-version:5.6
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
-  name: "Bulk",  
+  name: "Bulk",
   platforms: [
     .macOS(.v11),
-    .iOS(.v13),
+    .iOS(.v16),
     .tvOS(.v13),
-    .watchOS(.v6)
+    .watchOS(.v6),
   ],
   products: [
     .library(name: "Bulk", targets: ["Bulk"]),
     .library(name: "BulkLogger", targets: ["BulkLogger"]),
   ],
-  dependencies: [
-  ],
+  dependencies: [],
   targets: [
     .target(name: "Bulk", dependencies: []),
     .target(name: "BulkLogger", dependencies: ["Bulk"]),

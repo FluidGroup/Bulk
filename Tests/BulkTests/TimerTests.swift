@@ -14,29 +14,22 @@ import XCTest
 
 class TimerTests: XCTestCase {
   
-  func testTimer() {
-    
-    let g = DispatchGroup()
-    
-    g.enter()
+  func testTimer() async {
     
     var count: Int = 0
     
-    let timer = Bulk.BulkBufferTimer(interval: .milliseconds(100), queue: .global()) {
+    let timer = Bulk.BulkBufferTimer(interval: .milliseconds(100)) {
       count += 1
-      g.leave()
     }
     
-    timer.tap()
-    Thread.sleep(forTimeInterval: 0.01)
-    timer.tap()
-    Thread.sleep(forTimeInterval: 0.09)
-    timer.tap()
-    
-    g.wait()
-    
-    Thread.sleep(forTimeInterval: 1)
-    
+    await timer.tap()
+    try? await Task.sleep(for: .milliseconds(10))
+    await timer.tap()
+    try? await Task.sleep(for: .milliseconds(10))
+    await timer.tap()
+        
+    try? await Task.sleep(for: .milliseconds(1000))
+        
     XCTAssert(count == 1)
   }
 }
