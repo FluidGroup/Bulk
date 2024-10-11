@@ -20,15 +20,19 @@ final class BasicTests: XCTestCase {
     }
   }
   
-  func testSimple() {
+  func testSimple() async {
     
-//    let sink = BulkSink<String>(
-//      buffer: MemoryBuffer<String>.init(size: 1).asAny(),
-//      targets: [
-//        MyTarget<String>().asAny()
-//      ]
-//    )
-//
+    let sink = BulkSink<PassthroughBuffer<String>>.init(
+      buffer: .init(),
+      targets: [
+        .init(backing: MyTarget<String>())
+      ]
+    )
+    
+    await sink.send("A")
+    await sink.send("A")
+    await sink.send("A")
+
 //    sink.send("A")
 //    sink.send("B")
 //    sink.send("C")
