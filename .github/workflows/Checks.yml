@@ -16,7 +16,7 @@ jobs:
           xcode-version: "16.0"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme BulkLogger -sdk iphoneos -destination 'generic/platform=iOS'
+        run: set -o pipefail && xcodebuild -scheme Bulk-Package -sdk iphoneos -destination 'generic/platform=iOS' | xcbeautify
 
   test:
     runs-on: macos-14
@@ -30,4 +30,4 @@ jobs:
           submodules: true
       - name: Run
         run: |
-          swift test
+          set -o pipefail && xcodebuild -scheme Bulk-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test | xcbeautify
