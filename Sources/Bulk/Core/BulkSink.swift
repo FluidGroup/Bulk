@@ -7,45 +7,38 @@ public protocol BulkSinkType<Element>: Actor {
 }
 
 public actor BulkSink<B: Buffer>: BulkSinkType {
-
+  
   public typealias Element = B.Element
-
+  
   private let targets: [any TargetType<Element>]
-
+  
   private let timer: BulkBufferTimer
-
+  
   private let buffer: B
-
+  
   public init(
     buffer: B,
     debounceDueTime: Duration = .seconds(1),
     targets: [any TargetType<Element>]
   ) {
-
+    
     self.buffer = buffer
     self.targets = targets
     
     weak var instance: BulkSink?
-        
-    self.timer = BulkBufferTimer(interval: debounceDueTime) { [instance] in
-      await instance?.purge()
+    
+    self.timer = BulkBufferTimer(interval: debounceDueTime) {
+      await instance?.flush()
     }
-        
+    
     instance = self
-            
+    
   }
   
   deinit {
     
   }
   
-  private func purge() {    
-    let elements = buffer.purge()
-    elements.forEach {
-      self.send($0)
-    }
-  }
-
   public func send(_ newElement: Element) {
     timer.tap()
     switch buffer.write(element: newElement) {
@@ -58,9 +51,8 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
       break
     }
   }
-
+  
   public func flush() {
-    timer.tap()
     let elements = buffer.purge()
     targets.forEach {
       $0.write(items: elements)
