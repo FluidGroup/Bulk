@@ -5,10 +5,22 @@
 //  Created by muukii on 2020/02/03.
 //
 
-import SwiftUI
 import BulkLogger
+import SwiftUI
 
-let logger = Logger(context: "", sinks: [])
+let logger = Logger(
+  context: "",
+  sinks: [
+    BulkSink(
+      buffer: MemoryBuffer(size: 3).asAny(),
+      debounceDueTime: .seconds(3),
+      targets: [
+        OSLogTarget(subsystem: "a", category: "a").asAny()
+      ]
+    )
+    .asAny()
+  ]
+)
 
 struct ContentView: View {
   var body: some View {
@@ -24,13 +36,13 @@ struct ContentView: View {
       }) {
         Text("Debug")
       }
-      
+
       Button(action: {
         logger.warn("Warn")
       }) {
         Text("Error")
       }
-      
+
       Button(action: {
         logger.error("Error")
       }) {
