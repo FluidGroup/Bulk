@@ -30,17 +30,16 @@ public protocol Buffer {
 
   associatedtype Element
   
-  func hasSpace(isolation: isolated (any Actor)?) -> Bool
+  var hasSpace: Bool { get }
   
   /// Buffer item
   ///
   /// - Parameter string:
   /// - Returns: 
-  func write(element: Element, isolation: isolated (any Actor)?) -> BufferResult<Element>
+  func write(element: Element) -> BufferResult<Element>
   
   /// Purge buffered items
   ///
   /// - Returns: purged items
-  func purge(isolation: isolated (any Actor)?) -> [Element]
+  func purge() -> [Element]
 }
-

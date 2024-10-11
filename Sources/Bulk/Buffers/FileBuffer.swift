@@ -23,7 +23,7 @@ import Foundation
 
 public final class FileBuffer<Element, Serializer: SerializerType>: Buffer where Serializer.Element == Element {
 
-  public func hasSpace(isolation: isolated (any Actor)? = #isolation) -> Bool {    
+  public var hasSpace: Bool {
     return lineCount() < size
   }
   
@@ -52,7 +52,7 @@ public final class FileBuffer<Element, Serializer: SerializerType>: Buffer where
     fileHandle?.closeFile()
   }
   
-  public func write(element: Element, isolation: isolated (any Actor)? = #isolation) -> BufferResult<Element> {
+  public func write(element: Element) -> BufferResult<Element> {
     
     do {
       
@@ -91,7 +91,7 @@ public final class FileBuffer<Element, Serializer: SerializerType>: Buffer where
     }
   }
   
-  public func purge(isolation: isolated (any Actor)? = #isolation) -> [Element] {
+  public func purge() -> [Element] {
     
     var cursor = 0
     var serializedLines = ContiguousArray<String>(repeating: "", count: lineCount())

@@ -21,7 +21,7 @@
 
 import Foundation
 
-public actor BulkBufferTimer {
+public final class BulkBufferTimer {
 
   private var interval: Duration
 
@@ -40,11 +40,11 @@ public actor BulkBufferTimer {
   
   }
 
-  public func tap() {
-    refresh()
+  public func tap(isolation: isolated (any Actor)? = #isolation) {
+    refresh(isolation: isolation)
   }
 
-  private func refresh() {
+  private func refresh(isolation: isolated (any Actor)? = #isolation) {
 
     self.item?.cancel()
 
@@ -54,7 +54,7 @@ public actor BulkBufferTimer {
 
       guard Task.isCancelled == false else { return }
 
-      await onTimeout(self)
+      await onTimeout(isolation)
     }
 
     self.item = task

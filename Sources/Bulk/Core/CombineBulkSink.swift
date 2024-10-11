@@ -21,9 +21,3 @@
 
 import Foundation
 
-public protocol BulkSinkType<Element>: Actor {
-  
-  associatedtype Element
-    
-  func send(_ element: Element)
-}

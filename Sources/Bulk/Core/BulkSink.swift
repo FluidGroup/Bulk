@@ -1,11 +1,16 @@
 
-import Foundation
+public protocol BulkSinkType<Element>: Actor {
+  
+  associatedtype Element
+  
+  func send(_ element: Element)
+}
 
 public actor BulkSink<B: Buffer>: BulkSinkType {
 
   public typealias Element = B.Element
 
-  private let targets: [AnyTarget<Element>]
+  private let targets: [any TargetType<Element>]
 
   private let timer: BulkBufferTimer
 
@@ -13,8 +18,8 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
 
   public init(
     buffer: B,
-    debounceDueTime: Duration = .seconds(10),
-    targets: [AnyTarget<Element>]
+    debounceDueTime: Duration = .seconds(1),
+    targets: [any TargetType<Element>]
   ) {
 
     self.buffer = buffer
@@ -25,11 +30,7 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
     self.timer = BulkBufferTimer(interval: debounceDueTime) { [instance] in
       await instance?.purge()
     }
-    
-    Task {
-      await timer.tap()
-    }
-    
+        
     instance = self
             
   }
@@ -39,14 +40,15 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
   }
   
   private func purge() {    
-    let elements = buffer.purge(isolation: #isolation)
+    let elements = buffer.purge()
     elements.forEach {
       self.send($0)
     }
   }
 
   public func send(_ newElement: Element) {
-    switch buffer.write(element: newElement, isolation: #isolation) {
+    timer.tap()
+    switch buffer.write(element: newElement) {
     case .flowed(let elements):
       // TODO: align interface of Collection
       targets.forEach {
@@ -58,7 +60,8 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
   }
 
   public func flush() {
-    let elements = buffer.purge(isolation: #isolation)
+    timer.tap()
+    let elements = buffer.purge()
     targets.forEach {
       $0.write(items: elements)
     }

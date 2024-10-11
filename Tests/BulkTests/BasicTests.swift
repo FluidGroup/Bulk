@@ -20,12 +20,12 @@ final class BasicTests: XCTestCase {
     }
   }
   
-  func testSimple() async {
+  func testNoBuffer() async {
     
     let sink = BulkSink<PassthroughBuffer<String>>.init(
       buffer: .init(),
       targets: [
-        .init(backing: MyTarget<String>())
+        MyTarget<String>()
       ]
     )
     
@@ -36,6 +36,27 @@ final class BasicTests: XCTestCase {
 //    sink.send("A")
 //    sink.send("B")
 //    sink.send("C")
+  }
+  
+  
+  func testMemoryBuffer() async {
+    
+    let sink = BulkSink<MemoryBuffer<String>>.init(
+      buffer: .init(size: 10),
+      targets: [
+        MyTarget<String>()
+      ]
+    )
+    
+    await sink.send("A")
+    await sink.send("A")
+    await sink.send("A")
+    
+    try? await Task.sleep(for: .seconds(3))
+    
+    //    sink.send("A")
+    //    sink.send("B")
+    //    sink.send("C")
   }
   
 }

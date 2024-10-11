@@ -23,7 +23,7 @@ import Foundation
 
 public final class MemoryBuffer<Element>: Buffer {
   
-  public func hasSpace(isolation: isolated (any Actor)?) -> Bool {
+  public var hasSpace: Bool {
     return cursor < size
   }
   
@@ -36,7 +36,7 @@ public final class MemoryBuffer<Element>: Buffer {
     self.buffer = ContiguousArray<Element?>.init(repeating: nil, count: size)
   }
   
-  public func write(element: Element, isolation: isolated (any Actor)? = #isolation) -> BufferResult<Element> {
+  public func write(element: Element) -> BufferResult<Element> {
     
     buffer[cursor] = .some(element)
     
@@ -49,7 +49,7 @@ public final class MemoryBuffer<Element>: Buffer {
     }
   }
   
-  public func purge(isolation: isolated (any Actor)? = #isolation) -> [Element] {
+  public func purge() -> [Element] {
     let _buffer = buffer
     for i in 0..<size {
       buffer[i] = nil
