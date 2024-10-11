@@ -21,7 +21,7 @@
 
 import Foundation
 
-public final class MemoryBuffer<Element>: BufferType {
+public final class MemoryBuffer<Element>: Buffer {
   
   public var hasSpace: Bool {
     return cursor < size

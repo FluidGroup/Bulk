@@ -21,14 +21,16 @@
 
 import Foundation
 
-public final class FileBuffer<Element, Serializer: SerializerType>: BufferType where Serializer.Element == Element {
-    
+public final class FileBuffer<Element, Serializer: SerializerType>: Buffer where Serializer.Element == Element {
+
   public var hasSpace: Bool {
     return lineCount() < size
   }
   
-  private let fileManager = FileManager.default
+  nonisolated(unsafe) private let fileManager = FileManager.default
   public let fileURL: URL
+  
+  nonisolated(unsafe)
   private var fileHandle: FileHandle?
   public let size: Int
   

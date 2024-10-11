@@ -1,45 +1,37 @@
-//
-//  BulkSink.swift
-//  Bulk
-//
-//  Created by muukii on 2020/02/04.
-//
 
-import Foundation
-
-public final class BulkSink<Element>: BulkSinkType {
-    
-  private let targetQueue = DispatchQueue.init(label: "me.muukii.bulk")
+public protocol BulkSinkType<Element>: Actor {
   
-  private let targets: [AnyTarget<Element>]
+  associatedtype Element
   
-  private var timer: BulkBufferTimer!
+  func send(_ element: Element)
+}
 
-  private let buffer: AnyBuffer<Element>
-    
+public actor BulkSink<B: Buffer>: BulkSinkType {
+
+  public typealias Element = B.Element
+
+  private let targets: [any TargetType<Element>]
+
+  private let timer: BulkBufferTimer
+
+  private let buffer: B
+
   public init(
-    buffer: AnyBuffer<Element>,
-    debounceDueTime: DispatchTimeInterval = .seconds(10),
-    targets: [AnyTarget<Element>]
+    buffer: B,
+    debounceDueTime: Duration = .seconds(1),
+    targets: [any TargetType<Element>]
   ) {
 
     self.buffer = buffer
     self.targets = targets
-
-    self.timer = BulkBufferTimer(interval: debounceDueTime) { [weak self] in
-
-      guard let self else { return }
-
-      self.targetQueue.async { [self] in
-        let elements = buffer.purge()
+    
+    weak var instance: BulkSink?
         
-        self.targets.forEach {
-          $0.write(items: elements)
-        }
-        
-        self.timer.tap()
-      }
+    self.timer = BulkBufferTimer(interval: debounceDueTime) { [instance] in
+      await instance?.purge()
     }
+        
+    instance = self
             
   }
   
@@ -47,26 +39,31 @@ public final class BulkSink<Element>: BulkSinkType {
     
   }
   
+  private func purge() {    
+    let elements = buffer.purge()
+    elements.forEach {
+      self.send($0)
+    }
+  }
+
   public func send(_ newElement: Element) {
-    targetQueue.async { [self] in
-      switch buffer.write(element: newElement) {
-      case .flowed(let elements):
-        // TODO: align interface of Collection
-        targets.forEach {
-          $0.write(items: elements)
-        }
-      case .stored:
-        break
+    timer.tap()
+    switch buffer.write(element: newElement) {
+    case .flowed(let elements):
+      // TODO: align interface of Collection
+      targets.forEach {
+        $0.write(items: elements)
       }
+    case .stored:
+      break
     }
   }
 
   public func flush() {
-    targetQueue.async { [self] in
-      let elements = buffer.purge()
-      targets.forEach {
-        $0.write(items: elements)
-      }
+    timer.tap()
+    let elements = buffer.purge()
+    targets.forEach {
+      $0.write(items: elements)
     }
   }
   

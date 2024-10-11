@@ -21,30 +21,3 @@
 
 import Foundation
 
-public protocol BulkSinkType {
-  
-  associatedtype Element
-    
-  func send(_ element: Element)
-}
-
-extension BulkSinkType {
-  
-  public func asAny() -> AnyBulkSink<Element> {
-    .init(self)
-  }
-}
-
-public final class AnyBulkSink<Element>: BulkSinkType {
-  
-  private let _send: (Element) -> Void
-
-  public init<Sink: BulkSinkType>(_ source: Sink) where Sink.Element == Element {
-    self._send = source.send
-  }
-  
-  public func send(_ element: Element) {
-    _send(element)
-  }
-  
-}

@@ -28,7 +28,7 @@ public struct TargetUmbrella<Element>: TargetType {
   public init<U>(
     filter: @escaping (Element) -> Bool = { _ in true },
     transform: @escaping (Element) -> U,
-    targets: [AnyTarget<U>]
+    targets: [any TargetType<U>]
   ) {
     self._write = { elements in
       let results = elements

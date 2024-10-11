@@ -21,29 +21,9 @@
 
 import Foundation
 
-public protocol TargetType {
+public protocol TargetType<Element> {
   
   associatedtype Element
   
   func write(items: [Element])
-}
-
-extension TargetType {
-  
-  public func asAny() -> AnyTarget<Element> {
-    .init(backing: self)
-  }
-}
-
-public struct AnyTarget<Element>: TargetType {
-  
-  private let _write: (_ formatted: [Element]) -> Void
-  
-  public init<Target: TargetType>(backing: Target) where Target.Element == Element {
-    self._write = backing.write
-  }
-  
-  public func write(items: [Element]) {
-    _write(items)
-  }
 }

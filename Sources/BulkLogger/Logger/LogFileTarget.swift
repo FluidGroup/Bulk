@@ -28,7 +28,7 @@ open class LogFileTarget: TargetType {
   public let fileURL: URL
   private var fileHandle: FileHandle?
   
-  private let lock = NSRecursiveLock()
+  private let lock = NSLock()
   
   public init(filePath: String) {
     
