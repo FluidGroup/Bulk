@@ -1,18 +1,18 @@
 
 import Foundation
 
-public actor BulkSink<Buffer: Buffer>: BulkSinkType {
+public actor BulkSink<B: Buffer>: BulkSinkType {
 
-  public typealias Element = Buffer.Element
+  public typealias Element = B.Element
 
   private let targets: [AnyTarget<Element>]
 
   private let timer: BulkBufferTimer
 
-  private let buffer: Buffer
+  private let buffer: B
 
   public init(
-    buffer: Buffer,
+    buffer: B,
     debounceDueTime: Duration = .seconds(10),
     targets: [AnyTarget<Element>]
   ) {
