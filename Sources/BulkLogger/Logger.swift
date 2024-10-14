@@ -23,11 +23,15 @@
 @_exported import Bulk
 import Foundation
 
-public final class Logger {
+public final class Logger: Sendable {
 
   public var isEnabled: Bool {
     get {
-      _isEnabled
+      lock.lock()
+      defer {
+        lock.unlock()
+      }
+      return _isEnabled
     }
     set {
       lock.lock()
@@ -36,17 +40,16 @@ public final class Logger {
     }
   }
 
-  private var _isEnabled: Bool = true
+  // MARK: - Properties
+
+  private let sinks: [any BulkSinkType<LogData>]
+  private nonisolated(unsafe) var _isEnabled: Bool = true
   private let lock = NSLock()
 
-  // MARK: - Properties
-  
-  private(set) public var sinks: [any BulkSinkType<LogData>]
-  
   public let context: [String]
 
   // MARK: - Initializers
-  
+
   public init(context: String, sinks: [any BulkSinkType<LogData>]) {
     self.context = [context]
     self.sinks = sinks
@@ -87,7 +90,7 @@ public final class Logger {
       function: function.description,
       line: line
     )
-    
+
     Task { [sinks] in
       for sink in sinks {
         await sink.send(log)
@@ -159,10 +162,6 @@ public final class Logger {
     dsoHandle: UnsafeRawPointer = #dsohandle
   ) {
     _write(level: .error, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
-  }
-  
-  public func addSink(_ sink: any BulkSinkType<LogData>) {
-    sinks.append(sink)
   }
 
   public func makeContextualLogger(context: String) -> Logger {
