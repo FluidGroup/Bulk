@@ -42,7 +42,7 @@ public final class Logger: Sendable {
 
   // MARK: - Properties
 
-  private let sinks: [any BulkSinkType<LogData>]
+  private nonisolated(unsafe) var sinks: [any BulkSinkType<LogData>]
   private nonisolated(unsafe) var _isEnabled: Bool = true
   private let lock = NSLock()
 
@@ -90,9 +90,15 @@ public final class Logger: Sendable {
       function: function.description,
       line: line
     )
+    
+    lock.lock()
+    
+    let usingSinks = self.sinks
 
-    Task { [sinks] in
-      for sink in sinks {
+    lock.unlock()
+    
+    Task { [usingSinks] in
+      for sink in usingSinks {
         await sink.send(log)
       }
     }
@@ -164,6 +170,14 @@ public final class Logger: Sendable {
     _write(level: .error, items, file: file, function: function, line: line, dsoHandle: dsoHandle)
   }
 
+  public func addSink(_ sink: any BulkSinkType<LogData>) {
+    lock.lock()
+    defer {
+      lock.unlock()
+    }
+    sinks.append(sink)
+  }
+  
   public func makeContextualLogger(context: String) -> Logger {
     return .init(context: context, source: self)
   }
