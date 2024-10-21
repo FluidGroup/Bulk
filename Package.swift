@@ -18,5 +18,6 @@ let package = Package(
     .target(name: "Bulk", dependencies: []),
     .target(name: "BulkLogger", dependencies: ["Bulk"]),
     .testTarget(name: "BulkTests", dependencies: ["Bulk"]),
-  ]
+  ],
+  swiftLanguageModes: [.v5, .v6]
 )
