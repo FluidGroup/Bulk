@@ -23,9 +23,9 @@
 
 import Foundation
 
-public struct LogBasicFormatter {
+public struct LogBasicFormatter: Sendable {
       
-  public struct LevelString {
+  public struct LevelString: Sendable {
     public var verbose = "[VERBOSE]"
     public var debug = "[DEBUG]"
     public var info = "[INFO]"

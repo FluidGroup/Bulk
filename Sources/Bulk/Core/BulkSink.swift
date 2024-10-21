@@ -19,7 +19,7 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
   public init(
     buffer: B,
     debounceDueTime: Duration = .seconds(1),
-    targets: [any TargetType<Element>]
+    targets: sending [any TargetType<Element>]
   ) {
     
     self.buffer = buffer
