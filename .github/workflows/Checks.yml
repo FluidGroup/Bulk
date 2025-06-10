@@ -8,23 +8,23 @@ on:
 
 jobs:
   build-xcodebuild:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
-          xcode-version: "16.0"
+          xcode-version: "16.4"
       - uses: actions/checkout@v2
       - name: xcodebuild
         run: set -o pipefail && xcodebuild -scheme Bulk-Package -sdk iphoneos -destination 'generic/platform=iOS' | xcbeautify
 
   test:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
-          xcode-version: "16.0"
+          xcode-version: "16.4"
       - uses: actions/checkout@v2
         with:
           submodules: true
