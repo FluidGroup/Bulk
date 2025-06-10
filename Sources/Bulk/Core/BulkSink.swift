@@ -25,6 +25,7 @@ public actor BulkSink<B: Buffer>: BulkSinkType {
     self.buffer = buffer
     self.targets = targets
     
+    nonisolated(unsafe)
     weak var instance: BulkSink?
     
     self.timer = BulkBufferTimer(interval: debounceDueTime) {

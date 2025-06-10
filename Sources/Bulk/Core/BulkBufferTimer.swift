@@ -9,7 +9,7 @@ public final class BulkBufferTimer {
 
   public init(
     interval: Duration,
-    onTimeout: sending @escaping () async -> Void
+    onTimeout: @escaping @Sendable () async -> Void
   ) {
 
     self.interval = interval
