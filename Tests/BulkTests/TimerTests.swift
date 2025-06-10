@@ -16,6 +16,7 @@ class TimerTests: XCTestCase {
   
   func testTimer() async {
     
+    nonisolated(unsafe)
     var count: Int = 0
     
     let timer = Bulk.BulkBufferTimer(interval: .milliseconds(100)) {
